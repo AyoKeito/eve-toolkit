@@ -1,0 +1,43 @@
+{
+  "arc_id": 7,
+  "name": "Smash and Grab",
+  "faction": "GURISTAS",
+  "level": 3,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=248",
+  "missions": [
+    {
+      "mission_id": 248,
+      "arc_position": 1,
+      "prev_mission_id": 246,
+      "next_mission_id": 251,
+      "name": "Brassy Faced Bastard",
+      "level": 3,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "We need someone to get in there, find their assembly station, and take their ship designs. Since you didn't want to go through the minefield, you'll be taking a more direct approach. If you can't go around it, then you might as well go through it, right?<br><br>We've scrambled your comms signal to a Navy frequency. You should, theoretically, read as one of them. This is, of course, according to our guests from Minedrill. You should definitely fit your ship like you're expecting a fight. Hopefully you'll get past the initial security. If not, then you'll have to do some fighting. But that's what you're good for, isn't it? And if the Minedrill guys were lying to us, then we'll take care of them for good.<br><br>You can take a more direct approach. You can approach the shipyard proper and try to either sneak past the sentry guns, or blast your way though. Sort of a run-and-gun operation. Same deal, though: once inside, you'll grab the designs and get out of there. Guristas Production will examine them when you return, and we'll probably send some folks over there to level the place depending on what we find. It might even be you.<br>\n<br>\n<br>",
+      "objective_html": "Retrieve the capital ship designs for the “Dictator.”<br>\n1x <a href=\"item.php?type_id=32371\">Capital Ship Design - \"Dictator\"</a> (volume: 0 m3)<br>\n<br>\n<br>\nNo information about the mission site.<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=248",
+      "objective_items": [
+        {
+          "type_id": 32371,
+          "type_name": "Capital Ship Design - \"Dictator\"",
+          "quantity": 1,
+          "volume_m3": 0,
+          "role": "RETRIEVE"
+        }
+      ],
+      "pockets": []
+    }
+  ]
+}

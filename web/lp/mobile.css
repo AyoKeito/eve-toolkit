@@ -1,0 +1,292 @@
+@media (max-width: 900px) {
+  .topbar {
+    position: static;
+  }
+
+  .workstation {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .filters-anchor {
+    position: static;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filters {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .filter-edge-toggle {
+    position: static;
+    order: -1;
+    width: auto;
+    min-height: 32px;
+    margin: 0 0 10px;
+    padding: 0 11px;
+    border-radius: 6px;
+    gap: 8px;
+    box-shadow: none;
+    align-self: flex-start;
+  }
+
+  .filter-toggle-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .metric-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .control-ribbon {
+    margin: 10px 10px 0;
+  }
+
+  .ribbon-body {
+    gap: 10px;
+  }
+
+  .ribbon-field,
+  .ribbon-field-narrow {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .staleness-chips,
+  .diagnostic-chips {
+    justify-content: flex-start;
+  }
+
+  .top-actions {
+    justify-content: flex-start;
+  }
+
+  .workstation {
+    display: block;
+    padding: 10px;
+  }
+
+  /* the metric strip keeps the 900px two-up layout — six stacked cards
+     cost 1.5 phone screens before the table */
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  /* collapsed-filters toggle: a bottom-left pill — fixed at top: 84px it floats
+     over card titles once the static phone topbar scrolls away */
+  .workstation.filters-collapsed .filter-edge-toggle {
+    top: auto;
+    bottom: 12px;
+    left: 10px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
+
+  .ranking-limits {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skill-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filters,
+  .results {
+    margin-bottom: 12px;
+  }
+
+  .table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .floating-hscroll {
+    display: none !important;
+  }
+
+  .floating-table-header {
+    display: none !important;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  th:nth-child(1),
+  td:nth-child(1),
+  th:nth-child(2),
+  td:nth-child(2) {
+    position: static;
+    left: auto;
+  }
+
+  thead {
+    display: none;
+  }
+
+  /* Offer card: name + corp, a 2x2 labeled metric grid, flags. The five hidden
+     numeric columns stay desktop-only — a phone card can't carry all thirteen. */
+  tbody .data-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "offer offer"
+      "corp corp"
+      "ratio roi"
+      "rate supply"
+      "flags flags";
+    gap: 8px 12px;
+    margin-bottom: 0;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px 8px 0 0;
+    background: var(--panel);
+  }
+
+  /* :nth-child(n) lifts specificity to tie the desktop 1%-width column rule
+     (td:nth-child(n+4):nth-child(-n+12)) so this later rule wins the cascade */
+  .data-row td:nth-child(n) {
+    display: grid;
+    width: auto;
+    gap: 2px;
+    align-content: start;
+    padding: 0;
+    border: 0;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .data-row td::before {
+    content: attr(data-label);
+    color: var(--subtle);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .data-row td[data-cell="rank"],
+  .data-row td[data-cell="lp"],
+  .data-row td[data-cell="isk"],
+  .data-row td[data-cell="instant"],
+  .data-row td[data-cell="patient"],
+  .data-row td[data-cell="cargo"] {
+    display: none;
+  }
+
+  .data-row td[data-cell="offer"] {
+    grid-area: offer;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .data-row td[data-cell="corp"] {
+    grid-area: corp;
+    margin-top: -4px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .data-row td[data-cell="offer"]::before,
+  .data-row td[data-cell="corp"]::before,
+  .data-row td[data-cell="flags"]::before {
+    content: none;
+  }
+
+  .data-row td[data-cell="iskPerLp"] {
+    grid-area: ratio;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .data-row td[data-cell="roi"] { grid-area: roi; }
+  .data-row td[data-cell="iskHour"] { grid-area: rate; }
+  .data-row td[data-cell="supply"] { grid-area: supply; }
+  .data-row td[data-cell="flags"] { grid-area: flags; }
+
+  /* the desktop expand chevron is keyed to the offer cell — meaningless in card form */
+  .data-row td:nth-child(2)::after {
+    content: none;
+  }
+
+  .detail-row {
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    background: var(--panel-2);
+  }
+
+  .detail-row td {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    white-space: normal;
+  }
+
+  .detail-row td::before {
+    content: none;
+  }
+
+  /* The polish layer keeps .detail-row at display: table-row (for the expand
+     animation) and animates .detail-grid with the desktop five-column template and
+     a 286px height cap; all three break the stacked card. :not([hidden]) outranks
+     polish while leaving the collapsed state animatable at max-height 0. */
+  .detail-row:not([hidden]) {
+    display: block;
+  }
+
+  .detail-row:not([hidden]) .detail-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .detail-grid section {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0 0 10px;
+  }
+
+  .detail-grid section:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .flag-wrap {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow: visible;
+  }
+
+  .flag-wrap .chip {
+    margin: 0 4px 4px 0;
+  }
+}

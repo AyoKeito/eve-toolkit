@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Methodology for the EVE LP Store Calculator, including pricing formulas, data sources, refresh cadence, cache behavior, and leaderboard guardrails." />
+    <link rel="canonical" href="https://eve.ayokei.to/lp/about.html" />
+    <meta property="og:title" content="Methodology - EVE LP Store Calculator" />
+    <meta property="og:description" content="How the EVE LP Store Calculator imports data, prices offers, applies guardrails, caches responses, and reports freshness." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://eve.ayokei.to/lp/about.html" />
+    <title>Methodology - EVE LP Store Calculator</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/lp.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Methodology</h1>
+        <p>How the leaderboard imports data, prices offers, applies guardrails, caches responses, and reports freshness.</p>
+      </div>
+      <div class="top-actions">
+        <a class="button" href="/lp/">Leaderboard</a>
+        <a class="button ghost" href="/missions/">Missions</a>
+      </div>
+    </header>
+
+    <main class="layout" style="display:block; max-width: 980px; margin: 0 auto;">
+      <nav class="methodology-toc" aria-label="Sections">
+        <a href="#what-this-tool-ranks">What it ranks</a>
+        <a href="#data-sources">Data sources</a>
+        <a href="#refresh-cadence">Refresh cadence</a>
+        <a href="#core-calculation">Calculation</a>
+        <a href="#fees-and-skills">Fees &amp; skills</a>
+        <a href="#depth-walking">Depth walking</a>
+        <a href="#patient-fill-realism">Patient realism</a>
+        <a href="#bpc-manufacturing">BPC manufacturing</a>
+        <a href="#risk-and-access">Risk &amp; access</a>
+        <a href="#quality-flags">Quality flags</a>
+        <a href="#search-and-grouping">Search &amp; grouping</a>
+        <a href="#frontend-diagnostics">Diagnostics</a>
+        <a href="#api-and-health">API &amp; health</a>
+        <a href="#known-limitations">Limitations</a>
+      </nav>
+      <section class="summary-strip" style="display:block; line-height: 1.62;">
+        <h2 id="what-this-tool-ranks">What This Tool Ranks</h2>
+        <p>The calculator ranks NPC LP-store offers by realistic ISK per LP. It compares selling into Jita buy orders with listing against Jita sell orders, after taxes, broker fees, required item costs, and — when blueprint manufacture rows are shown — material costs and the manufacturing job installation fee.</p>
+        <p>The default leaderboard:</p>
+        <ul>
+          <li>Shows all access-risk tiers and ranks by the higher of buy-order and sell-order ISK/LP.</li>
+          <li>Groups duplicate store economics, uses <code>minVolume=0</code>, and assumes <code>30000</code> LP/hour for the ISK/hour column.</li>
+          <li>Excludes SDE corporations without an earnable LP source before any user filter runs; normal agent, CONCORD/special, and faction warfare LP sources remain eligible. Level 5 mission corporations are shown by default.</li>
+          <li>Enables the No warns, No vanity, and Sec L4+ quality filters, so rows with strong warnings or multiple warning flags, vanity/cosmetic products, plus corporations without normal level 4 or 5 Security agents are hidden until those toggles are switched off.</li>
+          <li>Includes standard corporation LP; faction warfare, special-source LP, and blueprint-copy rows (both direct sale and manufacture) are opt-in.</li>
+          <li>Keeps rows below <code>100</code> units and <code>250m</code> ISK of average daily market volume visible but flags them <code>LOW_VOLUME</code>. Rows above <code>100</code> m3 carry a cargo-volume flag, with a stronger red flag above <code>500</code> m3.</li>
+        </ul>
+        <p>The <strong>Space</strong> control can narrow results to highsec-accessible stores or show all known access tiers. The <strong>Level 5 Missions</strong> control can show all corporations, only corporations with level 5 agents, or hide them. Ranking controls can choose the valuation basis, scale runs, set LP/hour, require minimum 28-day market volume, and optionally hide rows above a maximum packaged cargo volume in m3. Quality toggles control Jita-only pricing, suspicious rows, vanity rows, no-Security-L4+ corporations, faction warfare, special LP stores, and duplicate store rows. The <strong>BPC</strong> control picks which blueprint-copy rows appear: none, direct contract sales, manufacture conversions, or both.</p>
+
+        <h2 id="data-sources">Data Sources</h2>
+        <ul>
+          <li>LP offers: public ESI <code>/latest/loyalty/stores/{corporation_id}/offers/</code>.</li>
+          <li>Jita orders: public ESI region 10000002 market orders, persisted as top 50 sell and buy levels per type.</li>
+          <li>Market history: public ESI region 10000002 history, summarized into a 28 calendar-day average daily volume (days with no trades count as zero) and median price.</li>
+          <li>Adjusted reference prices: public ESI <code>/latest/markets/prices/</code>, stored per type and used as the EIV basis for the manufacturing job installation fee.</li>
+          <li>Static data: official Fenris Creations (formerly CCP Games) JSON Lines SDE ZIP, cached under <code>data/sde/</code> and imported into SQLite.</li>
+          <li>Earnable LP sources: derived from SDE agent references for normal, CONCORD/special, and faction warfare agent corporations, then applied before LP-store fetches and leaderboard filters.</li>
+          <li>SDE metadata: recorded in <code>source_imports</code> and exposed through <code>/api/health</code>.</li>
+        </ul>
+
+        <h2 id="refresh-cadence">Refresh Cadence</h2>
+        <p>The scheduler refreshes:</p>
+        <ul>
+          <li>Hot market prices every 15 minutes.</li>
+          <li>Cold referenced market types hourly at minute 7.</li>
+          <li>LP offers daily at 11:10 UTC, market history daily at 11:20 UTC, adjusted reference prices daily at 11:22 UTC, and snapshots daily at 11:45 UTC.</li>
+        </ul>
+        <p>Startup warmup fills missing or stale SDE, LP, market, and history data before normal cadence takes over. Fetchers honor ESI <code>Expires</code> headers through the SQLite ESI cache, retry transient upstream failures carefully, and pause before exhausting the ESI error-limit budget.</p>
+        <p>The leaderboard header reports hot and cold market-price ages separately, LP offer freshness as a daily feed, and an overall <strong>Updates OK</strong> or <strong>Needs attention</strong> state from <code>/api/health</code>. A daily LP timestamp that is a few hours old is expected; hot prices are the freshness signal that should normally move every 15 minutes.</p>
+
+        <h2 id="core-calculation">Core Calculation</h2>
+        <pre><code>buy_order_sell = sell products into buy orders, pay sales tax
+sell_order_listing = list products near sell orders, pay sales tax plus one broker-fee pass
+
+input_cost = LP-store ISK cost + required items bought from sell orders
+build_cost = BPC materials (after Material Efficiency) bought from sell orders
+job_cost = manufacturing job installation fee on built rows (see BPC Manufacturing)
+net_buy_order = product_value_buy_order * (1 - sales_tax_rate) - input_cost - build_cost - job_cost
+net_sell_order = product_value_sell_order * (1 - sales_tax_rate - broker_fee_rate) - input_cost - build_cost - job_cost
+isk_per_lp = selected net_profit / LP cost
+capital_required = input_cost + build_cost + job_cost
+roi = selected net_profit / capital_required</code></pre>
+        <p>The valuation basis can use buy-order cashout, sell-order listing, or the higher of both. <code>runs</code> scales LP, ISK, required items, manufacturing materials, cargo, and order-book depth. When <code>lpBudget</code> or <code>iskBudget</code> is provided, the calculator chooses the maximum feasible run count for that row. The ISK/hour display multiplies the selected ISK/LP basis by the URL-backed <code>lpPerHour</code> value. Contract-priced rows show a dash instead: their ISK/LP is a real one-off conversion rate, but public contracts for such items sell at most a few times per day game-wide, so extrapolating by LP/hour would invent income the market cannot absorb. These rows also sort last when the leaderboard is sorted by ISK/hour.</p>
+
+        <h2 id="fees-and-skills">Fees And Skills</h2>
+        <pre><code>sales_tax_rate = 0.075 * (1 - 0.11 * Accounting)
+broker_fee_rate = max(
+  0.03
+  - 0.003 * BrokerRelations
+  - 0.0003 * factionStanding
+  - 0.0002 * corporationStanding,
+  0.01
+)</code></pre>
+        <p>These are the Tranquility NPC-station rates: sales tax starts at 7.5% and falls to 3.375% at Accounting V; the broker fee starts at 3%, drops 0.3 percentage points per Broker Relations level plus up to 0.3 from faction and 0.2 from corporation standing, and never goes below 1%. Accounting, Broker Relations, Advanced Broker Relations, faction standing, and corporation standing are URL-backed filters. Defaults are zero so the default view is pessimistic for a fresh character. Advanced Broker Relations only affects relist fees in <a href="#patient-fill-realism">Realistic patient</a> mode.</p>
+        <p>The optional <strong>No market fees (contract sale)</strong> channel — bundled into <a href="#bpc-manufacturing">Manufacturer mode</a> — models selling through item-exchange contracts instead of the market. A contract charges only a flat creation fee (about 10k ISK, noise at faction-item prices), so this channel zeroes both the sales tax and the broker fee. It is the only way to reach a true 0%: the skill sliders above floor at 3.375% sales tax and 1% broker. This is how serious LP farmers actually move high-value faction implants and modules, and it matches the fee-free treatment contract-priced rows already receive.</p>
+
+        <h2 id="depth-walking">Depth Walking</h2>
+        <p>Every priced leg walks the persisted Jita order book for the full requested quantity instead of using only top-of-book. Products sold through buy orders walk buy orders — but only buy orders a seller standing at Jita 4-4 could actually fill: region-range orders, plus station- or system-range orders that sit at Jita 4-4 or in the Jita system. Products listed through sell orders, required items, and build materials walk sell orders. If the saved top 50 orders do not cover the requested fill, the row is flagged as insufficient depth and the missing quantity is extrapolated at the last consumed price.</p>
+
+        <h2 id="patient-fill-realism">Patient Listing Realism</h2>
+        <p>The sell-order (patient) basis above assumes a listing fills in full at the walked prices. In reality a listing joins a queue and waits. Every row therefore carries an estimated fill time for the primary output, shown in the detail drawer:</p>
+        <pre><code>queue_ahead  = sell-book units listed at or below the volume-weighted list price
+sell_rate    = 0.5 * avg_daily_volume_28d
+days_to_fill = (queue_ahead + quantity) / sell_rate</code></pre>
+        <p>The 0.5 factor exists because ESI daily volume mixes both trade directions and only buyer-initiated trades consume the sell book; with no public split, half is the symmetric prior. Items with no market history get no estimate. The <code>SLOW_FILL</code> flag uses this queue-aware estimate for the output leg: warn past 7 days, strong past 28.</p>
+        <p>The optional <strong>Realistic patient</strong> quality toggle (off by default, URL-backed) goes further and discounts the sell-order valuation itself:</p>
+        <pre><code>relist_discount  = 0.5 + 0.06 * AdvancedBrokerRelations          (80% at V)
+expected_relists = ceil(days_to_fill / 2) - 1, floored at 0
+relist_cost      = expected_relists * (1 - relist_discount) * broker_fee_rate * product_value
+patient_effective = net_buy_order + (net_sell_order - relist_cost - net_buy_order)
+                    * exp(-days_to_fill / 7)</code></pre>
+        <p>The exponential decay pulls slow fills toward the guaranteed buy-order cashout: a fill estimated a week out keeps about 37% of the patient premium, and a month-long fill keeps almost none. Relist fees model staying competitive against undercutting, using the Tranquility relist mechanic where modifying an order down costs the undiscounted share of the broker fee on the new price; Advanced Broker Relations is a URL-backed skill filter next to the other fee skills. With the toggle off, nothing changes — the patient and best columns keep the optimistic immediate-fill values.</p>
+
+        <h2 id="bpc-manufacturing">BPC Manufacturing</h2>
+        <p>When an offered product is a blueprint copy with a manufacturing recipe in the SDE, the calculator can value the manufactured output and subtract material costs ("manufacture" rows), and when fresh public-contract asks exist it can value the copy as a direct contract sale ("sell" rows). Both are hidden by default because blueprint rows can dominate the table with assumptions that are more sensitive to build settings, material liquidity, and contract depth. The four-position <strong>BPC</strong> control in the Quality filters picks which rows appear: <strong>None</strong> (default), <strong>Sell</strong>, <strong>Build</strong> (manufacture conversions), or <strong>All</strong>. <strong>Build</strong> is a buildables-only lens: it shows manufacture conversion rows alone and hides plain direct-item LP offers, because the facility, Material Efficiency, and job-cost settings act only on built rows — those direct items stay in the default <strong>None</strong> view.</p>
+        <p>LP-store blueprint copies are unresearched (Material Efficiency 0), so the default view buys the full base material quantities — matching a build in an NPC station with no rigs. <strong>Manufacturer mode</strong>'s <strong>Facility</strong> preset instead models a rigged structure: a T2 ME rig in highsec (about 3.2% material savings) or in null / wormhole space (about 5.8%), applying EVE's per-material round-then-ceil ME formula. Manufacturer mode is a standalone top-bar toggle that bundles these blueprint build rows — and only those, so every row responds to the build settings; plain direct-item offers are hidden — this facility, the job installation fee below, and the no-market-fees contract channel, and tints the workspace to signal it is not the default view.</p>
+        <p>Built rows also carry the <strong>manufacturing job installation fee</strong>, which is on by default. EVE charges this per job as a percentage of the job's Estimated Item Value (EIV = the sum of each base material quantity times CCP's daily adjusted reference price, ignoring Material Efficiency):</p>
+        <pre><code>job_cost = EIV * (system_cost_index * structure_bonus + 0.0025 facility_tax + 0.04 SCC)</code></pre>
+        <p>The facility tax and SCC surcharge (about 4.25% together) are location-independent; only the system cost index varies, so Manufacturer mode exposes it as a single configurable percent (default 2.5% for an NPC station, where <code>structure_bonus</code> is 1). The fee is real ISK the builder fronts, so unlike the LP-paid blueprint it lowers net profit <em>and</em> raises <code>capital_required</code> and the ROI denominator. Adjusted reference prices come from public ESI <code>/latest/markets/prices/</code>, refreshed daily; a material CCP does not price is skipped from EIV, so job cost is understated rather than wrong.</p>
+
+        <h2 id="risk-and-access">Risk And Access</h2>
+        <p>Space filtering and row risk icons use practical LP-store access risk, derived from the least risky known NPC station owned by the corporation. The corporation HQ system is still shown as location metadata, but it does not by itself make a highsec-accessible corporation look like a nullsec-only store. Highsec is security 0.5 and above, lowsec is 0.0 through 0.4, and nullsec covers below 0.0 plus any wormhole or unknown-security store access.</p>
+        <p>DED, CONCORD, and similar special-source LP stores are marked as special LP and excluded from the global default leaderboard. Faction warfare offers are also opt-in. Choosing a specific corporation or faction in the Corporation / Faction filter overrides these global exclusions and the no-Security-agent filter, so the selected owner's full catalog is shown even when the matching toggles are off — for example picking a faction-warfare militia returns its offers instead of an empty table. LP-store corporations with no earnable LP source, such as event or placeholder LP stores without agents, are excluded before these user-facing filters are applied. Risk chips are visual warnings on the row; highsec-accessible rows do not get a risk chip.</p>
+
+        <h2 id="quality-flags">Quality Flags</h2>
+        <table class="methodology-table">
+          <thead>
+            <tr><th>Flag</th><th>Rule</th><th>Severity</th></tr>
+          </thead>
+          <tbody>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M4 19V5" /><path d="M4 19h16" /><path d="M8 16V9" /><path d="M12 16V6" /><path d="M16 16v-4" /></svg></span><code>LOW_VOLUME</code></td><td data-label="Rule">28-day average daily volume is below 100 units and below 250m ISK; expensive items that move serious ISK on few units are not flagged.</td><td data-label="Severity">Warn; shown as a yellow flag.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M5 22h14" /><path d="M5 2h14" /><path d="M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4A2 2 0 0 0 7 17.8V22" /><path d="M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4A2 2 0 0 0 17 6.2V2" /></svg></span><code>SLOW_FILL</code></td><td data-label="Rule">The estimated sell-order fill of the output — queue ahead at the walked list price plus the requested quantity, against the sell-side half of daily volume (see <a href="#patient-fill-realism">Patient Listing Realism</a>) — exceeds 7 days. Cost legs keep the plain quantity-versus-volume rule.</td><td data-label="Severity">Warn; strong above 28 days.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="M3.3 7 12 12l8.7-5" /><path d="M12 22V12" /><path d="m7.5 4.3 9 5.1" /></svg></span><code>HEAVY</code></td><td data-label="Rule">Packaged cargo volume is above 100 m3 and at or below 500 m3.</td><td data-label="Severity">Warn; shown as a yellow flag.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" /><path d="M3.3 7 12 12l8.7-5" /><path d="M12 22V12" /><path d="m7.5 4.3 9 5.1" /></svg></span><code>VERY_HEAVY</code></td><td data-label="Rule">Packaged cargo volume is above 500 m3.</td><td data-label="Severity">Strong visual; shown as a red flag.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21V5.5Z" /><path d="M4 5.5A2.5 2.5 0 0 1 6.5 8H20" /><path d="M12 3v18" /></svg></span><code>THIN_BOOK</code></td><td data-label="Rule">Sell order count is 2 or less, or the top sell order has more than 80% of sell quantity.</td><td data-label="Severity">Warn</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M4 7h12" /><path d="M12 3l4 4-4 4" /><path d="M20 17H8" /><path d="M12 13l-4 4 4 4" /></svg></span><code>WIDE_SPREAD</code></td><td data-label="Rule">Sell minimum is more than 50% above buy maximum.</td><td data-label="Severity">Warn</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M3 17 9 11l4 4 7-8" /><path d="M14 7h6v6" /></svg></span><code>PRICE_SPIKE</code></td><td data-label="Rule">Current sell minimum is more than twice the 28-day median price.</td><td data-label="Severity">Strong</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" /><path d="M12 16V8" /><path d="m8.5 11.5 3.5-3.5 3.5 3.5" /></svg></span><code>BUY_SPIKE</code></td><td data-label="Rule">Current buy maximum on the output is more than 1.5x the 28-day median price. Buy maxima normally sit below the median, so this usually means a seeded buy wall is inflating the buy-order valuation.</td><td data-label="Severity">Strong</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M5 5 19 19" /><path d="M12 21s6-4.6 6-10a6 6 0 0 0-8.5-5.4" /><path d="M9.6 9.6A2.5 2.5 0 0 0 12 13a2.5 2.5 0 0 0 2.4-1.8" /></svg></span><code>OFF_HUB</code></td><td data-label="Rule">Cheapest sell order is not at Jita 4-4.</td><td data-label="Severity">Warn, or strong when multiple significant cost legs are off-hub.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" /><path d="M12 7v5l3 2" /></svg></span><code>NO_HISTORY</code></td><td data-label="Rule">Market history has fewer than seven days.</td><td data-label="Severity">Warn</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z" /><path d="M3 12l9 5 9-5" /><path d="M3 16l9 5 9-5" /></svg></span><code>INSUFFICIENT_DEPTH</code></td><td data-label="Rule">Persisted order-book depth does not cover the requested fill.</td><td data-label="Severity">Strong</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M19 12V8l-5-5H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h6" /><path d="M13.5 18.5 17 15l2 2-3.5 3.5H13.5v-2Z" /></svg></span><code>CONTRACT_PRICED</code></td><td data-label="Rule">The product cannot be listed on the regular market (no market group, typically a faction blueprint copy) and is valued from scam-filtered public-contract asks in The Forge: blueprint copies are normalized to price per run, decoy listings are screened by a recipe cap (a copy's per-run value cannot exceed what the built product sells for) and a band anchored on the cheapest credible ask, and at least two independent asks must survive. The patient basis skips the sales tax and broker fee because item-exchange contracts pay only a flat creation fee; no instant-sell value exists. Blueprint offers with both a manufacture recipe and a contract price appear twice — a <em>(sell)</em> row for the direct contract sale and a <em>(manufacture)</em> conversion row whose net profit keeps total-realization math; the consumed copy is paid for in LP, so its contract value is excluded from net profit, capital required, and ROI alike, and the <em>(sell)</em> row is where that value surfaces. The <em>(sell)</em> row's only ISK cost is the token LP-store fee, so it shows no ROI (like ISK/hour): its return is measured per LP, not per ISK. Both are hidden until the BPC control enables them.</td><td data-label="Severity">Warn</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="m12 14 4-4" /><path d="M3.34 19a10 10 0 1 1 17.32 0" /></svg></span><code>NICHE_DEMAND</code></td><td data-label="Rule">A contract-priced blueprint copy where one copy covers at least half a day of the built product's entire Jita demand (copy runs against the product's 28-day average daily volume). The whole market absorbs only a handful of fresh copies per day, so sale velocity — not LP/hour — caps what the offer can actually earn; the flag message states the copy-to-demand ratio.</td><td data-label="Severity">Warn</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17 8.5l-3.8 1.3L12 14l-1.2-4.2L7 8.5l3.8-1.3L12 3Z" /><path d="M5 13l.7 2.3L8 16l-2.3.7L5 19l-.7-2.3L2 16l2.3-.7L5 13Z" /><path d="M19 14l.6 1.8 1.9.7-1.9.7L19 19l-.6-1.8-1.9-.7 1.9-.7L19 14Z" /></svg></span><code>VANITY</code></td><td data-label="Rule">The product is a vanity or cosmetic item: SDE apparel, SKIN, or personalization categories and groups, or a SKIN-named type.</td><td data-label="Severity">Warn; frontend chip from row metadata.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag warn" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg></span><code>RISK_LOWSEC</code></td><td data-label="Rule">Best known LP-store access is a low security station (see <a href="#risk-and-access">Risk And Access</a>); highsec-accessible rows get no chip.</td><td data-label="Severity">Warn; frontend chip from row metadata.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" /><path d="M12 8v5" /><path d="M12 17h.01" /></svg></span><code>RISK_NULLSEC</code></td><td data-label="Rule">Best known LP-store access is null security or wormhole space.</td><td data-label="Severity">Strong; frontend chip from row metadata.</td></tr>
+            <tr><td data-label="Flag"><span class="chip flag strong" aria-hidden="true"><svg class="chip-icon" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" /><path d="M9.5 9a2.5 2.5 0 1 1 4.1 1.9c-.9.6-1.6 1.1-1.6 2.6" /><path d="M12 17h.01" /></svg></span><code>RISK_UNKNOWN</code></td><td data-label="Rule">No known NPC station for the corporation, so the access risk tier is unknown.</td><td data-label="Severity">Strong; frontend chip from row metadata.</td></tr>
+          </tbody>
+        </table>
+        <p>Tapping or clicking a flag chip on the leaderboard expands it into its full message; the <code>?</code> inside links back to this section. Cargo-volume, vanity, and access-risk chips are added by the frontend from row metadata so they remain visible even when the persisted market-quality flags are otherwise clean.</p>
+        <p>Three quality filters interact with these flags:</p>
+        <ul>
+          <li><strong>Hide suspicious</strong> removes any row with at least one strong persisted market-quality flag or at least two persisted market-quality warning flags.</li>
+          <li><strong>Jita-priced only</strong> requires every output, required input, and build-material sell leg to have its cheapest order at Jita 4-4.</li>
+          <li><strong>Sec L4+</strong> is a separate optional quality filter that removes corporations with no normal level 4 or 5 Security agents in the SDE-derived agent reference; it does not control the base earnable-LP gate.</li>
+        </ul>
+
+        <h2 id="search-and-grouping">Search And Grouping</h2>
+        <p>The compute step materializes offer names, product signatures, risk/source fields, flag counts, ratios, and compact API summaries into <code>calc</code>, then rebuilds SQLite FTS search for offer and product names. Corporation filtering uses a name autocomplete: typing a corporation or faction name resolves it to a hidden corporation ID, and selecting one scopes the leaderboard to that single owner (relaxing the faction-warfare, special-source, and no-Security-agent guardrails for that owner, as noted under Risk and Access). Identical offer economics are grouped by default so duplicate corporation stores do not crowd out distinct opportunities; "Show duplicate stores" returns each store row.</p>
+
+        <h2 id="frontend-diagnostics">Frontend Loading And Diagnostics</h2>
+        <p>The LP page starts the rows, corporations, and health requests without blocking the browser page-load event. It renders skeleton rows for a first load, reuses session-cached rows immediately for repeated filters, ignores stale filter responses, and shows a compact topbar loading state only while the current request is still active.</p>
+        <p>A persistent browser client ID is shown in the header and sent as <code>X-EVE-Client-Id</code> on API calls. The server also returns a fresh <code>X-Request-Id</code> for every request and writes problem-only JSON lines for <code>4xx</code> and <code>5xx</code> responses to <code>logs/http-problems.log</code>. The visible client ID helps correlate a player report without exposing request IDs in the UI.</p>
+
+        <h2 id="api-and-health">API And Health</h2>
+        <p>Read endpoints are rate-limited to 180 requests per minute per IP and set permissive CORS. Public LP API paths work at both <code>/api/*</code> and <code>/lp/api/*</code>. <code>/api/health</code> reports fetcher freshness, empty core tables, database size, last compute time, and SDE import metadata. <code>POST /api/refresh</code> recomputes the leaderboard and requires <code>X-Admin-Token</code>.</p>
+        <p>After each compute, canonical leaderboard, CSV, and corporation responses are materialized into SQLite with ETags and Brotli bodies. Dynamic read responses use short browser caching and longer CDN caching, while health stays short-lived. When Cloudflare credentials are configured, compute purges the LP API prefixes; deploys that change unhashed LP HTML/CSS/JS should run the static purge helper after build.</p>
+
+        <h2 id="known-limitations">Known Limitations</h2>
+        <ul>
+          <li>Market pricing is Jita-only.</li>
+          <li>No ESI OAuth or per-character standing import exists in v1.</li>
+          <li>Manufacturing supports the Material Efficiency facility presets and an EIV-based job installation fee, but not per-blueprint Time Efficiency, structure-specific job-cost bonuses, or T2 reaction-chain modeling.</li>
+          <li>Market history is summarized for liquidity and spike checks, not shown as long-range charts.</li>
+          <li>The fill estimator assumes half of daily volume consumes the sell book and a fixed two-day relist cadence; ESI does not publish trade direction or order ages, so both are priors rather than measurements.</li>
+          <li>The visible client ID is a support diagnostic only, not an ESI identity or account link.</li>
+          <li>The missions section at <code>/missions/</code> is a separate static reference surface and does not change LP calculations.</li>
+          <li>The current LP frontend is served directly at the <code>/lp</code> base path.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

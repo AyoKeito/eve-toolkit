@@ -1,0 +1,44 @@
+{
+  "name": "Ride to the Rescue",
+  "wiki_page": "Ride_to_the_Rescue",
+  "mission_type": "ENCOUNTER",
+  "faction": null,
+  "damage_to_deal": null,
+  "damage_to_resist": null,
+  "recommended_ship": null,
+  "briefing_html": "Abdiel Verat has just learned why the research team never arrived to collect the goods you previously ferried: their labs are under siege by Guristas forces. A coordinated Guristas assault has overwhelmed the station's defenses, and time is running out.<br><br>Your task is to cut through to the research installation and eliminate Yukiro Demense, the Guristas commander leading the attack. Verat warns that Demense's frigate is fast and equipped to prevent escape.",
+  "objective_html": "Destroy Yukiro Demense and return to agent.",
+  "reward_isk": 5000000,
+  "reward_lp": null,
+  "reward_bonus_isk": 1000000,
+  "bonus_time_seconds": 21600,
+  "objective_items": [],
+  "pockets": [
+    {
+      "pocket_index": 1,
+      "name": "Room 1",
+      "notes": null,
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial defenders",
+          "distance_text": "70 km",
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 3, "type_name": "Pithi Infiltrator" },
+            {
+              "quantity": 1,
+              "type_name": "Yukiro Demense",
+              "ewar": [
+                { "type": "warp_disrupt", "text": "Warp Disruptor" },
+                { "type": "web", "text": "Stasis Webifier" }
+              ]
+            },
+            { "quantity": 1, "type_name": "Pithatis Executor" }
+          ]
+        }
+      ]
+    }
+  ]
+}

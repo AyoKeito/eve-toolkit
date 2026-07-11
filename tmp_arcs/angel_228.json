@@ -1,0 +1,35 @@
+{
+  "arc_id": 6,
+  "name": "Angel Sound",
+  "faction": "ANGEL CARTEL",
+  "level": 3,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=228",
+  "missions": [
+    {
+      "mission_id": 228,
+      "arc_position": 1,
+      "prev_mission_id": null,
+      "next_mission_id": 230,
+      "name": "The Balance of Power",
+      "level": 3,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "Hey, man. <br><br>If you're out here in a shithole like Egbinger, then maybe there's a chance you can help me out with something. We just had a bunch of Republic Fleet guys dock up and repair here. They'd been out in Curse dealing with some Angel Cartel raiders.<br><br>They were describing how the Cartel is having trouble right now with some other pirate groups. Seems there's a Guristas commander tearing them a new hole down there, as well as some Sansha meandering about causing problems. From the sounds of it, the Cartel's taking some significant losses.<br><br>Anyways, I was hoping you could fly down and check it out. While the Fleet was docked up, I had my boys go over their comms system. We've got ourselves the name of a Cartel agent involved in the invasion. Abdiel Verat.<br><br>It may sound strange to hear it, [you], but if you can find some way to deal with those Guristas and Sansha, I'd be thankful. The Cartel may give us grief, but they've done good things for the Minmatar people too, even if nobody has a damn clue why, or what's in it for them.<br><br>All I know is that I'd prefer the Cartel to Guristas thugs and Sansha freaks. If you can, go and deal with their problems. Just don't go helping them too much, got it?<br>\n<br>\n<br>",
+      "objective_html": "Report to Abdiel Verat<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=228",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

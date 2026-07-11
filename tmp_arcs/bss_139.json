@@ -1,0 +1,35 @@
+{
+  "arc_id": 5,
+  "name": "The Blood-Stained Stars",
+  "faction": "SISTERS OF EVE",
+  "level": 1,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=139",
+  "missions": [
+    {
+      "mission_id": 139,
+      "arc_position": 1,
+      "prev_mission_id": 135,
+      "next_mission_id": 514,
+      "name": "The Amarr Commander",
+      "level": 1,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "The Amarr Empire has sent Lear Evanus, a commander of some fame, to Manarq. She is a firm defender of the Amarr faith. Her zeal will prove effective against Dagan.<br>\n<br>\n<br>",
+      "objective_html": "Report to Lear Evanus in Manarq (0.8)<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=139",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

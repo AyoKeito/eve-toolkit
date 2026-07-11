@@ -1,0 +1,102 @@
+{
+  "name": "Breaking the Lock",
+  "wiki_page": "Breaking_the_Lock",
+  "mission_type": "ENCOUNTER",
+  "faction": null,
+  "damage_to_deal": null,
+  "damage_to_resist": null,
+  "recommended_ship": null,
+  "briefing_html": "With little time to spare, Verat explains that the Boundless Creations research base has been cut off from all support. The facility maintains three separate data centers, each acting as a backup for the others — all three must be destroyed to sever the network completely.<br><br>The site is defended by Minmatar Tribal warriors across three gated rooms, one jump from K-QWHE. Acceleration gate messages claiming the gates are unlocked are false; expect to fight through each room in sequence.",
+  "objective_html": "Destroy all three Boundless Creations Data Centers across three gated rooms.",
+  "reward_isk": 7000000,
+  "reward_lp": null,
+  "reward_bonus_isk": 1000000,
+  "bonus_time_seconds": 21600,
+  "objective_items": [],
+  "pockets": [
+    {
+      "pocket_index": 1,
+      "name": "Room 1",
+      "notes": null,
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial defenders",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 2, "type_name": "Republic Tribal Austri" },
+            { "quantity": 2, "type_name": "Republic Tribal Bormin" }
+          ]
+        },
+        {
+          "group_index": 2,
+          "label": "Objective structure",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 1, "type_name": "Boundless Creations Data Center", "notes": "Destroy to proceed" }
+          ]
+        }
+      ]
+    },
+    {
+      "pocket_index": 2,
+      "name": "Room 2",
+      "notes": null,
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial defenders",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 3, "type_name": "Republic Tribal Austri" },
+            { "quantity": 2, "type_name": "Republic Tribal Bormin" }
+          ]
+        },
+        {
+          "group_index": 2,
+          "label": "Objective structure",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 1, "type_name": "Boundless Creations Data Center", "notes": "Destroy to proceed" }
+          ]
+        }
+      ]
+    },
+    {
+      "pocket_index": 3,
+      "name": "Room 3",
+      "notes": null,
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial defenders",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 4, "type_name": "Republic Tribal Austri" },
+            { "quantity": 2, "type_name": "Republic Tribal Bormin" }
+          ]
+        },
+        {
+          "group_index": 2,
+          "label": "Objective structure",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 1, "type_name": "Boundless Creations Data Center", "notes": "Final objective — destroying completes mission" }
+          ]
+        }
+      ]
+    }
+  ]
+}

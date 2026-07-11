@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Owner-only tool: keep it out of search + AI indexes. -->
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Trending Fits</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/fits/style.css" />
+  </head>
+  <body>
+    <header class="fits-topbar">
+      <div class="topbar-brand">
+        <a class="home-link" href="/" title="EVE Tools — home" aria-label="EVE Tools home">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <path class="bm-hex" d="M32 8 52 20v24L32 56 12 44V20Z" fill="none" stroke-width="3" />
+            <path class="bm-net" d="M32 17v30M20 24l12-7 12 7M20 40l12 7 12-7" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div>
+          <h1>Trending fits <span class="beta">private</span></h1>
+          <p class="sub" id="subline">Loading lowsec faction-warfare losses…</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="controls">
+      <div class="fg">
+        <span class="flabel">Window</span>
+        <div class="seg" id="windowSeg" role="group" aria-label="Time window">
+          <button type="button" data-days="1" aria-pressed="false">24h</button>
+          <button type="button" data-days="3" aria-pressed="false">3d</button>
+          <button type="button" data-days="7" aria-pressed="false">7d</button>
+          <button type="button" data-days="14" aria-pressed="false">14d</button>
+          <button type="button" data-days="30" aria-pressed="false">30d</button>
+          <button type="button" data-days="0" aria-pressed="true">All</button>
+        </div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Min. lost</span>
+        <div class="seg" id="minLostSeg" role="group" aria-label="Minimum losses in window">
+          <button type="button" data-min="0" aria-pressed="true">All</button>
+          <button type="button" data-min="50" aria-pressed="false">50+</button>
+          <button type="button" data-min="100" aria-pressed="false">100+</button>
+          <button type="button" data-min="200" aria-pressed="false">200+</button>
+        </div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Ship class</span>
+        <div class="seg" id="classSeg" role="group" aria-label="Ship class"></div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Markup</span>
+        <div class="seg" id="markupSeg" role="group" aria-label="Sell markup over build cost">
+          <button type="button" data-markup="0.1" aria-pressed="false">+10%</button>
+          <button type="button" data-markup="0.2" aria-pressed="true">+20%</button>
+          <button type="button" data-markup="0.3" aria-pressed="false">+30%</button>
+          <button type="button" data-markup="0.5" aria-pressed="false">+50%</button>
+        </div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Sort</span>
+        <div class="seg" id="sortSeg" role="group" aria-label="Sort">
+          <button type="button" data-sort="open_demand" aria-pressed="true">Open demand</button>
+          <button type="button" data-sort="losses" aria-pressed="false">Most lost</button>
+          <button type="button" data-sort="trend" aria-pressed="false">Trending</button>
+          <button type="button" data-sort="underserved" aria-pressed="false">Underserved</button>
+          <button type="button" data-sort="profit" aria-pressed="false">Profit</button>
+          <button type="button" data-sort="opportunity" aria-pressed="false">Opportunity</button>
+        </div>
+      </div>
+      <div class="fg search">
+        <span class="flabel">Search hull</span>
+        <input id="search" type="search" placeholder="Tristan, Caracal…" autocomplete="off" />
+      </div>
+      <div class="spacer"></div>
+      <span class="count-note" id="countNote"></span>
+    </section>
+
+    <section class="metrics" id="metrics"></section>
+
+    <div class="table-wrap">
+      <table class="fits">
+        <thead>
+          <tr>
+            <th class="rank">#</th>
+            <th class="left shipcol" data-sort="name">Ship<span class="arrow">▾</span></th>
+            <th data-sort="losses" title="Losses in window — the small number is the per-day rate (sales-velocity proxy)">Lost<span class="arrow">▾</span></th>
+            <th data-sort="trend" title="Losses in the recent half of the window vs the prior half — is demand growing or fading?">Trend<span class="arrow">▾</span></th>
+            <th data-sort="pilots" title="Distinct pilots who lost this exact fit">Pilots<span class="arrow">▾</span></th>
+            <th data-sort="open_demand" class="sorted" title="Distinct corporations that lost this fit + the dominant corp's share. Sorts by open-market demand = losses with the single-corp doctrine share removed, so self-supplied fleet doctrines sink.">Breadth<span class="arrow">▾</span></th>
+            <th data-sort="underserved" title="Active warzone contracts already selling this hull (exact-fit count below). Sorts by demand-per-seller — fewest sellers vs the loss rate first.">On market<span class="arrow">▾</span></th>
+            <th data-sort="build_cost">Build cost<span class="arrow">▾</span></th>
+            <th data-sort="profit" title="Sell minus build at the chosen markup">Profit<span class="arrow">▾</span></th>
+            <th data-sort="opportunity" title="Losses × profit — total ISK on the table over the window">Opportunity<span class="arrow">▾</span></th>
+            <th data-sort="profit_density" title="Profit per m³ of packaged cargo — hauler yield per unit of hold">Profit / m³<span class="arrow">▾</span></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="loading" id="loading">Loading…</div>
+      <div class="empty" id="empty" hidden>No fits match these filters.</div>
+    </div>
+
+    <script src="/fits/app.js" type="module"></script>
+  </body>
+</html>

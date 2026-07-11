@@ -1,0 +1,34 @@
+:root {
+  color-scheme: dark;
+  --bg: #071014;
+  --bg-elevated: #091820;
+  --panel: #0d171d;
+  --panel-2: #12212a;
+  --panel-3: #172b34;
+  --text: #e6edf3;
+  --muted: #8fa3ad;
+  --subtle: #607782;
+  --line: #243744;
+  --line-strong: #365160;
+  --accent: #2dd4bf;
+  --profit: var(--accent); /* profit metrics intentionally share the accent hue */
+  --success: #4ade80;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --focus: #67e8f9;
+  --shadow: 0 18px 52px rgba(0, 0, 0, 0.35);
+}
+
+/* Manufacturer mode warms every background/structure token (still dark) so the
+   non-default view reads as a distinct workspace, while leaving --accent/--profit/
+   --success untouched — all numbers and status chips keep their teal/green. Mode
+   chrome (toggle, ribbon, pills) uses the muted-orange #c2701f / #cf7d35 literals. */
+html.mfg-mode {
+  --bg: #0c0805;
+  --bg-elevated: #140e08;
+  --panel: #181007;
+  --panel-2: #20170d;
+  --panel-3: #2a1e11;
+  --line: #36281a;
+  --line-strong: #4a3826;
+}

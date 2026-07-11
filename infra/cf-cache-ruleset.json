@@ -1,0 +1,81 @@
+{
+  "description": "",
+  "id": "5434fc60b1244dde990ac7c383f6dabc",
+  "kind": "zone",
+  "last_updated": "2026-06-21T12:15:14.157051Z",
+  "name": "default",
+  "phase": "http_request_cache_settings",
+  "rules": [
+    {
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": false
+      },
+      "description": "Bypass cache for EVE health and refresh endpoints",
+      "enabled": true,
+      "expression": "(http.host eq \"eve.ayokei.to\" and http.request.uri.path in {\"/api/health\" \"/api/refresh\" \"/api/missions/health\" \"/lp/api/health\" \"/lp/api/refresh\"})",
+      "id": "c945954c4df6402f9162930ca000ec84",
+      "last_updated": "2026-06-11T04:32:14.367719Z",
+      "ref": "c945954c4df6402f9162930ca000ec84",
+      "version": "1"
+    },
+    {
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "browser_ttl": {
+          "mode": "respect_origin"
+        },
+        "cache": true,
+        "edge_ttl": {
+          "mode": "respect_origin"
+        }
+      },
+      "description": "Cache canonical LP API reads using origin cache headers",
+      "enabled": true,
+      "expression": "(http.host eq \"eve.ayokei.to\" and http.request.method in {\"GET\" \"HEAD\"} and (http.request.uri.path in {\"/lp/api/offers/top\" \"/lp/api/offers/top.csv\" \"/lp/api/corps\" \"/lp/api/movers\" \"/api/missions\" \"/api/arcs\" \"/api/agents\" \"/api/contract-prices\" \"/api/burners\"} or http.request.uri.path wildcard r\"/api/missions/*\" or http.request.uri.path wildcard r\"/api/arcs/*\") and http.request.uri.path ne \"/api/missions/health\")",
+      "id": "599e0f247efe4ac5ab30e6e9a67ab9b8",
+      "last_updated": "2026-06-11T04:32:14.367719Z",
+      "ref": "599e0f247efe4ac5ab30e6e9a67ab9b8",
+      "version": "1"
+    },
+    {
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "browser_ttl": {
+          "mode": "respect_origin"
+        },
+        "cache": true,
+        "edge_ttl": {
+          "mode": "respect_origin"
+        }
+      },
+      "description": "Cache frontend static assets using origin cache headers",
+      "enabled": true,
+      "expression": "(http.host eq \"eve.ayokei.to\" and http.request.method in {\"GET\" \"HEAD\"} and (http.request.uri.path wildcard r\"/lp/*.js\" or http.request.uri.path wildcard r\"/lp/*.css\" or http.request.uri.path wildcard r\"/lp/*.png\" or http.request.uri.path wildcard r\"/lp/*.jpg\" or http.request.uri.path wildcard r\"/lp/*.jpeg\" or http.request.uri.path wildcard r\"/lp/*.gif\" or http.request.uri.path wildcard r\"/lp/*.svg\" or http.request.uri.path wildcard r\"/lp/*.ico\" or http.request.uri.path wildcard r\"/lp/*.webp\" or http.request.uri.path wildcard r\"/lp/*.avif\" or http.request.uri.path wildcard r\"/lp/*.woff\" or http.request.uri.path wildcard r\"/lp/*.woff2\" or http.request.uri.path wildcard r\"/shared/*.js\" or http.request.uri.path wildcard r\"/shared/*.css\" or http.request.uri.path wildcard r\"/missions/*.js\" or http.request.uri.path wildcard r\"/missions/*.css\" or http.request.uri.path wildcard r\"/missions/*.png\" or http.request.uri.path wildcard r\"/missions/*.jpg\" or http.request.uri.path wildcard r\"/missions/*.jpeg\" or http.request.uri.path wildcard r\"/missions/*.gif\" or http.request.uri.path wildcard r\"/missions/*.svg\" or http.request.uri.path wildcard r\"/missions/*.ico\" or http.request.uri.path wildcard r\"/missions/*.webp\" or http.request.uri.path wildcard r\"/missions/*.avif\" or http.request.uri.path wildcard r\"/missions/*.woff\" or http.request.uri.path wildcard r\"/missions/*.woff2\"))",
+      "id": "649ee10fb50c4f9e8fdc4a620c3260b1",
+      "last_updated": "2026-06-11T04:32:14.367719Z",
+      "ref": "649ee10fb50c4f9e8fdc4a620c3260b1",
+      "version": "1"
+    },
+    {
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "browser_ttl": {
+          "mode": "respect_origin"
+        },
+        "cache": true,
+        "edge_ttl": {
+          "mode": "respect_origin"
+        }
+      },
+      "description": "eve-html-shell-cache — Cache navigated HTML shells using origin cache headers",
+      "enabled": true,
+      "expression": "(http.host eq \"eve.ayokei.to\") and (http.request.method in {\"GET\" \"HEAD\"}) and (http.request.uri.path in {\"/\" \"/lp/\" \"/lp/about.html\" \"/missions/\" \"/missions/browse\" \"/agents/\"} or http.request.uri.path wildcard r\"/missions/arc/*\" or (http.request.uri.path wildcard r\"/missions/*\" and not (ends_with(http.request.uri.path, \".js\") or ends_with(http.request.uri.path, \".css\") or ends_with(http.request.uri.path, \".png\") or ends_with(http.request.uri.path, \".jpg\") or ends_with(http.request.uri.path, \".jpeg\") or ends_with(http.request.uri.path, \".gif\") or ends_with(http.request.uri.path, \".svg\") or ends_with(http.request.uri.path, \".ico\") or ends_with(http.request.uri.path, \".webp\") or ends_with(http.request.uri.path, \".avif\") or ends_with(http.request.uri.path, \".woff\") or ends_with(http.request.uri.path, \".woff2\") or ends_with(http.request.uri.path, \".json\"))))",
+      "id": "aaf79d8cc4e54915b1dbdc3448e92956",
+      "last_updated": "2026-06-21T12:15:14.157051Z",
+      "ref": "aaf79d8cc4e54915b1dbdc3448e92956",
+      "version": "1"
+    }
+  ],
+  "version": "12"
+}

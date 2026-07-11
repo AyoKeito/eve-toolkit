@@ -1,0 +1,2222 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.45 "Inter", "Inter Fallback", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+a {
+  color: var(--accent);
+}
+
+button,
+.button,
+input,
+select {
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: var(--text);
+  font: inherit;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 11px;
+  text-decoration: none;
+}
+
+.ghost {
+  background: transparent;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 0 9px;
+}
+
+.missions-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  min-height: 64px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+dl {
+  margin: 0;
+}
+
+h1 {
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: 15px;
+}
+
+h3 {
+  font-size: 13px;
+}
+
+h4 {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+#statusLine,
+#missionMeta,
+#arcMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.missions-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* BETA status — the missions section ships unverified, hand-curated seed data.
+   Permanent badge next to the page title; the dismissible notice below the topbar
+   spells out the caveat (see beta-notice.js). */
+.missions-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.beta-badge {
+  padding: 2px 7px;
+  border: 1px solid color-mix(in srgb, var(--warning) 55%, var(--line));
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--warning) 16%, transparent);
+  color: var(--warning);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: help;
+}
+
+.beta-notice {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--warning) 30%, var(--line));
+  background: color-mix(in srgb, var(--warning) 9%, var(--bg-elevated));
+}
+
+.beta-notice-tag {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--warning) 22%, transparent);
+  color: var(--warning);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.beta-notice-text {
+  flex: 1 1 auto;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.beta-notice-dismiss {
+  flex: 0 0 auto;
+  appearance: none;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel-3);
+  color: var(--subtle);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.beta-notice-dismiss:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--line));
+}
+
+.fit-profile-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.fit-profile-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.fit-profile-button .fit-profile-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 50%, transparent);
+  border: 1px solid color-mix(in srgb, var(--muted) 80%, var(--line));
+  flex: 0 0 auto;
+}
+
+.fit-profile-button.is-active .fit-profile-dot {
+  background: var(--success);
+  border-color: color-mix(in srgb, var(--success) 80%, var(--line));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--success) 25%, transparent);
+}
+
+.fit-profile-button.is-active {
+  border-color: color-mix(in srgb, var(--success) 50%, var(--line));
+  color: var(--text);
+}
+
+.fit-profile-value {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.fit-profile-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 20;
+  width: 420px;
+  display: grid;
+  gap: 14px;
+  padding: 20px 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+}
+
+.fit-profile-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+  font-size: 17px;
+}
+
+.fit-profile-close {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.fit-profile-close:hover { color: var(--text); }
+
+.fit-profile-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.fit-profile-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.fit-profile-toggle input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: none;
+  accent-color: var(--success);
+  cursor: pointer;
+}
+
+.fit-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.fit-profile-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 60%, transparent);
+  font-size: 15px;
+}
+
+.fit-profile-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.fit-profile-field input {
+  width: 42px;
+  min-width: 0;
+  text-align: right;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  padding: 0;
+  min-height: 0;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.fit-profile-field input::-webkit-outer-spin-button,
+.fit-profile-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.fit-profile-field input:focus {
+  outline: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  outline-offset: 1px;
+}
+
+.fit-profile-label {
+  color: var(--muted);
+}
+
+.fit-profile-unit {
+  color: var(--subtle);
+  font-size: 13px;
+}
+
+.fit-profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  padding-top: 12px;
+}
+
+.fit-profile-presets-label {
+  color: var(--subtle);
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+.fit-profile-preset {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-3);
+  color: var(--muted);
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.fit-profile-preset:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+
+/* .diagnostic-chips / .diagnostic-chip base rules now live in web/shared/base.css. */
+
+.missions-shell {
+  display: grid;
+  grid-template-columns: minmax(230px, 280px) minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px;
+  min-height: calc(100vh - 64px);
+}
+
+.mission-filters,
+.arc-browser,
+.mission-table,
+.mission-summary,
+.arc-graph-node {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+}
+
+.arc-browser {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+.arc-browser-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+#arcBrowserStatus {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.arc-button-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arc-button {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  min-width: 160px;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.arc-button[aria-expanded="true"] {
+  border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel-2));
+}
+
+.arc-button span {
+  overflow: hidden;
+  max-width: 100%;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arc-button small {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arc-graph {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.arc-browser .arc-graph {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.arc-graph[hidden] {
+  display: none;
+}
+
+/* Layered DAG arc renderer (used when the arc payload includes edges) */
+.arc-dag-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 4px;
+}
+
+.arc-dag-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted, #9aa4b2);
+}
+
+.arc-dag-legend-swatch {
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.arc-dag-plane {
+  position: relative;
+  display: grid;
+  gap: 36px 16px;
+  min-width: 0;
+  padding: 6px 0;
+}
+
+.arc-dag-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+
+.arc-dag-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  min-width: 0;
+}
+
+.arc-dag-row .arc-graph-node {
+  flex: 0 1 260px;
+  max-width: 340px;
+}
+
+.arc-graph-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.arc-graph-step::before {
+  content: "";
+  position: absolute;
+  top: 38px;
+  bottom: -10px;
+  left: 21px;
+  width: 1px;
+  background: color-mix(in srgb, var(--line) 82%, transparent);
+}
+
+.arc-graph-step:last-child::before {
+  display: none;
+}
+
+.arc-graph-step-label,
+.arc-graph-node-badge {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--panel-3);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.arc-graph-step-label {
+  z-index: 1;
+  width: 42px;
+  height: 34px;
+}
+
+.arc-graph-step.is-split .arc-graph-step-label {
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 14%, var(--panel-3));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.arc-graph-branches {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+
+.arc-graph-branches.is-split {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  padding-top: 14px;
+}
+
+.arc-graph-branches.is-split::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: max(18%, 36px);
+  right: max(18%, 36px);
+  height: 10px;
+  border-top: 2px solid color-mix(in srgb, var(--line-strong) 80%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 75%, transparent);
+  border-right: 2px solid color-mix(in srgb, var(--purple) 75%, transparent);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  pointer-events: none;
+}
+
+.arc-graph-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px 12px;
+}
+
+.arc-graph-node.is-choice {
+  border-width: 1px;
+  border-left-width: 4px;
+}
+
+.arc-graph-node.is-choice[data-branch-index="0"] {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-left-color: var(--accent);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--accent) 14%, var(--panel-2)) 0%,
+    var(--panel-2) 42%,
+    var(--panel) 100%
+  );
+  box-shadow: var(--shadow), inset 0 0 0 1px color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.arc-graph-node.is-choice[data-branch-index="0"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel-3));
+  color: var(--accent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.arc-graph-node.is-choice[data-branch-index="1"] {
+  border-color: color-mix(in srgb, var(--purple) 35%, var(--line));
+  border-left-color: var(--purple);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--purple) 14%, var(--panel-2)) 0%,
+    var(--panel-2) 42%,
+    var(--panel) 100%
+  );
+  box-shadow: var(--shadow), inset 0 0 0 1px color-mix(in srgb, var(--purple) 6%, transparent);
+}
+
+.arc-graph-node.is-choice[data-branch-index="1"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--purple) 22%, var(--panel-3));
+  color: var(--purple);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--purple) 45%, transparent);
+}
+
+.arc-graph-node.is-choice[data-branch-index="2"] {
+  border-color: color-mix(in srgb, var(--focus) 35%, var(--line));
+  border-left-color: var(--focus);
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--focus) 12%, var(--panel-2)) 0%,
+    var(--panel-2) 42%,
+    var(--panel) 100%
+  );
+}
+
+.arc-graph-node.is-choice[data-branch-index="2"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--focus) 22%, var(--panel-3));
+  color: var(--focus);
+}
+
+.arc-graph-node.is-branch-decision {
+  border-color: color-mix(in srgb, var(--warning) 55%, var(--line));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--warning) 10%, var(--panel-2)),
+    var(--panel)
+  );
+}
+
+.arc-graph-node.is-branch-decision .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--warning) 22%, var(--panel-3));
+  color: var(--warning);
+}
+
+.arc-graph-node-title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.arc-graph-node-badge {
+  flex: 0 0 auto;
+  min-width: 34px;
+  height: 26px;
+  padding: 0 8px;
+}
+
+.arc-graph-node a {
+  min-width: 0;
+  color: var(--text);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.arc-graph-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.arc-graph-meta-text {
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.arc-graph-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 20px;
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-3) 70%, transparent);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.arc-graph-chip .arc-graph-chip-label {
+  color: var(--subtle);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.arc-graph-chip strong {
+  color: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.arc-graph-chip.is-info {
+  border-color: color-mix(in srgb, var(--focus) 45%, var(--line));
+  background: color-mix(in srgb, var(--focus) 10%, var(--panel-3));
+  color: var(--focus);
+}
+
+.arc-graph-chip.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 50%, var(--line));
+  background: color-mix(in srgb, var(--warning) 12%, var(--panel-3));
+  color: var(--warning);
+}
+
+.arc-graph-chip.is-danger {
+  border-color: color-mix(in srgb, var(--danger) 55%, var(--line));
+  background: color-mix(in srgb, var(--danger) 14%, var(--panel-3));
+  color: var(--danger);
+}
+
+.arc-graph-chip.dps-chip .arc-graph-chip-label {
+  color: currentColor;
+  opacity: 0.7;
+}
+
+.arc-branch-summary {
+  margin-left: 54px;
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
+      transparent 35%,
+      color-mix(in srgb, var(--purple) 8%, transparent) 100%
+    ),
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+}
+
+.arc-branch-summary-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.arc-branch-summary-title {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arc-branch-summary-note {
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.arc-branch-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.arc-branch-summary-card {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 60%, transparent);
+}
+
+.arc-branch-summary-card[data-branch-index="0"] {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-left-color: var(--accent);
+}
+
+.arc-branch-summary-card[data-branch-index="1"] {
+  border-color: color-mix(in srgb, var(--purple) 30%, var(--line));
+  border-left-color: var(--purple);
+}
+
+.arc-branch-summary-card[data-branch-index="2"] {
+  border-color: color-mix(in srgb, var(--focus) 30%, var(--line));
+  border-left-color: var(--focus);
+}
+
+.arc-branch-summary-card-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.arc-branch-summary-card[data-branch-index="0"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel-3));
+  color: var(--accent);
+}
+
+.arc-branch-summary-card[data-branch-index="1"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--purple) 22%, var(--panel-3));
+  color: var(--purple);
+}
+
+.arc-branch-summary-card[data-branch-index="2"] .arc-graph-node-badge {
+  background: color-mix(in srgb, var(--focus) 22%, var(--panel-3));
+  color: var(--focus);
+}
+
+.arc-branch-summary-card a {
+  min-width: 0;
+  color: var(--text);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.arc-branch-summary-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.arc-branch-summary-lead {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.arc-branch-summary-faction {
+  color: var(--subtle);
+}
+
+.arc-branch-summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.arc-graph-empty {
+  padding-top: 2px;
+  color: var(--muted);
+}
+
+/* ===== Arc hero (/missions/arc/:id) =====
+   Two-card split above the timeline: identity (emblem, flavor, fact sheet,
+   payout strip) and combat intel (damage spectrum, EWAR, toughest fight).
+   Every block hides itself when the arc's seed lacks the underlying data. */
+
+.arc-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 14px;
+}
+
+.arc-hero[hidden] {
+  display: none;
+}
+
+.arc-hero.no-intel {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.arc-hero-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+}
+
+.arc-hero-identity {
+  border-left: 3px solid color-mix(in srgb, var(--faction-color, var(--line-strong)) 55%, transparent);
+}
+
+.arc-hero-head {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.arc-hero-head .arc-flavor {
+  max-width: 640px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.arc-hero .arc-emblem {
+  width: 60px;
+  height: 60px;
+}
+
+.arc-hero .arc-emblem img {
+  width: 46px;
+  height: 46px;
+}
+
+.arc-hero-facts {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  gap: 9px 16px;
+  align-items: baseline;
+  font-size: 14px;
+}
+
+.arc-hero-facts dt {
+  color: var(--subtle);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.arc-hero-facts dd {
+  min-width: 0;
+  color: var(--text);
+}
+
+.fact-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.arc-hero .badge-risk {
+  padding: 2px 7px;
+  font-size: 11.5px;
+}
+
+.badge-risk.lowsec {
+  border: 1px solid color-mix(in srgb, var(--warning) 20%, transparent);
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--warning);
+}
+
+.sec-hisec { color: var(--success); }
+.sec-lowsec { color: var(--warning); }
+.sec-nullsec { color: var(--danger); }
+
+.arc-hero-payout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 30px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.arc-payout {
+  display: grid;
+  gap: 2px;
+}
+
+.arc-payout b {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.arc-payout b.tone-faction {
+  color: var(--faction-tint, var(--accent));
+}
+
+.arc-payout b.tone-accent {
+  color: var(--accent);
+}
+
+.arc-payout small {
+  color: var(--subtle);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.arc-intel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.arc-intel-title {
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arc-intel-sub {
+  color: var(--subtle);
+  font-size: 12px;
+}
+
+.arc-intel-block {
+  display: grid;
+  gap: 7px;
+}
+
+.arc-intel-label {
+  color: var(--subtle);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* EWAR cards: same language as the mission-detail summary (detail.css), scoped
+   to the hero because this page only loads style.css. */
+.arc-hero .ewar-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.arc-hero .ewar-card {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 104px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 55%, transparent);
+}
+
+.arc-hero .ewar-card.is-danger {
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--line));
+  background: color-mix(in srgb, var(--danger) 9%, var(--panel-3));
+}
+
+.arc-hero .ewar-card.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 42%, var(--line));
+  background: color-mix(in srgb, var(--warning) 8%, var(--panel-3));
+}
+
+.arc-hero .ewar-card.is-info {
+  border-color: color-mix(in srgb, var(--focus) 42%, var(--line));
+  background: color-mix(in srgb, var(--focus) 8%, var(--panel-3));
+}
+
+.arc-hero .ewar-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 35%, transparent));
+}
+
+.arc-hero .ec-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.arc-hero .ec-label {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.arc-hero .ewar-card.is-danger .ec-label { color: var(--danger); }
+.arc-hero .ewar-card.is-warning .ec-label { color: var(--warning); }
+.arc-hero .ewar-card.is-info .ec-label { color: var(--focus); }
+
+.arc-hero .ec-stats {
+  display: grid;
+  gap: 2px;
+}
+
+.arc-hero .ec-stat {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.arc-dmg-rows {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.arc-dmg-row {
+  display: grid;
+  grid-template-columns: 18px 36px minmax(0, 1fr) 46px;
+  gap: 9px;
+  align-items: center;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.arc-dmg-row img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, currentColor 44%, transparent));
+}
+
+.arc-dmg-label {
+  color: var(--muted);
+}
+
+.arc-dmg-track {
+  position: relative;
+  height: 11px;
+  border: 1px solid color-mix(in srgb, var(--line) 52%, transparent);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--panel-3) 72%, transparent);
+  overflow: hidden;
+}
+
+.arc-dmg-track i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.82;
+}
+
+.arc-dmg-value {
+  color: var(--text);
+  font-weight: 700;
+  text-align: right;
+}
+
+.arc-dmg-row.zero .arc-dmg-value {
+  color: var(--subtle);
+}
+
+.arc-dmg-row.zero .arc-dmg-track i {
+  opacity: 0;
+}
+
+.arc-intel-foot {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.arc-intel-foot b {
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .arc-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .arc-hero-card {
+    padding: 13px 14px;
+  }
+
+  .arc-hero-facts {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  .arc-hero-payout {
+    gap: 10px 20px;
+  }
+}
+
+.mission-filters {
+  position: sticky;
+  top: 78px;
+  align-self: start;
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.mission-board {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mission-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  overflow: hidden;
+}
+
+.mission-summary article {
+  min-width: 0;
+  padding: 14px 18px;
+  border-right: 1px solid var(--line);
+}
+
+.mission-summary article:last-child {
+  border-right: 0;
+}
+
+.mission-summary span,
+.mission-summary small {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mission-summary span {
+  color: var(--subtle);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mission-summary strong {
+  display: block;
+  overflow: hidden;
+  margin-top: 5px;
+  color: var(--text);
+  font-size: 21px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mission-table {
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid color-mix(in srgb, var(--line) 64%, transparent);
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+th {
+  background: var(--panel-3);
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.mission-row {
+  cursor: pointer;
+}
+
+.mission-row:hover,
+.mission-row:focus {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  outline: none;
+}
+
+.mission-name {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.numeric {
+  text-align: right;
+}
+
+.empty-state {
+  color: var(--muted);
+  white-space: normal;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.mission-detail {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.npc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.chip.is-info {
+  border-color: color-mix(in srgb, var(--focus) 45%, var(--line));
+  color: var(--focus);
+}
+
+.chip.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--line));
+  color: var(--warning);
+}
+
+.chip.is-danger,
+.ewar-chip {
+  border-color: color-mix(in srgb, var(--danger) 48%, var(--line));
+  color: var(--danger);
+}
+
+.chip.is-success {
+  border-color: color-mix(in srgb, var(--success) 48%, var(--line));
+  color: var(--success);
+}
+
+@media (max-width: 700px) {
+  /* the topbar scrolls away on phones — a sticky header eats ~150px of viewport */
+  .missions-topbar {
+    position: static;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .missions-actions {
+    flex-wrap: wrap;
+  }
+
+  .diagnostic-chips {
+    justify-content: flex-start;
+  }
+
+  /* let the dismiss button drop below the copy instead of squeezing it */
+  .beta-notice {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .missions-shell {
+    display: block;
+    padding: 10px;
+  }
+
+  .mission-filters {
+    position: static;
+    margin-bottom: 12px;
+  }
+
+  /* three small numbers fit side by side even at 360px */
+  .mission-summary article {
+    padding: 10px 12px;
+  }
+
+  .mission-summary strong {
+    font-size: 18px;
+  }
+
+  .arc-graph-step {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .arc-graph-step::before {
+    left: 18px;
+  }
+
+  .arc-graph-step-label {
+    width: 36px;
+    height: 32px;
+  }
+
+  .arc-graph-branches {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .arc-graph-branches.is-split {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .arc-graph-branches.is-split::before {
+    display: none;
+  }
+
+  .arc-branch-summary {
+    margin-left: 0;
+    padding: 10px 12px 12px;
+  }
+
+  .arc-branch-summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  table {
+    min-width: 0;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    border-bottom: 1px solid var(--line);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-right: 0;
+    white-space: normal;
+  }
+
+  /* mission cards: name, context chips, then only the populated combat lines */
+  tbody .mission-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 6px;
+    align-items: center;
+    padding: 11px 12px;
+  }
+
+  .mission-row td {
+    display: block;
+    width: auto;
+    padding: 0;
+    border: 0;
+    overflow: visible;
+  }
+
+  .mission-row td.mission-name {
+    flex: 1 0 100%;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+
+  /* level / type / faction / arc render as chips */
+  .mission-row td:nth-child(2),
+  .mission-row td:nth-child(3),
+  .mission-row td:nth-child(4),
+  .mission-row td:nth-child(5) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 21px;
+    padding: 0 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--panel-3) 70%, transparent);
+    color: var(--muted);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .mission-row td:nth-child(2)::before {
+    content: "L";
+  }
+
+  /* deal / resist / ship: labeled lines, hidden when the mission has none */
+  .mission-row td:nth-child(6),
+  .mission-row td:nth-child(7),
+  .mission-row td:nth-child(8) {
+    flex: 1 0 100%;
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .mission-row td:nth-child(6)::before { content: "Deal"; }
+  .mission-row td:nth-child(7)::before { content: "Resist"; }
+  .mission-row td:nth-child(8)::before { content: "Ship"; }
+
+  .mission-row td:nth-child(6)::before,
+  .mission-row td:nth-child(7)::before,
+  .mission-row td:nth-child(8)::before {
+    color: var(--subtle);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+
+  .mission-row td.na {
+    display: none;
+  }
+
+  /* arc timeline nodes take the full row instead of centering at 260px */
+  .arc-dag-row .arc-graph-node {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .npc-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* ===== Codex landing (/missions/) =====
+   The landing is a two-column "field manual": sticky rail (search + content-type
+   nav) and an editorial arc list grouped by level. The old filter+table UI lives
+   on /missions/browse and keeps the mission-* classes above. */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.codex-shell {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 64px;
+}
+
+.codex-rail {
+  position: sticky;
+  top: 78px;
+  align-self: start;
+  max-height: calc(100vh - 78px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 18px 22px 0;
+  border-right: 1px solid var(--line);
+}
+
+.codex-search {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.codex-search input {
+  width: 100%;
+  font-size: 12px;
+}
+
+.codex-rail-label {
+  margin-bottom: 6px;
+  padding: 0 2px;
+  color: var(--subtle);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.codex-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.codex-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+
+.codex-nav-item:hover {
+  background: var(--panel-2);
+  color: var(--text);
+}
+
+.codex-nav-item:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.codex-nav-item.active {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+
+.codex-nav-item.disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.codex-nav-count {
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--panel-3);
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.codex-nav-item.active .codex-nav-count {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+}
+
+.codex-nav-tag {
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel-3);
+  color: var(--subtle);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.codex-rail-bottom {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.codex-rail-link {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--subtle);
+  font-size: 11.5px;
+  text-decoration: none;
+  transition: color 0.12s, background 0.12s;
+}
+
+.codex-rail-link:hover {
+  background: var(--panel-2);
+  color: var(--muted);
+}
+
+.codex-main {
+  max-width: 1020px;
+  padding: 28px 0 40px 36px;
+}
+
+.codex-section-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.codex-intro {
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.codex-intro strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Reserve the arc grid's height so the static arc list replacing the "Loading arcs."
+   placeholder does not shove the page down (was CLS 0.386 cold). The arc list is a vertical
+   stack (one card per row at every width), so its height is ~constant across viewports and a
+   single px reserve fits desktop and mobile. Tuned to the current epic-arc set (~1050px); if
+   arcs are added/removed, re-measure #arcGroups height and update this value. */
+.codex-groups {
+  min-height: 1050px;
+}
+
+.codex-empty {
+  padding: 32px 0;
+  color: var(--subtle);
+}
+
+.codex-empty.error {
+  color: var(--danger);
+}
+
+/* Loading skeleton for the detail (#missionRoot) and arc (#arcGraph) content areas — shown until
+   the API data renders, replacing a blank column under the header with structure. Both targets are
+   the last element on their page, so the skeleton->content swap introduces no layout shift. */
+.skeleton-block {
+  border-radius: 10px;
+  background:
+    linear-gradient(100deg, transparent 28%, color-mix(in srgb, var(--line) 60%, transparent) 50%, transparent 72%),
+    var(--panel-2);
+  background-size: 220% 100%, auto;
+  background-repeat: no-repeat;
+  animation: skeleton-sheen 1.3s ease-in-out infinite;
+}
+
+@keyframes skeleton-sheen {
+  from {
+    background-position: 220% 0, 0 0;
+  }
+  to {
+    background-position: -120% 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-block {
+    animation: none;
+  }
+}
+
+.mission-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 0;
+}
+
+.mission-skeleton .skeleton-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.mission-skeleton .sk-hero {
+  height: 168px;
+}
+
+.mission-skeleton .sk-card {
+  height: 116px;
+}
+
+.mission-skeleton .sk-band {
+  height: 72px;
+}
+
+.level-group {
+  margin-top: 34px;
+}
+
+.level-group[hidden] {
+  display: none;
+}
+
+.level-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.level-label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.level-sublabel {
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.level-sep {
+  flex: 1;
+}
+
+.level-count {
+  color: var(--subtle);
+  font-size: 11px;
+}
+
+.arc-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arc-list li[hidden] {
+  display: none;
+}
+
+/* Grid columns: emblem | body text | reward stat cluster | CTA arrow.
+   The faction left rule idles at 30% strength and saturates on hover. */
+.arc-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 150px 70px;
+  align-items: center;
+  gap: 0 16px;
+  padding: 16px 12px 16px 14px;
+  border-bottom: 1px solid var(--line);
+  border-left: 3px solid color-mix(in srgb, var(--faction-color, var(--line-strong)) 30%, transparent);
+  border-radius: 0 8px 8px 0;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.12s, border-left-color 0.15s;
+}
+
+.arc-row:hover {
+  background: var(--panel);
+  border-left-color: var(--faction-color, var(--line-strong));
+}
+
+.arc-row:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* attribute-only so both the landing rows and the arc hero inherit the palette */
+[data-faction="MINMATAR"]       { --faction-color: #b04a3a; --faction-tint: #d06050; }
+[data-faction="GALLENTE"]       { --faction-color: #3a9b8f; --faction-tint: #4abfb3; }
+[data-faction="CALDARI"]        { --faction-color: #4a7fb5; --faction-tint: #6a9fd5; }
+[data-faction="AMARR"]          { --faction-color: #b8963f; --faction-tint: #d4b050; }
+[data-faction="SISTERS OF EVE"] { --faction-color: #d9d2c5; --faction-tint: #e8e2d8; }
+[data-faction="ANGEL CARTEL"]   { --faction-color: #8a4a5e; --faction-tint: #c06888; }
+[data-faction="GURISTAS"]       { --faction-color: #b5763a; --faction-tint: #d49050; }
+
+.arc-emblem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+  width: 52px;
+  height: 52px;
+  margin-top: 2px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  overflow: hidden;
+}
+
+.arc-emblem img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* the monogram sits behind the logo; it shows when the image fails and removes itself */
+.arc-emblem.has-logo img + .arc-monogram {
+  display: none;
+}
+
+.arc-emblem .arc-monogram {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.arc-body {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.arc-name {
+  margin-bottom: 3px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.arc-flavor {
+  max-width: 520px;
+  margin-bottom: 9px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.arc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  font-size: 11.5px;
+}
+
+.arc-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px 2px 0;
+  color: var(--subtle);
+}
+
+.arc-meta-item + .arc-meta-item {
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+}
+
+.arc-meta-label {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.badge-risk {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-risk.hisec {
+  border: 1px solid color-mix(in srgb, var(--success) 20%, transparent);
+  background: color-mix(in srgb, var(--success) 12%, transparent);
+  color: var(--success);
+}
+
+.badge-risk.nullsec {
+  border: 1px solid color-mix(in srgb, var(--danger) 20%, transparent);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  color: var(--danger);
+}
+
+.badge-risk.mixed {
+  border: 1px solid color-mix(in srgb, var(--warning) 20%, transparent);
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--warning);
+}
+
+.arc-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: center;
+  padding: 0 8px;
+  border-left: 1px solid var(--line);
+}
+
+.arc-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.arc-stat-value {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.arc-stat-value.tone-accent {
+  color: var(--accent);
+}
+
+.arc-stat-value.tone-faction {
+  color: var(--faction-tint, var(--accent));
+}
+
+.arc-stat-label {
+  color: var(--subtle);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.arc-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  color: var(--subtle);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.12s;
+}
+
+.arc-row:hover .arc-cta {
+  color: var(--accent);
+}
+
+.arc-cta-arrow {
+  display: inline-block;
+  opacity: 0.6;
+  transition: transform 0.18s ease, opacity 0.18s;
+}
+
+.arc-row:hover .arc-cta-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+.codex-coming {
+  margin-top: 48px;
+  padding: 22px 26px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.codex-coming-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.codex-coming-title {
+  color: var(--subtle);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.codex-coming p {
+  max-width: 580px;
+  color: var(--subtle);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.codex-coming p + p {
+  margin-top: 8px;
+}
+
+@media (max-width: 1280px) {
+  .codex-shell {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .codex-main {
+    padding-left: 26px;
+  }
+}
+
+/* Phone: the rail folds into a top block (full-width search, content types as a
+   horizontal chip row) and arc rows stack with the stat cluster inline below. */
+@media (max-width: 700px) {
+  .codex-shell {
+    display: block;
+    padding: 0 12px 48px;
+  }
+
+  .codex-rail {
+    position: static;
+    max-height: none;
+    padding: 14px 0 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .codex-search {
+    margin-bottom: 12px;
+  }
+
+  .codex-nav {
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .codex-nav-item {
+    flex: 0 0 auto;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+  }
+
+  .codex-nav-item.active {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+
+  .codex-rail-bottom {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .codex-main {
+    max-width: none;
+    padding: 18px 0 40px;
+  }
+
+  .codex-section-title {
+    font-size: 19px;
+  }
+
+  .arc-row {
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas:
+      "emblem body"
+      "stats stats";
+    gap: 0 12px;
+    padding: 14px 8px 14px 10px;
+  }
+
+  .arc-emblem {
+    grid-area: emblem;
+    width: 44px;
+    height: 44px;
+  }
+
+  .arc-emblem img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .arc-body {
+    grid-area: body;
+  }
+
+  .arc-stats {
+    grid-area: stats;
+    flex-direction: row;
+    gap: 22px;
+    margin-top: 10px;
+    padding: 8px 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    border-left: 0;
+  }
+
+  .arc-cta {
+    display: none;
+  }
+
+  .codex-coming {
+    margin-top: 36px;
+    padding: 16px 18px;
+  }
+}
+

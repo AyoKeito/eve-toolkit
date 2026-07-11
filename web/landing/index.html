@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="google-site-verification" content="zsgdSA30xvsiOoyB7EXHyMDsppZXFHh9xxyfQ0In6oo" />
+    <meta name="description" content="EVE Online tools: an LP store calculator ranking loyalty point offers by ISK per LP with live Jita pricing, mission guides covering every epic arc, and an agent finder ranking mission-agent hubs across every NPC corporation." />
+    <link rel="canonical" href="https://eve.ayokei.to/" />
+    <meta property="og:title" content="EVE Tools" />
+    <meta property="og:description" content="LP store calculator with live Jita pricing, combat-ready mission guides for every epic arc, and a mission-agent hub finder for New Eden." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/" />
+    <title>EVE Tools — LP Store Calculator, Mission Reference &amp; Agent Finder</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <!-- Single-request doorway page: styles inline, no JS, font shared with the LP app. -->
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("/lp/assets/fonts/inter-var.woff2") format("woff2");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      :root {
+        color-scheme: dark;
+        --bg: #071014;
+        --text: #e6edf3;
+        --muted: #8fa3ad;
+        --subtle: #607782;
+        --line: #243744;
+        --teal: #2dd4bf;
+        --gold: #d9b85c;
+        --violet: #c084fc;
+        --focus: #67e8f9;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        font-size: 13px;
+      }
+      body {
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .site-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 10px;
+        padding: 18px 28px;
+        border-bottom: 1px solid var(--line);
+      }
+      .site-head h1 {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .site-head .domain {
+        font-size: 11.5px;
+        color: var(--subtle);
+      }
+
+      /* Left half = the flagship LP calculator (full height); right half splits between the two
+         beta tools, mission reference (top) and agent finder (bottom). */
+      .gate {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+      .gate-lp {
+        grid-column: 1;
+        grid-row: 1 / 3;
+      }
+      .gate-missions {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .gate-agents {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      .gate-panel {
+        --accent: var(--teal);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 22px;
+        padding: clamp(40px, 6vw, 100px);
+        text-decoration: none;
+        color: inherit;
+        background: radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 30rem);
+        transition: background-color 0.18s;
+      }
+      /* Right-column panels sit beside the LP panel; the lower one is also divided from the upper.
+         Each tool keeps its own accent: LP teal (default), missions gold, agents violet. */
+      .gate-missions,
+      .gate-agents {
+        border-left: 1px solid var(--line);
+      }
+      .gate-agents {
+        border-top: 1px solid var(--line);
+      }
+      .gate-missions {
+        --accent: var(--gold);
+      }
+      .gate-agents {
+        --accent: var(--violet);
+      }
+      .gate-panel:hover {
+        background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+      }
+
+      /* The two right-half panels share the column, so they run tighter than the full-height LP. */
+      .gate-panel.compact {
+        padding: clamp(26px, 3.4vw, 56px);
+        gap: 13px;
+      }
+      .gate-panel.compact .panel-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+      }
+      .gate-panel.compact .panel-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+      .gate-panel.compact h2 {
+        font-size: clamp(20px, 2vw, 28px);
+      }
+      .gate-panel.compact .lead {
+        font-size: 13px;
+        max-width: 44ch;
+      }
+
+      .beta-tag {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+        background: color-mix(in srgb, var(--accent) 14%, transparent);
+        color: var(--accent);
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+      .gate-panel:focus-visible {
+        outline: 2px solid var(--focus);
+        outline-offset: -4px;
+      }
+
+      .panel-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      }
+      .panel-icon svg {
+        width: 30px;
+        height: 30px;
+        stroke: var(--accent);
+        fill: none;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .gate-panel h2 {
+        font-size: clamp(26px, 2.8vw, 38px);
+        font-weight: 760;
+        letter-spacing: -0.02em;
+      }
+      .gate-panel .lead {
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 46ch;
+      }
+
+      .panel-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .panel-chip {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 6px;
+        padding: 6px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-size: 11.5px;
+        color: var(--subtle);
+        background: rgba(255, 255, 255, 0.015);
+      }
+      .panel-chip strong {
+        color: var(--text);
+        font-weight: 650;
+        font-size: 12px;
+      }
+
+      .panel-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        align-self: flex-start;
+        margin-top: 6px;
+        padding: 10px 20px;
+        border-radius: 9px;
+        border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+        color: var(--accent);
+        font-size: 13.5px;
+        font-weight: 600;
+        transition: background 0.15s;
+      }
+      .panel-cta .arrow {
+        transition: transform 0.15s;
+      }
+      .gate-panel:hover .panel-cta {
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+      }
+      .gate-panel:hover .panel-cta .arrow {
+        transform: translateX(3px);
+      }
+
+      .site-foot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 14px 28px;
+        border-top: 1px solid var(--line);
+        font-size: 11px;
+        color: var(--subtle);
+      }
+      .site-foot a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .site-foot a:hover {
+        color: var(--teal);
+      }
+
+      @media (max-width: 840px) {
+        .gate {
+          grid-template-columns: 1fr;
+          grid-template-rows: none;
+        }
+        /* Collapse the explicit placement so the three panels stack in source order. */
+        .gate-lp,
+        .gate-missions,
+        .gate-agents {
+          grid-column: 1;
+          grid-row: auto;
+        }
+        .gate-panel {
+          padding: 36px 26px;
+          gap: 16px;
+          justify-content: flex-start;
+        }
+        .gate-missions,
+        .gate-agents {
+          border-left: none;
+          border-top: 1px solid var(--line);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-head">
+      <h1>EVE Tools</h1>
+      <span class="domain">eve.ayokei.to</span>
+    </header>
+
+    <main class="gate">
+      <a class="gate-panel gate-lp" href="/lp/">
+        <span class="panel-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 19h16M6 16V9m4 7V5m4 11v-6m4 6V8" /></svg>
+        </span>
+        <h2>LP Store Calculator</h2>
+        <p class="lead">
+          Every loyalty point store offer in New Eden, ranked by ISK per LP — priced against
+          live Jita market depth with fees, volume, and access-risk filters.
+        </p>
+        <span class="panel-chips">
+          <span class="panel-chip"><strong>166</strong> corporations</span>
+          <span class="panel-chip"><strong>15 min</strong> price refresh</span>
+          <span class="panel-chip"><strong>Daily</strong> LP store sync</span>
+        </span>
+        <span class="panel-cta">Open the calculator <span class="arrow">&#8594;</span></span>
+      </a>
+
+      <a class="gate-panel gate-missions compact" href="/missions/">
+        <span class="panel-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><path d="M12 2v4m0 12v4M2 12h4m12 0h4" /><circle cx="12" cy="12" r="1.6" /></svg>
+        </span>
+        <h2>Mission Reference <span class="beta-tag">Beta</span></h2>
+        <p class="lead">
+          Epic arc guides with branch diagrams, faction damage profiles, rewards, and
+          per-mission combat intel — tuned to your ship's resist profile.
+        </p>
+        <span class="panel-chips">
+          <span class="panel-chip"><strong>7</strong> epic arcs</span>
+          <span class="panel-chip"><strong>196</strong> missions</span>
+          <span class="panel-chip"><strong>Fit-aware</strong> intel</span>
+        </span>
+        <span class="panel-cta">Open mission guides <span class="arrow">&#8594;</span></span>
+      </a>
+
+      <a class="gate-panel gate-agents compact" href="/agents/">
+        <span class="panel-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" /><circle cx="12" cy="10" r="2.6" /></svg>
+        </span>
+        <h2>Agent Finder <span class="beta-tag">Beta</span></h2>
+        <p class="lead">
+          Mission-agent hubs across every NPC corporation — solar systems and stations ranked by
+          agent density, level, security band, and division.
+        </p>
+        <span class="panel-chips">
+          <span class="panel-chip"><strong>All</strong> corporations</span>
+          <span class="panel-chip"><strong>L1&#8211;L5</strong> agents</span>
+          <span class="panel-chip">Systems &amp; stations</span>
+        </span>
+        <span class="panel-cta">Open the agent finder <span class="arrow">&#8594;</span></span>
+      </a>
+    </main>
+
+    <footer class="site-foot">
+      <span>Market data from EVE ESI · Static data © Fenris Creations (formerly CCP Games) · Not affiliated with Fenris Creations</span>
+      <a href="/lp/about.html">Methodology</a>
+      <a href="/missions/browse">Mission browser</a>
+    </footer>
+  </body>
+</html>

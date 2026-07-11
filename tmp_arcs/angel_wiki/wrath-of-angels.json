@@ -1,0 +1,61 @@
+{
+  "name": "Wrath of Angels",
+  "wiki_page": "Wrath_of_Angels",
+  "mission_type": "ENCOUNTER",
+  "faction": null,
+  "damage_to_deal": null,
+  "damage_to_resist": null,
+  "recommended_ship": null,
+  "briefing_html": "Verat informs you that Yukiro Demense is still operating in Curse and must be permanently dealt with. The implication is clear: killing the body is not enough — Demense's very clone line must be infected.<br><br>Upon completion, Verat confirms that Demense will be reactivated into a compromised clone, remarking that he has \"contracted a disease which is going to follow him from clone to clone.\" The reward for this final act is a Domination-grade target painter.",
+  "objective_html": "Destroy Yukiro Demense and return to agent.",
+  "reward_isk": 1000000,
+  "reward_lp": null,
+  "reward_bonus_isk": null,
+  "bonus_time_seconds": 21600,
+  "objective_items": [],
+  "pockets": [
+    {
+      "pocket_index": 1,
+      "name": "Room 1",
+      "notes": "Keep Yukiro Demense at least 40 km from the Remote-Repair Facility before engaging.",
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial spawn",
+          "distance_text": "70 km",
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            {
+              "quantity": 1,
+              "type_name": "Yukiro Demense",
+              "ewar": [
+                { "type": "warp_disrupt", "text": "Warp Disruptor" },
+                { "type": "web", "text": "Stasis Webifier" }
+              ]
+            },
+            {
+              "quantity": 2,
+              "type_name": "Sentry Cruise Missile Battery",
+              "notes": "Optional — destroying costs Guristas standing"
+            }
+          ]
+        },
+        {
+          "group_index": 2,
+          "label": "Objective structure",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            {
+              "quantity": 1,
+              "type_name": "Remote-Repair Facility",
+              "notes": "Repairs nearby ships — do not engage Yukiro Demense within 40 km of this structure"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

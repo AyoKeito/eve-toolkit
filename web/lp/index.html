@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="google-site-verification" content="zsgdSA30xvsiOoyB7EXHyMDsppZXFHh9xxyfQ0In6oo" />
+    <meta name="description" content="EVE Online LP store calculator ranking loyalty point offers by ISK per LP using Jita market data, fees, volume, and access-risk filters." />
+    <link rel="canonical" href="https://eve.ayokei.to/lp/" />
+    <meta property="og:title" content="EVE LP Store Calculator" />
+    <meta property="og:description" content="Rank EVE Online LP store offers by ISK per LP using Jita market data, fees, volume, and access-risk filters." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/lp/" />
+    <title>EVE LP Store Calculator</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <!-- Preload the only web font (47 KB Inter). It is otherwise discovered late, after
+         lp.css parses, delaying the swap. crossorigin is required even same-origin: fonts
+         fetch in CORS mode, so a non-crossorigin preload would not match and re-download. -->
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/lp.css" />
+    <!-- Full import graph of /lp/app.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/lp/ui-model.js" />
+    <link rel="modulepreload" href="/lp/diagnostics.js" />
+    <link rel="modulepreload" href="/lp/format.js" />
+    <link rel="modulepreload" href="/lp/flags.js" />
+    <link rel="modulepreload" href="/lp/detail-drawer.js" />
+    <link rel="modulepreload" href="/lp/floating-table.js" />
+    <link rel="modulepreload" href="/lp/health-chips.js" />
+    <link rel="modulepreload" href="/shared/utils.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-cluster">
+        <a class="home-link" href="/" title="EVE Tools — home" aria-label="EVE Tools home">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <path class="bm-hex" d="M32 8 52 20v24L32 56 12 44V20Z" fill="none" stroke-width="3" />
+            <path class="bm-net" d="M32 17v30M20 24l12-7 12 7M20 40l12 7 12-7" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div>
+          <h1>Top LP offers</h1>
+          <p id="statusLine">Jita prices · global LP leaderboard</p>
+        </div>
+      </div>
+      <div class="staleness-chips" aria-label="Data staleness">
+        <span id="stalePrices" class="staleness-chip" data-tone="muted" title="Market prices: hot every 15 minutes, cold hourly.">Prices -</span>
+        <span id="staleLp" class="staleness-chip" data-tone="muted" title="LP offers update daily at 11:10 UTC.">LP -</span>
+        <span id="staleHealth" class="staleness-chip" data-tone="muted" title="Overall fetcher health from /api/health.">Health unavailable</span>
+        <span id="stalePurge" class="staleness-chip" data-tone="muted" title="Cloudflare edge cache purge after each recompute.">Edge purge -</span>
+        <span id="resultsLoadingState" class="loading-state" hidden>Updating</span>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+      <div class="top-actions" aria-label="Page actions">
+        <button id="toggleMfgMode" class="button ghost icon-button mfg-toggle" type="button" aria-pressed="false" title="Manufacturer mode: value LP blueprints as built in a rigged structure — material efficiency, manufacturing job cost, and contract sales with no market fees.">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10.3 4.3 9.8 6.6a6 6 0 0 0-1.6.9l-2.2-.8-1.7 3 1.7 1.6a6 6 0 0 0 0 1.8l-1.7 1.6 1.7 3 2.2-.8a6 6 0 0 0 1.6.9l.5 2.3h3.4l.5-2.3a6 6 0 0 0 1.6-.9l2.2.8 1.7-3-1.7-1.6a6 6 0 0 0 0-1.8l1.7-1.6-1.7-3-2.2.8a6 6 0 0 0-1.6-.9l-.5-2.3Z"/><circle cx="12" cy="12" r="2.6"/></svg>
+          <span>Manufacturer mode</span>
+        </button>
+        <button id="copyPermalink" class="icon-button" type="button" title="Copy permalink">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9.5 14.5 14.5 9.5M8 11l-1.8 1.8a3.4 3.4 0 0 0 4.8 4.8l1.8-1.8M16 13l1.8-1.8a3.4 3.4 0 0 0-4.8-4.8L11.2 8"/></svg>
+          <span>Permalink</span>
+        </button>
+        <a id="exportCsv" class="button icon-button" href="/lp/api/offers/top.csv" title="Download the current filtered leaderboard as CSV.">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v10m0 0 4-4m-4 4-4-4M5 18h14"/></svg>
+          <span>Export CSV</span>
+        </a>
+        <a class="button ghost icon-button" href="/lp/about.html" title="Open calculation methodology and data-source notes.">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 10v7m0-10h.01M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg>
+          <span>Methodology</span>
+        </a>
+      </div>
+    </header>
+
+    <div id="mfgRibbon" class="control-ribbon" hidden>
+      <button id="mfgRibbonToggle" class="ribbon-collapse" type="button" aria-expanded="true" aria-controls="mfgRibbonBody" title="Collapse manufacturer controls">
+        <span class="ribbon-title"><span aria-hidden="true">⚙</span> Manufacturer mode</span>
+        <span id="mfgRibbonSummary" class="ribbon-summary"></span>
+        <svg class="ribbon-chevron" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div id="mfgRibbonBody" class="ribbon-body">
+        <div class="ribbon-field">
+          <span class="field-label" title="Sell faction items through item-exchange contracts (a flat ~10k ISK fee) instead of the market, which zeroes sales tax and broker fees.">Sale channel</span>
+          <input id="noMarketFees" name="noMarketFees" type="checkbox" hidden />
+          <button type="button" data-ribbon-toggle="noMarketFees" class="ribbon-pill" aria-pressed="false">No market fees (contract sale)</button>
+        </div>
+        <label class="ribbon-field">
+          <span class="field-label" title="Where the blueprint is built. Rigged structures cut material use (ME); LP-store copies are unresearched (ME 0) in an NPC station.">Facility</span>
+          <select id="facility" name="facility" data-default-value="npc">
+            <option value="npc">NPC station — ME 0</option>
+            <option value="highsec-t2">Highsec · T2 ME rigs — ~3.2%</option>
+            <option value="null-t2">Null / WH · T2 ME rigs — ~5.8%</option>
+          </select>
+        </label>
+        <label class="ribbon-field ribbon-field-narrow">
+          <span class="field-label" title="Manufacturing system cost index (percent). Drives the EIV-based job installation fee alongside the fixed 4% SCC + 0.25% facility tax.">Cost index %</span>
+          <input id="costIndex" name="costIndex" type="number" min="0" max="100" step="0.1" value="2.5" data-default-value="2.5" />
+        </label>
+        <input id="mode" name="mode" type="hidden" value="" data-default-value="" />
+        <p class="ribbon-note">Job installation cost on · EIV-based · 4% SCC + 0.25% facility</p>
+      </div>
+    </div>
+
+    <main class="workstation">
+      <div class="filters-anchor">
+        <aside id="filtersPanel" class="filters" aria-label="Offer filters">
+          <div class="filters-head">
+            <h2>Filters</h2>
+            <button id="resetFilters" type="button" title="Restore default filters and sorting.">Reset</button>
+          </div>
+          <section class="filter-group">
+          <label>
+            Search item
+            <input id="search" name="search" type="search" placeholder="Type item or offer..." title="Search item and offer names in the loaded leaderboard." />
+          </label>
+          <label>
+            Corporation / Faction
+            <input id="corp" name="corp" type="hidden" value="" data-default-value="" />
+            <input id="corpSearch" type="search" list="corpOptions" placeholder="All corporations" title="Type a corporation or faction name, then pick a matching LP store owner." autocomplete="off" />
+            <datalist id="corpOptions"></datalist>
+          </label>
+          <div class="field-group">
+            <span class="field-label" title="LP-store access risk scope.">Space</span>
+            <input id="maxRiskTier" name="maxRiskTier" type="hidden" value="NULLSEC" data-default-value="NULLSEC" />
+            <div class="risk-tier-filter" role="group" aria-label="Space risk tier">
+              <button type="button" data-risk-filter="HIGHSEC" aria-label="Highsec access" title="Only show highsec-accessible LP stores." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" /></svg>
+                <span>Highsec</span>
+              </button>
+              <button type="button" data-risk-filter="NULLSEC" aria-label="All access" title="Show all LP stores regardless of access risk." aria-pressed="true">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" /><path d="M12 8v5" /><path d="M12 17h.01" /></svg>
+                <span>All</span>
+              </button>
+            </div>
+          </div>
+          <div class="field-group">
+            <span class="field-label" title="Corporation availability for normal level 5 mission agents.">Level 5 Missions</span>
+            <input id="level5Missions" name="level5Missions" type="hidden" value="show" data-default-value="show" />
+            <div class="level5-missions-filter" role="group" aria-label="Level 5 mission availability">
+              <button type="button" data-level5-filter="only" aria-label="Only level 5 mission corporations" title="Only show corporations with normal level 5 mission agents." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 14.8 8.7 21 9.6l-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z" /></svg>
+                <span>Only</span>
+              </button>
+              <button type="button" data-level5-filter="hide" aria-label="Hide level 5 mission corporations" title="Hide corporations with normal level 5 mission agents." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5 19 19" /><path d="M12 3 14.8 8.7 21 9.6l-3.2 3.1" /><path d="M14.8 17.8 12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9.8-1.7" /></svg>
+                <span>Hide</span>
+              </button>
+              <button type="button" data-level5-filter="show" aria-label="Show all corporations regardless of level 5 missions" title="Show all corporations regardless of level 5 mission availability." aria-pressed="true">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6" /><path d="M20 12a8 8 0 0 1-13.7 5.6" /><path d="M17.7 3.7v2.7h-2.7" /><path d="M6.3 20.3v-2.7h2.7" /></svg>
+                <span>Show</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="filter-group">
+          <h2>Ranking</h2>
+          <div class="field-group">
+            <span class="field-label" title="Choose which market exit path drives ISK/LP, ISK/hr, and default ranking.">Valuation</span>
+            <input id="basis" name="basis" type="hidden" value="best" data-default-value="best" />
+            <div class="basis-filter" role="group" aria-label="Valuation basis">
+              <button type="button" data-basis-filter="instantSell" aria-label="Buy-order valuation" title="Use buy-order cashout for ISK/LP, ISK/hr, and default ranking." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14" /><path d="m7 10 5-5 5 5" /><path d="M5 19h14" /></svg>
+                <span>Buy</span>
+              </button>
+              <button type="button" data-basis-filter="patientSell" aria-label="Sell-order valuation" title="Use sell-order listing economics for ISK/LP, ISK/hr, and default ranking." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 19V5" /><path d="m7 14 5 5 5-5" /><path d="M5 5h14" /></svg>
+                <span>Sell</span>
+              </button>
+              <button type="button" data-basis-filter="best" aria-label="Highest valuation" title="Use the higher of buy-order and sell-order ISK/LP." aria-pressed="true">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 14 5-5 4 4 7-7" /><path d="M20 6v6h-6" /><path d="M4 20h16" /></svg>
+                <span>Highest</span>
+              </button>
+            </div>
+          </div>
+          <label>
+            Sort By
+            <select id="sortBy" name="sortBy" title="Choose the column that controls leaderboard ordering.">
+              <option value="lp">LP cost</option>
+              <option value="isk">ISK cost</option>
+              <option value="iskPerLp" selected>ISK/LP</option>
+              <option value="instant">ISK/LP buy orders</option>
+              <option value="patient">ISK/LP sell orders</option>
+              <option value="roi">ROI</option>
+              <option value="iskPerHour">ISK/hr</option>
+              <option value="volume">Sold/day</option>
+            </select>
+          </label>
+          <div class="grid-two ranking-limits">
+            <label>
+              Runs
+              <input id="runs" name="runs" type="number" min="1" step="1" value="1" title="Runs scales LP, ISK, input, build, and market-depth calculations." />
+            </label>
+            <label>
+              Max m3
+              <input id="maxM3" name="maxM3" type="number" min="0" step="1" placeholder="Any" title="Hide rows above this packaged cargo volume." />
+            </label>
+          </div>
+          <div class="grid-two">
+            <label>
+              LP budget
+              <input id="lpBudget" name="lpBudget" type="number" min="0" step="1000" placeholder="Any" title="Optional LP cap for max-feasible-runs calculations." />
+            </label>
+            <label>
+              ISK budget
+              <input id="iskBudget" name="iskBudget" type="number" min="0" step="1000000" placeholder="Any" title="Optional ISK capital cap for max-feasible-runs calculations." />
+            </label>
+          </div>
+          <div class="grid-two ranking-limits">
+            <label>
+              LP/hour
+              <input id="lpPerHour" name="lpPerHour" type="number" min="0" step="1000" value="30000" title="Calculate ISK/hr from the active valuation basis and your LP earning rate." />
+            </label>
+            <label>
+              Min sold 28d
+              <input id="minVolume" name="minVolume" type="number" min="0" step="10" placeholder="Any" title="Hide rows below this 28-day average daily market volume." />
+            </label>
+          </div>
+        </section>
+
+        <section class="filter-group quality-filters">
+          <h2>Quality</h2>
+          <div class="quality-state-inputs" aria-hidden="true">
+            <input id="jita44Only" name="jita44Only" type="checkbox" hidden />
+            <input id="hideSuspicious" name="hideSuspicious" type="checkbox" checked hidden />
+            <input id="hideVanity" name="hideVanity" type="checkbox" checked hidden />
+            <input id="hideNoSecurity" name="hideNoSecurity" type="checkbox" checked hidden />
+            <input id="includeFW" name="includeFW" type="checkbox" hidden />
+            <input id="includeSpecial" name="includeSpecial" type="checkbox" hidden />
+            <input id="showDuplicateStores" name="showDuplicateStores" type="checkbox" hidden />
+            <input id="realisticPatient" name="realisticPatient" type="checkbox" hidden />
+          </div>
+          <div class="quality-toggle-grid" role="group" aria-label="Quality filters">
+            <button type="button" data-quality-toggle="jita44Only" aria-label="Jita-priced only" title="Require every output, required input, and build material sell price to have its cheapest order in Jita 4-4." aria-pressed="false">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s6-4.6 6-10a6 6 0 1 0-12 0c0 5.4 6 10 6 10Z" /><path d="m9.5 11 1.6 1.6 3.4-3.7" /></svg>
+              <span class="quality-label">Jita</span>
+            </button>
+            <button type="button" data-quality-toggle="hideSuspicious" aria-label="Hide suspicious" title="Hide rows with strong warnings or multiple warning flags." aria-pressed="true">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+              <span class="quality-label">No warns</span>
+            </button>
+            <button type="button" data-quality-toggle="hideVanity" aria-label="Hide vanity" title="Exclude skins and other vanity offers from the leaderboard." aria-pressed="true">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3l1.2 4.2L17 8.5l-3.8 1.3L12 14l-1.2-4.2L7 8.5l3.8-1.3L12 3Z" /><path d="M5 13l.7 2.3L8 16l-2.3.7L5 19l-.7-2.3L2 16l2.3-.7L5 13Z" /><path d="M19 14l.6 1.8 1.9.7-1.9.7L19 19l-.6-1.8-1.9-.7 1.9-.7L19 14Z" /></svg>
+              <span class="quality-label">No vanity</span>
+            </button>
+            <button type="button" data-quality-toggle="hideNoSecurity" aria-label="Hide no Security L4+" title="Hide corporations with no normal level 4 or 5 Security agents." aria-pressed="true">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" /><path d="M9 12h6" /><path d="M12 9v6" /></svg>
+              <span class="quality-label">Sec L4+</span>
+            </button>
+            <button type="button" data-quality-toggle="includeFW" aria-label="Include FW" title="Include faction warfare LP-store offers." aria-pressed="false">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4" /><path d="M5 5h11l-2 4 2 4H5" /></svg>
+              <span class="quality-label">FW</span>
+            </button>
+            <button type="button" data-quality-toggle="includeSpecial" aria-label="Include special LP" title="Include special-source stores such as DED and CONCORD." aria-pressed="false">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 20 12 12 21 4 12 12 3Z" /><path d="M12 8v8" /><path d="M8 12h8" /></svg>
+              <span class="quality-label">Special</span>
+            </button>
+            <button type="button" data-quality-toggle="showDuplicateStores" aria-label="Show duplicate stores" title="Show every corporation store row instead of grouping identical offer economics." aria-pressed="false">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z" /><path d="M3 12l9 5 9-5" /><path d="M3 16l9 5 9-5" /></svg>
+              <span class="quality-label">Dupes</span>
+            </button>
+            <button type="button" data-quality-toggle="realisticPatient" aria-label="Realistic patient valuation" title="Discount sell-order valuations by estimated fill time and relist fees instead of assuming an immediate full fill." aria-pressed="false">
+              <svg class="quality-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 22h14" /><path d="M5 2h14" /><path d="M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4A2 2 0 0 0 7 17.8V22" /><path d="M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4A2 2 0 0 0 17 6.2V2" /></svg>
+              <span class="quality-label">Realistic</span>
+            </button>
+          </div>
+          <div class="field-group">
+            <span class="field-label" title="Choose which LP-store blueprint-copy rows to show.">BPC</span>
+            <input id="bpc" name="bpc" type="hidden" value="none" data-default-value="none" />
+            <div class="bpc-filter" role="group" aria-label="Blueprint copy rows">
+              <button type="button" data-bpc-filter="none" aria-label="Hide blueprint copy rows" title="Hide all blueprint-copy rows." aria-pressed="true">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Z" /><path d="m6 6 12 12" /></svg>
+                <span>None</span>
+              </button>
+              <button type="button" data-bpc-filter="sell" aria-label="Show blueprint sell rows" title="Show blueprint copies valued as direct contract sales." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12V3h9l9 9-9 9-9-9Z" /><path d="M7.5 7.5h.01" /></svg>
+                <span>Sell</span>
+              </button>
+              <button type="button" data-bpc-filter="manufacture" aria-label="Show blueprint manufacture rows" title="Show blueprint copies valued as manufactured products after material costs." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.8 2.8-2.1-2.1 2.9-2.7Z" /></svg>
+                <span>Build</span>
+              </button>
+              <button type="button" data-bpc-filter="all" aria-label="Show all blueprint rows" title="Show both sell and manufacture blueprint rows." aria-pressed="false">
+                <svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z" /><path d="M3 12l9 5 9-5" /></svg>
+                <span>All</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="filter-group fees-skills">
+          <h2>Fees & skills</h2>
+          <div class="grid-two skill-grid">
+            <label>
+              Accounting
+              <input id="acc" name="acc" type="number" min="0" max="5" step="1" value="0" title="Accounting skill level used to reduce sales tax." />
+            </label>
+            <label>
+              Broker Rel.
+              <input id="bro" name="bro" type="number" min="0" max="5" step="1" value="0" title="Broker Relations skill level used to reduce listing fees." />
+            </label>
+            <label>
+              Adv. Broker
+              <input id="advBro" name="advBro" type="number" min="0" max="5" step="1" value="0" title="Advanced Broker Relations skill level; discounts relist fees when Realistic patient valuation is on." />
+            </label>
+          </div>
+          <div class="grid-two">
+            <label>
+              Faction standing
+              <input id="factionStand" name="factionStand" type="number" min="-10" max="10" step="0.1" value="0" title="Faction standing used in broker-fee calculations." />
+            </label>
+            <label>
+              Corp standing
+              <input id="corpStand" name="corpStand" type="number" min="-10" max="10" step="0.1" value="0" title="Corporation standing used in broker-fee calculations." />
+            </label>
+          </div>
+        </section>
+        </aside>
+        <button id="toggleFilters" class="filter-edge-toggle" type="button" aria-controls="filtersPanel" aria-expanded="true" aria-label="Collapse filters" title="Collapse filters">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16M4 19h16M4 5v14M9 5v14"/></svg>
+          <span class="filter-toggle-label">Filters</span>
+        </button>
+      </div>
+
+      <section class="results" aria-label="LP offer leaderboard">
+        <div class="metric-strip" aria-label="Leaderboard summary">
+          <article class="metric-card" data-value-tone="profit" title="Highest buy-order ISK per LP in the loaded rows.">
+            <span class="metric-label">Best ISK/LP (Buy)</span>
+            <strong id="metricBestInstant">-</strong>
+            <span id="metricBestInstantMeta" class="metric-note">waiting for rows</span>
+          </article>
+          <article class="metric-card" data-value-tone="success" title="Highest sell-order ISK per LP in the loaded rows.">
+            <span class="metric-label">Best ISK/LP (Sell)</span>
+            <strong id="metricBestPatient">-</strong>
+            <span id="metricBestPatientMeta" class="metric-note">waiting for rows</span>
+          </article>
+          <article class="metric-card" data-value-tone="info" title="Median displayed ISK per LP across loaded rows.">
+            <span class="metric-label">Median ISK/LP</span>
+            <strong id="metricMedianIskPerLp">-</strong>
+            <span class="metric-note">loaded rows</span>
+          </article>
+          <article class="metric-card" data-value-tone="info" title="Total LP needed by the loaded offers and run settings.">
+            <span class="metric-label">LP Volume</span>
+            <strong id="metricLpVolume">-</strong>
+            <span class="metric-note">loaded run cost</span>
+          </article>
+          <article class="metric-card" data-value-tone="cost" title="Total ISK required by the loaded offers and run settings.">
+            <span class="metric-label">ISK Volume</span>
+            <strong id="metricIskVolume">-</strong>
+            <span id="metricBestIskHour" class="metric-note">LP/hour value</span>
+          </article>
+          <article class="metric-card metric-health" title="Summary of price and quality warnings in the loaded rows.">
+            <span class="metric-label">Price Health</span>
+            <strong id="metricPriceHealth">-</strong>
+            <span id="metricPriceHealthNote" class="metric-note">waiting for rows</span>
+          </article>
+        </div>
+
+        <div id="tableWrap" class="table-wrap">
+          <div class="floating-hscroll" aria-hidden="true"><div class="floating-hscroll-inner"></div></div>
+          <table>
+            <thead>
+              <tr>
+                <th class="rank-header" title="Leaderboard position after the active filters and sort.">Rank</th>
+                <th class="offer-header" title="LP store offer name.">Offer</th>
+                <th class="corp-header" title="NPC corporation that owns the LP store; non-highsec risk is flagged.">Corp</th>
+                <th data-sort="lp"><button class="sort-header" type="button" title="LP required for one run or the feasible run count.">LP<span class="sort-indicator"></span></button></th>
+                <th data-sort="isk"><button class="sort-header" type="button" title="ISK required by the LP store before market inputs.">ISK<span class="sort-indicator"></span></button></th>
+                <th data-sort="iskPerLp"><button class="sort-header" type="button" title="Displayed ISK per LP for the active ranking basis.">ISK/LP<span class="sort-indicator"></span></button></th>
+                <th data-sort="instant"><button class="sort-header" type="button" title="ISK per LP after selling to buy orders, net of tax.">Buy<span class="sort-indicator"></span></button></th>
+                <th data-sort="patient"><button class="sort-header" type="button" title="ISK per LP from sell-order listings, net of tax and broker fees.">Sell<span class="sort-indicator"></span></button></th>
+                <th data-sort="roi"><button class="sort-header" type="button" title="Buy-order profit divided by required capital.">ROI<span class="sort-indicator"></span></button></th>
+                <th data-sort="iskPerHour" class="isk-hour"><button class="sort-header" type="button" title="ISK per hour using the active valuation basis and LP/hour input.">ISK/hr<span class="sort-indicator"></span></button></th>
+                <th class="volume-header" title="Packaged cargo volume for the products.">m3</th>
+                <th data-sort="volume"><button class="sort-header" type="button" title="28-day average daily Jita market volume for the primary output item.">Sold/day<span class="sort-indicator"></span></button></th>
+                <th class="flags-header" title="Liquidity, price-quality, cargo-volume, access-risk, vanity, and stale-data warnings.">Flags</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="rowTemplate">
+      <tr class="data-row">
+        <td data-cell="rank" data-label="Rank"></td>
+        <td data-cell="offer" data-label="Offer"></td>
+        <td data-cell="corp" data-label="Corp"></td>
+        <td data-cell="lp" data-label="LP" class="value-lp"></td>
+        <td data-cell="isk" data-label="ISK" class="value-cost"></td>
+        <td data-cell="iskPerLp" data-label="ISK/LP" class="value-isk-lp"></td>
+        <td data-cell="instant" data-label="Buy" class="value-instant"></td>
+        <td data-cell="patient" data-label="Sell" class="value-patient"></td>
+        <td data-cell="roi" data-label="ROI" class="value-roi"></td>
+        <td data-cell="iskHour" data-label="ISK/hr" class="isk-hour value-instant"></td>
+        <td data-cell="cargo" data-label="m3" class="value-volume"></td>
+        <td data-cell="supply" data-label="Sold/day" class="value-supply"></td>
+        <td data-cell="flags" data-label="Flags"></td>
+      </tr>
+      <tr class="detail-row">
+        <td colspan="13"><div class="detail"></div></td>
+      </tr>
+    </template>
+
+    <script src="/lp/app.js" type="module"></script>
+  </body>
+</html>

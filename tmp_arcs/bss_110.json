@@ -1,0 +1,35 @@
+{
+  "arc_id": 5,
+  "name": "The Blood-Stained Stars",
+  "faction": "SISTERS OF EVE",
+  "level": 1,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=110",
+  "missions": [
+    {
+      "mission_id": 110,
+      "arc_position": 1,
+      "prev_mission_id": 109,
+      "next_mission_id": 111,
+      "name": "Tracking the Queen (2 of 3)",
+      "level": 1,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "That was close. At least Corin's out of danger for the moment. We really want the tracking data for this drone. Luckily, he hid the data in a secure place. Can I trust you to take him to his hideout in a nearby station so he can transfer the data? Buying and selling information takes time, you know?<br>\n<br>\n<br>",
+      "objective_html": null,
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=110",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

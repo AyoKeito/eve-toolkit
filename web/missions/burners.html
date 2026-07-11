@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Anomic burner mission guide for EVE Online: recommended fits, orbits, ammo, and blitz instructions for every Anomic Team, Agent, Base, and Nergal burner mission." />
+    <link rel="canonical" href="https://eve.ayokei.to/missions/burners" />
+    <meta property="og:title" content="Anomic burners — EVE Mission Reference" />
+    <meta property="og:description" content="Anomic burner mission guide: recommended fits, orbits, ammo, and blitz instructions for every burner mission." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/missions/burners" />
+    <title>Anomic burners — EVE Mission Reference</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/missions/style.css" />
+    <link rel="stylesheet" href="/missions/burners.css" />
+    <!-- Full import graph of /missions/burners.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/missions/diagnostics.js" />
+    <link rel="modulepreload" href="/missions/beta-notice.js" />
+    <link rel="modulepreload" href="/missions/dom-util.js" />
+    <link rel="modulepreload" href="/missions/burners-util.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="missions-topbar">
+      <div class="topbar-brand">
+        <a class="home-link" href="/" title="EVE Tools — home" aria-label="EVE Tools home">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <path class="bm-hex" d="M32 8 52 20v24L32 56 12 44V20Z" fill="none" stroke-width="3" />
+            <path class="bm-net" d="M32 17v30M20 24l12-7 12 7M20 40l12 7 12-7" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div>
+          <div class="missions-title">
+            <h1>Anomic burners</h1>
+            <span class="beta-badge" title="The missions section is in beta — data is still being verified and may be inaccurate.">BETA</span>
+          </div>
+          <p id="statusLine">Fits, orbits and blitz instructions for the anomic burner mission set</p>
+        </div>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+    </header>
+
+    <main class="codex-shell">
+      <aside class="codex-rail burner-rail" aria-label="Anomic burners navigation">
+        <p class="codex-rail-label">Content type</p>
+        <nav class="codex-nav" aria-label="Content types">
+          <a class="codex-nav-item" href="/missions/">
+            <span class="codex-nav-text">Epic arcs</span>
+          </a>
+          <span class="codex-nav-item disabled" aria-disabled="true">
+            <span class="codex-nav-text">COSMOS</span>
+            <span class="codex-nav-tag">Planned</span>
+          </span>
+          <a class="codex-nav-item active" href="/missions/burners" aria-current="page">
+            <span class="codex-nav-text">Anomic burners</span>
+            <span class="codex-nav-count">18</span>
+          </a>
+          <span class="codex-nav-item disabled" aria-disabled="true">
+            <span class="codex-nav-text">Data centers</span>
+            <span class="codex-nav-tag">Planned</span>
+          </span>
+        </nav>
+
+        <p class="codex-rail-label">Guide sections</p>
+        <nav class="codex-nav" id="burnersToc" aria-label="Guide sections">
+          <p class="codex-empty">Loading&hellip;</p>
+        </nav>
+
+        <div class="codex-rail-bottom">
+          <a class="codex-rail-link" href="/missions/browse">Browse all missions &#8594;</a>
+        </div>
+      </aside>
+
+      <section class="codex-main" id="burnersMain" aria-label="Anomic burners guide">
+        <p class="codex-empty">Loading the Anomic burners guide&hellip;</p>
+      </section>
+    </main>
+
+    <footer class="burner-footer">
+      Anomic burner intel adapted from the BEARS PVE Guide by the BEARS Community.
+    </footer>
+
+    <script src="/missions/burners.js" type="module"></script>
+  </body>
+</html>

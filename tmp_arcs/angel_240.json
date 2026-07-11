@@ -1,0 +1,35 @@
+{
+  "arc_id": 6,
+  "name": "Angel Sound",
+  "faction": "ANGEL CARTEL",
+  "level": 3,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=240",
+  "missions": [
+    {
+      "mission_id": 240,
+      "arc_position": 1,
+      "prev_mission_id": 238,
+      "next_mission_id": null,
+      "name": "Situation Normal",
+      "level": 3,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "Boundless Creations has a communications array keeping tabs on the research base. If you attack the base now, they'll call in reinforcements and make your life difficult.<br><br>The good news is that they've attempted to hide the array inside a gas cloud rather than protect it in the open. They expect it to be undetected, and to most people it would be. Our scouts have uncovered the area though, and have observed engineers living at the compound. They will be carrying a security code which you must recover. You will be able to use it to deactivate the array without alerting the main Boundless Creation fleet.<br>\n<br>\n<br>",
+      "objective_html": "Eliminate the Boundless Creations engineers. Use their security codes to silence the communications array.<br>\n<br>\n<br>\nNo information about the mission site.<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=240",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

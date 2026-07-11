@@ -1,0 +1,35 @@
+{
+  "arc_id": 5,
+  "name": "The Blood-Stained Stars",
+  "faction": "SISTERS OF EVE",
+  "level": 1,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=138",
+  "missions": [
+    {
+      "mission_id": 138,
+      "arc_position": 1,
+      "prev_mission_id": 135,
+      "next_mission_id": 140,
+      "name": "The Caldari Commander",
+      "level": 1,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "Adani Yusev, a contractor with Ishukone, is eager to speak with you in Sosh. I've heard he is the very model of an efficient Caldari soldier.<br>\n<br>\n<br>",
+      "objective_html": "Report to Adani Yusev in Sosh (0.5)<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=138",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

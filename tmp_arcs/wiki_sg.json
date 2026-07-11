@@ -1,0 +1,211 @@
+[
+  {
+    "id": 244,
+    "name": "Enemy of my Enemy",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Gallente-side entry; report to Kori Latamaki in H-PA29. Interceptor mandatory — nullsec bubbles and hostiles en route.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 249,
+    "name": "Recruitment Drive",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Guristas-side entry; report to Kori Latamaki in H-PA29. Interceptor mandatory — nullsec bubbles and hostiles en route.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 250,
+    "name": "Turning Coat",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Caldari-side entry; report to Kori Latamaki in H-PA29. Interceptor mandatory — nullsec bubbles and hostiles en route.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 245,
+    "name": "Intelligence Mining",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Destroy Industrial to auto-loot item; waves spawn on timer (~5 min) regardless of kills. -0.02% Caldari State standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 246,
+    "name": "Planning the Operation",
+    "mission_type": "BRANCH",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Choose: 'Sabotage 101' (stealth/minefield route) or 'Brassy Faced Bastard' (direct combat). No lasting arc impact.",
+    "recommended_ship": "Any ship"
+  },
+  {
+    "id": 247,
+    "name": "Sabotage 101",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "44 proximity mines detonate at 7.5 km but damage at 7 km — approach slowly. Destroying mines costs -2.4% Caldari State standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 248,
+    "name": "Brassy Faced Bastard",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Guards are friendly until you fire or approach — both groups must be cleared before acc-gate activates. Blueprint lootable before all enemies die.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 251,
+    "name": "Upward Momentum",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": null,
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 252,
+    "name": "Miscommunication",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Requires Hacking III and a Data Analyzer (agent provides it — equip before undocking). Reinforcements spawn after successful hack.",
+    "recommended_ship": "Destroyer + Data Analyzer (Hacking III required)"
+  },
+  {
+    "id": 253,
+    "name": "Fuel Gauge",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Destroy one fuel depot to cascade-kill all capital ships; ignore battleships. Destroying Stasis Towers costs -2.4% Caldari State standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 254,
+    "name": "Knockout Punch",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Board the agent-provided shuttle (it will be destroyed); don't shoot guards. Carrier drops Caldari Navy Rear-Admiral Insignia I — bookmark wreck to retrieve.",
+    "recommended_ship": "Board provided shuttle (your ship stays docked)"
+  },
+  {
+    "id": 255,
+    "name": "Culling the Weak",
+    "mission_type": "BRANCH",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Choose: investigate Irichi (→ Threat Assessment path) or investigate Kori via Eroma Eralen (→ Smoke and Mirrors path). No lasting arc impact.",
+    "recommended_ship": "Any ship"
+  },
+  {
+    "id": 256,
+    "name": "Threat Assessment",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": null,
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 258,
+    "name": "Dread Pirates",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Place Dread Guristas Strike Force (1 m³) in cargo before undocking. Drop at HQ structure to spawn acc-gate; survive 3 min of reinforcement waves. -0.24% Caldari standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 259,
+    "name": "Rabbit Hole",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Storage bunker drops two containers — only one holds the mission item. Destroy Point Defense Battery to drop forcefield. Each structure kill costs -0.24% Caldari standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 260,
+    "name": "Passing the Buck",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Carry Lt. Kipo (from Rabbit Hole) in cargo. Drop at HQ to open acc-gate; then kill in order: Yari/Daito → Shukuro Buke → Kerai to reveal warehouse. Caldari Navy tags drop.",
+    "recommended_ship": "T3 Destroyer or below (gate limit)"
+  },
+  {
+    "id": 257,
+    "name": "Smoke and Mirrors",
+    "mission_type": "ENCOUNTER",
+    "faction": "Guristas",
+    "damage_to_deal": "EM/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Approach four warehouses sequentially; each spawns a Pithoriate cruiser — kill cruiser, frigates warp off. Destroy final warehouse to trigger Eroma Eralen meeting.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 261,
+    "name": "Foxfire",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Destroy 11 sentry guns to uncloak acc-gate. Bunker drops two containers — only one has the item. Avoid Point Defense Batteries/Stasis Tower: each costs -2.4% Caldari standing.",
+    "recommended_ship": "T1 Destroyer or Frigate (gate limit)"
+  },
+  {
+    "id": 262,
+    "name": "Spy Games",
+    "mission_type": "ENCOUNTER",
+    "faction": "Caldari State",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Forcefield regens at 150 HP/s; blitz via Tractor Beam I + 25 km weapon to pull container out. Destroying bunker costs -2.4% Caldari standing.",
+    "recommended_ship": "T1 Destroyer or Frigate + Tractor Beam I (forcefield blitz)"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "arc_id": 5,
+  "name": "The Blood-Stained Stars",
+  "faction": "SISTERS OF EVE",
+  "level": 1,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=137",
+  "missions": [
+    {
+      "mission_id": 137,
+      "arc_position": 1,
+      "prev_mission_id": 135,
+      "next_mission_id": null,
+      "name": "The Minmatar Commander",
+      "level": 1,
+      "mission_type": "ENCOUNTER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "Kitar Ang, a veteran of the Minmatar Republic Fleet, awaits you in Avyuh. She is a brilliant tactician, if impatient.<br>\n<br>\n<br>",
+      "objective_html": "Report to Kitar Ang in Avyuh (0.6)<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=137",
+      "objective_items": [],
+      "pockets": []
+    }
+  ]
+}

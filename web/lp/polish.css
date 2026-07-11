@@ -1,0 +1,115 @@
+/* Polish layer -- subtle enhancements layered over source style.css.
+   Goals: smoother interactions, better affordances, refined glyphs.
+   Non-goals: changing the layout, colors, spacing, or visual character. */
+
+/* ---------- 2. Smoother detail-row expand ----------
+   Source toggles [hidden] instantly. Replace with a grid-rows animation
+   that opens the detail strip in 220ms. */
+.detail-row {
+  display: table-row;
+}
+.detail-row[hidden] {
+  display: table-row;
+}
+.detail-row > td {
+  padding: 0;
+  border-bottom: 0;
+}
+.detail-row .detail-grid {
+  display: grid;
+  grid-template-columns: var(--detail-cols);
+  overflow: hidden;
+  max-height: 286px;
+  opacity: 1;
+  transition: max-height 240ms cubic-bezier(.2,.7,.3,1), opacity 180ms ease;
+}
+.detail-row[hidden] .detail-grid {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  min-height: 0;
+}
+.detail-row[hidden] > td {
+  border-bottom: 0;
+}
+
+/* ---------- 3. Refined sort indicator ----------
+   Replace the ASCII marker with a clean chevron and a gentle rotate
+   between ascending and descending. */
+.sort-indicator {
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 180ms ease, color 160ms ease;
+}
+.sort-indicator::before { content: "" !important; }
+.sort-indicator::after {
+  content: "";
+  width: 8px; height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+th[aria-sort="descending"] .sort-indicator {
+  color: var(--profit);
+}
+th[aria-sort="ascending"] .sort-indicator {
+  color: var(--profit);
+  transform: rotate(180deg);
+}
+th:not([aria-sort]) .sort-indicator {
+  color: var(--subtle);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.sort-header:hover .sort-indicator {
+  opacity: 0.7;
+}
+
+/* ---------- 4. Subtle row affordance ----------
+   Add a faint chevron at the right of the Offer cell on hover to hint
+   the row is expandable. */
+.data-row td:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  right: 8px; top: 50%;
+  width: 6px; height: 6px;
+  margin-top: -4px;
+  border-right: 1.5px solid var(--subtle);
+  border-bottom: 1.5px solid var(--subtle);
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 220ms cubic-bezier(.2,.7,.3,1);
+}
+.data-row:hover td:nth-child(2)::after {
+  opacity: 0.6;
+}
+.data-row.expanded td:nth-child(2)::after {
+  opacity: 0.8;
+  transform: rotate(45deg);
+}
+
+/* ---------- 5. Filter section eyebrow color ----------
+   Source filter-group h2 uses --text; nudge to a more deliberate
+   accent-leaning subtle. Same weight, no shift in rhythm. */
+.filter-group > h2 {
+  color: color-mix(in srgb, var(--accent) 35%, var(--muted));
+}
+
+/* ---------- 6. Metric strip number, slight weight bump ---------- */
+.metric-card strong {
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+/* ---------- 7. Reduced-motion respect ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .data-row td:nth-child(2)::after,
+  .sort-indicator,
+  .detail-row .detail-grid {
+    transition: none !important;
+    animation: none !important;
+  }
+}

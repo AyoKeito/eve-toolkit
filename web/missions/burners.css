@@ -1,0 +1,392 @@
+/* Anomic burners (/missions/burners) — page-specific styles. Loaded AFTER
+   /lp/theme.css and /missions/style.css; builds on the codex-*/chip/mission-card
+   language already defined there so the page reads as part of the same system.
+   Ported from the Layout A prototype (web/missions/proto/a.html). */
+
+/* --- attribution card under the intro --- */
+.burner-attribution {
+  margin-top: 16px;
+  display: grid;
+  gap: 4px;
+  max-width: 640px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 55%, transparent);
+}
+.burner-attribution-title { font-size: 13px; color: var(--text); }
+.burner-attribution-title a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.burner-attribution-title a:hover { text-decoration: underline; }
+.burner-attribution-meta { color: var(--subtle); font-size: 11.5px; }
+.burner-attribution-dedication { color: var(--muted); font-size: 11.5px; font-style: italic; }
+
+/* --- rail: nested TOC (category headers + mission links), below the shared
+   content-type nav --- */
+.burner-toc-top { font-weight: 650; }
+.burner-toc-group { margin-top: 14px; }
+.burner-toc-group:first-child { margin-top: 0; }
+.burner-toc-heading {
+  display: block;
+  padding: 7px 10px 3px;
+  color: var(--subtle);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 7px;
+  transition: color 0.12s;
+}
+.burner-toc-heading:hover { color: var(--text); }
+.burner-toc-missions { gap: 1px; }
+.burner-toc-mission { font-size: 12.5px; padding: 5px 10px 5px 18px; }
+
+/* JS-driven scrollspy active state, shared with the server-rendered .active
+   look used on the codex landing page nav. */
+.codex-nav-item.active,
+.burner-toc-heading.active {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+}
+
+/* --- collapsible "Getting started" block + nested sub-collapsibles --- */
+.burner-details {
+  margin: 22px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.burner-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 18px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  user-select: none;
+}
+.burner-details > summary::-webkit-details-marker { display: none; }
+.burner-details > summary::after {
+  content: "\25B8";
+  margin-left: auto;
+  color: var(--subtle);
+  transition: transform 0.15s ease;
+}
+.burner-details[open] > summary::after { transform: rotate(90deg); }
+.burner-details-body {
+  padding: 16px 18px 20px;
+  display: grid;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+}
+.burner-subheading {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+.burner-para { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0 0 8px; }
+.burner-para:last-child { margin-bottom: 0; }
+
+.burner-subdetails {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 45%, transparent);
+  overflow: hidden;
+}
+.burner-subdetails + .burner-subdetails { margin-top: 8px; }
+.burner-subdetails > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text);
+  user-select: none;
+}
+.burner-subdetails > summary::-webkit-details-marker { display: none; }
+.burner-subdetails > summary::before {
+  content: "\25B8";
+  color: var(--subtle);
+  transition: transform 0.15s ease;
+  flex: 0 0 auto;
+}
+.burner-subdetails[open] > summary::before { transform: rotate(90deg); }
+.burner-subdetails-body { padding: 4px 14px 14px; display: grid; gap: 10px; }
+
+.burner-skill-plans { display: grid; gap: 8px; }
+.burner-skill-meta { margin-left: auto; color: var(--subtle); font-size: 11px; font-weight: 400; }
+.burner-copy-row { display: flex; justify-content: flex-end; }
+.burner-skill-list {
+  margin: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--muted);
+  font: 11.5px/1.65 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  white-space: pre-wrap;
+}
+
+.burner-implant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.burner-implant-card {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 55%, transparent);
+}
+.burner-implant-card h4 { margin: 0 0 6px; color: var(--text); font-size: 11.5px; font-weight: 650; }
+.burner-implant-card ul { margin: 0; padding-left: 16px; color: var(--muted); font-size: 12px; line-height: 1.55; }
+
+/* these two tables opt out of the browse-table rules in style.css (bare
+   table/th/td selectors force min-width:940px + nowrap ellipsis, which is
+   meant for the mission browser, not a compact reference table here) */
+.burner-drug-table,
+.burner-per-mission-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+.burner-drug-table th,
+.burner-drug-table td,
+.burner-per-mission-table th,
+.burner-per-mission-table td {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  border-right: 0;
+  font-size: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.burner-drug-table th,
+.burner-per-mission-table th {
+  background: var(--panel-3);
+  color: var(--muted);
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.burner-drug-table tr:last-child td,
+.burner-per-mission-table tr:last-child td { border-bottom: 0; }
+
+/* --- category sections --- */
+.burner-category { margin-top: 44px; scroll-margin-top: 90px; }
+.burner-category-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.burner-category-header h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+
+.burner-facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.burner-fact-card {
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+}
+.burner-fact-card .pf-label {
+  display: block;
+  color: var(--subtle);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.burner-fact-card .pf-value { color: var(--text); font-size: 12.5px; line-height: 1.45; }
+
+.burner-overview { max-width: 720px; margin-bottom: 18px; }
+.burner-missions { display: grid; gap: 16px; }
+
+/* --- mission card --- */
+.burner-mission {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  scroll-margin-top: 90px;
+}
+.burner-mission-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.burner-mission-titles h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+.burner-mission-enemy { color: var(--muted); font-size: 12.5px; }
+.burner-ship-icons { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+
+/* Fixed-size placeholder box: reserves the icon's footprint before the network
+   image loads (no layout shift) and stays visible as a plain panel if the
+   image fails — burners.js hides the failed <img>, it never removes this box. */
+.burner-ship-icon-wrap {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--panel-3);
+  overflow: hidden;
+}
+.burner-ship-icon { width: 100%; height: 100%; object-fit: contain; }
+.burner-ship-initials { font-size: 10px; font-weight: 700; color: var(--accent); }
+.burner-vs { color: var(--subtle); font-size: 10.5px; font-weight: 700; text-transform: uppercase; margin: 0 2px; }
+
+.burner-alert {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--warning) 45%, var(--line));
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--text);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.burner-alert strong {
+  color: var(--warning);
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+.burner-alert ul { margin: 0; padding-left: 16px; }
+.burner-alert.burner-alert-danger {
+  border-color: color-mix(in srgb, var(--danger) 50%, var(--line));
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+}
+.burner-alert.burner-alert-danger strong { color: var(--danger); }
+
+.burner-variant-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.burner-variant-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-3);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.burner-variant-tab::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--muted); }
+.burner-variant-tab.tier-standard::before { background: var(--accent); }
+.burner-variant-tab.tier-starter::before { background: var(--focus); }
+.burner-variant-tab.tier-alt::before { background: var(--subtle); }
+.burner-variant-tab.tier-advanced::before { background: var(--warning); }
+.burner-variant-tab:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.burner-variant-tab.is-active {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel-3));
+}
+
+.burner-variant-panel { margin-top: 14px; display: grid; gap: 12px; }
+.burner-variant-panel[hidden] { display: none; }
+.burner-variant-byline { color: var(--subtle); font-size: 11px; }
+
+.burner-quickfacts { display: flex; flex-wrap: wrap; gap: 6px; }
+.burner-quickfacts .chip { min-height: 24px; }
+.burner-quickfacts .chip b { color: var(--text); font-weight: 700; margin-right: 4px; }
+.burner-note { color: var(--muted); font-size: 12px; font-style: italic; margin: 0; }
+
+.burner-instructions {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+  display: grid;
+  gap: 4px;
+}
+
+.burner-fit-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 45%, transparent);
+  padding: 12px 14px;
+}
+.burner-fit-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.burner-fit-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.burner-fit-ship { font-size: 11px; color: var(--subtle); }
+.burner-fit-modules,
+.burner-fit-cargo-lines {
+  display: grid;
+  gap: 2px;
+  font: 12px/1.55 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  color: var(--muted);
+}
+.burner-fit-line.is-empty { color: var(--subtle); font-style: italic; }
+.burner-fit-cargo { margin-top: 8px; padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+.burner-fit-cargo-heading { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--subtle); margin-bottom: 4px; }
+
+.burner-copy { flex: 0 0 auto; font-size: 11.5px; padding: 0 10px; }
+
+/* --- advanced builds --- */
+.burner-build-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  display: grid;
+  gap: 12px;
+}
+.burner-build-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.burner-build-head h3 { font-size: 15px; }
+.burner-build-covers { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.burner-pinnacle-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  display: grid;
+  gap: 10px;
+}
+.burner-pinnacle-card ul { columns: 2; column-gap: 24px; margin: 0; padding-left: 18px; color: var(--muted); font-size: 12.5px; line-height: 1.7; }
+
+.burner-error { padding: 40px 0; color: var(--danger); max-width: 560px; }
+.burner-error h2 { color: var(--danger); margin-bottom: 8px; font-size: 17px; }
+
+.burner-footer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+  color: var(--subtle);
+  font-size: 11.5px;
+  border-top: 1px solid var(--line);
+}
+.burner-footer a { color: var(--accent); }
+
+/* The burners rail carries two stacked navs (content type + guide sections), so it
+   needs more headroom before crowding — collapse it to a static top block at 900px,
+   ahead of style.css's generic 700px .codex-shell collapse for lighter rails. */
+@media (max-width: 900px) {
+  .codex-shell { display: block; padding: 0 12px 48px; }
+  .codex-rail.burner-rail {
+    position: static;
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 14px 10px 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+  }
+  .codex-main { max-width: none; padding: 18px 0 40px; }
+}
+
+@media (max-width: 700px) {
+  .burner-pinnacle-card ul { columns: 1; }
+  .burner-mission-head { flex-direction: column; }
+}

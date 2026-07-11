@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="EVE Online mission guides: every epic arc with branch diagrams, factions, damage profiles, rewards, and per-mission combat intel." />
+    <link rel="canonical" href="https://eve.ayokei.to/missions/" />
+    <meta property="og:title" content="EVE Mission Reference" />
+    <meta property="og:description" content="Epic arc guides with branch diagrams, damage profiles, rewards, and per-mission combat intel." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/missions/" />
+    <title>EVE Mission Reference</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/missions/style.css" />
+    <!-- Full import graph of /missions/app.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/missions/diagnostics.js" />
+    <link rel="modulepreload" href="/missions/beta-notice.js" />
+    <link rel="modulepreload" href="/missions/arc-meta.js" />
+    <link rel="modulepreload" href="/missions/fit-profile.js" />
+    <link rel="modulepreload" href="/missions/formatters.js" />
+    <link rel="modulepreload" href="/missions/dom-util.js" />
+    <link rel="modulepreload" href="/missions/missions-util.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="missions-topbar">
+      <div class="topbar-brand">
+        <a class="home-link" href="/" title="EVE Tools — home" aria-label="EVE Tools home">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <path class="bm-hex" d="M32 8 52 20v24L32 56 12 44V20Z" fill="none" stroke-width="3" />
+            <path class="bm-net" d="M32 17v30M20 24l12-7 12 7M20 40l12 7 12-7" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div>
+          <div class="missions-title">
+            <h1>Missions</h1>
+            <span class="beta-badge" title="The missions section is in beta — data is still being verified and may be inaccurate.">BETA</span>
+          </div>
+          <p id="statusLine">Mission guides loaded from local seed data</p>
+        </div>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+    </header>
+
+    <main class="codex-shell">
+      <aside class="codex-rail" aria-label="Mission content navigation">
+        <label class="codex-search">
+          <span class="visually-hidden">Search arcs or missions</span>
+          <input id="arcSearch" type="search" placeholder="Search arcs, Enter for missions" autocomplete="off" />
+        </label>
+
+        <p class="codex-rail-label">Content type</p>
+        <nav class="codex-nav" aria-label="Content types">
+          <a class="codex-nav-item active" href="/missions/" aria-current="page">
+            <span class="codex-nav-text">Epic arcs</span>
+            <span class="codex-nav-count" id="arcNavCount">–</span>
+          </a>
+          <span class="codex-nav-item disabled" aria-disabled="true">
+            <span class="codex-nav-text">COSMOS</span>
+            <span class="codex-nav-tag">Planned</span>
+          </span>
+          <a class="codex-nav-item" href="/missions/burners">
+            <span class="codex-nav-text">Anomic burners</span>
+            <span class="codex-nav-count">18</span>
+          </a>
+          <span class="codex-nav-item disabled" aria-disabled="true">
+            <span class="codex-nav-text">Data centers</span>
+            <span class="codex-nav-tag">Planned</span>
+          </span>
+        </nav>
+
+        <div class="codex-rail-bottom">
+          <a class="codex-rail-link" href="/missions/browse">Browse all missions &#8594;</a>
+        </div>
+      </aside>
+
+      <section class="codex-main" aria-label="Mission guides">
+        <header class="codex-section-header" id="epic-arcs">
+          <h2 class="codex-section-title">Epic arcs</h2>
+          <p class="codex-intro">
+            Handcrafted mission chains spanning entire regions of New Eden. Each arc is
+            <strong>repeatable every 3 months</strong> and awards large faction standing payouts
+            — the standard route to repairing or building empire standings. Pirate arcs also
+            drop exclusive ship blueprint copies.
+          </p>
+        </header>
+
+        <div id="arcGroups" class="codex-groups" aria-live="polite">
+          <p class="codex-empty">Loading arcs.</p>
+        </div>
+
+        <aside class="codex-coming" aria-label="Planned content">
+          <div class="codex-coming-header">
+            <span class="codex-coming-title">COSMOS</span>
+            <span class="codex-nav-tag">Planned</span>
+          </div>
+          <p>
+            COSMOS missions are constellation-bound, one-time mission chains tied to landmarks
+            scattered across each empire's space. Unlike epic arcs they cannot be repeated —
+            each agent grants their rewards only once per character, making them a strategic
+            permanent source of faction and corp standings.
+          </p>
+          <p>
+            Coverage is planned for all four empire constellations, listing agents by
+            constellation, required skills, reward items, and the permanent standing impact.
+          </p>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/missions/app.js" type="module"></script>
+  </body>
+</html>

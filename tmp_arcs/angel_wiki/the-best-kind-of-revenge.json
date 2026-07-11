@@ -1,0 +1,74 @@
+{
+  "name": "The Best Kind of Revenge",
+  "wiki_page": "The_Best_Kind_of_Revenge",
+  "mission_type": "ENCOUNTER",
+  "faction": null,
+  "damage_to_deal": null,
+  "damage_to_resist": null,
+  "recommended_ship": null,
+  "briefing_html": "Verat reveals that Yukiro Demense has been exploiting a black market cloning facility in Curse whose administrator accepted bribes to keep it running. The license has since been revoked, but the facility remains operational and the personnel are complicit.<br><br>Your mission is to destroy all staff at the site and then upload a virus payload — sourced from Serpentis Inquest technology — to the Central Database Hub, ensuring no records survive. Demense's clone network must be severed at the root.",
+  "objective_html": "Eliminate all hostile targets, then approach the Central Database Hub to transmit the virus.",
+  "reward_isk": 8000000,
+  "reward_lp": null,
+  "reward_bonus_isk": 1000000,
+  "bonus_time_seconds": 21600,
+  "objective_items": [],
+  "pockets": [
+    {
+      "pocket_index": 1,
+      "name": "Room 1",
+      "notes": null,
+      "groups": [
+        {
+          "group_index": 1,
+          "label": "Initial defenders",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 2, "type_name": "Mercenary Commander" },
+            { "quantity": 2, "type_name": "Sentry Cruise Missile Battery", "notes": "Optional — destroying costs standing" }
+          ]
+        },
+        {
+          "group_index": 2,
+          "label": "Reinforcement 1",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 7, "type_name": "Mercenary Elite Fighter" }
+          ]
+        },
+        {
+          "group_index": 3,
+          "label": "Reinforcement 2",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 3, "type_name": "Mercenary Rookie" },
+            {
+              "quantity": 1,
+              "type_name": "Mercenary Wingman",
+              "ewar": [
+                { "type": "warp_disrupt", "text": "Warp Disruptor" },
+                { "type": "web", "text": "Stasis Webifier" }
+              ]
+            }
+          ]
+        },
+        {
+          "group_index": 4,
+          "label": "Objective structure",
+          "distance_text": null,
+          "trigger_text": null,
+          "optional": false,
+          "npcs": [
+            { "quantity": 1, "type_name": "Central Database Hub", "notes": "Approach to complete mission — auto-transmits virus payload" }
+          ]
+        }
+      ]
+    }
+  ]
+}

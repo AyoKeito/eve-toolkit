@@ -1,0 +1,62 @@
+{
+  "name": "eve-lp-store-calculator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/precompress-assets.mjs",
+    "deploy": "bash scripts/deploy.sh",
+    "cf:purge-static": "node scripts/cf-purge-static.mjs",
+    "cf:purge-all": "node scripts/cf-purge-all.mjs",
+    "cf:ruleset:pull": "node scripts/cf-ruleset.mjs pull",
+    "cf:ruleset:diff": "node scripts/cf-ruleset.mjs diff",
+    "cf:ruleset:apply": "node scripts/cf-ruleset.mjs apply",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test server/test/*.test.ts",
+    "dev": "tsx server/src/index.ts",
+    "dev:timed": "node scripts/run-timed-dev.mjs",
+    "start": "node dist/server/src/index.js",
+    "ops:ps": "node scripts/ops-processes.mjs list",
+    "ops:kill-extras": "node scripts/ops-processes.mjs kill",
+    "import-sde": "node scripts/run-cli.mjs import-sde",
+    "refresh-sde": "node scripts/run-cli.mjs refresh-sde",
+    "fetch-lp": "node scripts/run-cli.mjs fetch-lp",
+    "fetch-prices": "node scripts/run-cli.mjs fetch-prices",
+    "fetch-adjusted-prices": "node scripts/run-cli.mjs fetch-adjusted-prices",
+    "fetch-history": "node scripts/run-cli.mjs fetch-history",
+    "fetch-contracts": "node scripts/run-cli.mjs fetch-contracts",
+    "fetch-killmails": "node scripts/run-cli.mjs fetch-killmails",
+    "compute": "node scripts/run-cli.mjs compute",
+    "snapshot": "node scripts/run-cli.mjs snapshot",
+    "log:patient-fill": "node scripts/log-patient-fill.mjs",
+    "import-missions": "node scripts/run-cli.mjs import-missions",
+    "scrape-missions": "node scripts/run-cli.mjs scrape-missions"
+  },
+  "dependencies": {
+    "@fastify/compress": "^8.3.1",
+    "@fastify/etag": "^6.1.0",
+    "@fastify/rate-limit": "^10.3.0",
+    "@fastify/static": "^9.1.3",
+    "@types/yauzl": "^2.10.3",
+    "better-sqlite3": "^11.8.1",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "node-cron": "^3.0.3",
+    "tar-stream": "^3.1.7",
+    "unbzip2-stream": "^1.4.3",
+    "undici": "^8.3.0",
+    "yauzl": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.7",
+    "@types/node-cron": "^3.0.11",
+    "@types/tar-stream": "^3.1.3",
+    "cheerio": "^1.2.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

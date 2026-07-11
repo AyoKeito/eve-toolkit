@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Browse and filter every indexed EVE Online mission by name, level, faction, type, and epic arc." />
+    <link rel="canonical" href="https://eve.ayokei.to/missions/browse" />
+    <meta property="og:title" content="EVE Mission Browser" />
+    <meta property="og:description" content="Filter EVE Online missions by faction, damage, resist profile, EWAR, and epic arc context." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/missions/browse" />
+    <title>EVE Mission Browser</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/missions/style.css" />
+    <!-- Full import graph of /missions/browse.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/missions/diagnostics.js" />
+    <link rel="modulepreload" href="/missions/beta-notice.js" />
+    <link rel="modulepreload" href="/missions/fit-profile.js" />
+    <link rel="modulepreload" href="/missions/formatters.js" />
+    <link rel="modulepreload" href="/missions/dom-util.js" />
+    <link rel="modulepreload" href="/missions/missions-util.js" />
+    <link rel="modulepreload" href="/shared/utils.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="missions-topbar">
+      <div>
+        <div class="missions-title">
+          <h1>Browse missions</h1>
+          <span class="beta-badge" title="The missions section is in beta — data is still being verified and may be inaccurate.">BETA</span>
+        </div>
+        <p id="statusLine">Mission reference loaded from local seed data</p>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+      <nav class="missions-actions" aria-label="Primary navigation">
+        <a class="button ghost" href="/missions/">Missions home</a>
+        <a class="button ghost" href="/lp/">LP</a>
+      </nav>
+    </header>
+
+    <main class="missions-shell">
+      <aside class="mission-filters" aria-label="Mission filters">
+        <label>
+          Mission search
+          <input id="missionSearch" type="search" placeholder="Name, objective, faction" autocomplete="off" />
+        </label>
+        <label>
+          Level
+          <select id="levelFilter">
+            <option value="">All levels</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+            <option value="4">Level 4</option>
+            <option value="5">Level 5</option>
+          </select>
+        </label>
+        <label>
+          Enemy faction
+          <select id="factionFilter">
+            <option value="">All factions</option>
+          </select>
+        </label>
+        <label>
+          Type
+          <select id="typeFilter">
+            <option value="">All types</option>
+            <option value="ENCOUNTER">Encounter</option>
+            <option value="BRANCH">Branch</option>
+            <option value="COURIER">Courier</option>
+            <option value="TRAVEL">Travel</option>
+            <option value="TRADE">Trade</option>
+            <option value="MINING">Mining</option>
+            <option value="STORYLINE">Storyline</option>
+          </select>
+        </label>
+        <label>
+          Arc
+          <select id="arcFilter">
+            <option value="">All arcs</option>
+          </select>
+        </label>
+      </aside>
+
+      <section class="mission-board" aria-label="Mission workspace">
+        <div class="mission-summary">
+          <article>
+            <span>Missions</span>
+            <strong id="missionCount">0</strong>
+            <small>indexed</small>
+          </article>
+          <article>
+            <span>Arcs</span>
+            <strong id="arcCount">0</strong>
+            <small>seeded</small>
+          </article>
+          <article>
+            <span>Filtered</span>
+            <strong id="filteredCount">0</strong>
+            <small>visible</small>
+          </article>
+        </div>
+
+        <div class="mission-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Mission</th>
+                <th>Level</th>
+                <th>Type</th>
+                <th>Faction</th>
+                <th>Arc</th>
+                <th>Deal</th>
+                <th>Resist</th>
+                <th>Ship</th>
+              </tr>
+            </thead>
+            <tbody id="missionRows">
+              <tr>
+                <td colspan="8" class="empty-state">Loading missions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="/missions/browse.js" type="module"></script>
+  </body>
+</html>

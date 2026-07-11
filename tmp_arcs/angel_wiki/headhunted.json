@@ -1,0 +1,17 @@
+{
+  "name": "Headhunted",
+  "wiki_page": "Headhunted",
+  "mission_type": "TRAVEL",
+  "faction": null,
+  "damage_to_deal": null,
+  "damage_to_resist": null,
+  "recommended_ship": null,
+  "briefing_html": "A recruiter operating under the alias Ellar Stin approaches you in Konora, looking for capable capsuleers to join operations in Curse. She explains that the Angel Cartel is fighting off Guristas and Sansha incursions and needs fresh talent.<br><br>Stin warns that the journey to nullsec is genuinely dangerous — interdiction bubble camps and hostile alliances are a real threat — and strongly recommends flying an interceptor. She takes no responsibility for ships or implants lost along the way.<br><br>Your contact on arrival is Abdiel Verat, the Cartel's primary liaison for capsuleers in the region, stationed at the Archangels Assembly Plant in K-QWHE.",
+  "objective_html": "Report to Abdiel Verat at K-QWHE V - Moon 4 - Archangels Assembly Plant.",
+  "reward_isk": 1000000,
+  "reward_lp": null,
+  "reward_bonus_isk": 1000000,
+  "bonus_time_seconds": 21600,
+  "objective_items": [],
+  "pockets": []
+}

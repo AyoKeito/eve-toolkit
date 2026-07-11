@@ -1,0 +1,42 @@
+services:
+  eve-lp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eve-lp-store-calculator:local
+    container_name: eve-lp
+    hostname: eve-lp
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    environment:
+      PORT: "3004"
+      HOST: 0.0.0.0
+      TRUST_PROXY: "1"
+      API_READ_RATE_LIMIT_MAX: "180"
+      DB_PATH: /app/data/lp.db
+      LOG_DIR: /app/logs
+      LOG_LEVEL: info
+    ports:
+      # Bind to loopback only. nginx runs on the host and proxies to 127.0.0.1:3004, so the port
+      # never needs to be reachable from the LAN. Publishing on 0.0.0.0 let anyone on the network
+      # hit the app directly, bypassing nginx entirely and spoofing X-Forwarded-For at will.
+      - "127.0.0.1:3004:3004"
+    volumes:
+      - ./data:/app/data
+      - ./backups:/app/backups
+      - ./logs:/app/logs
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - node -e "fetch('http://127.0.0.1:3004/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

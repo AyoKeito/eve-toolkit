@@ -1,0 +1,1543 @@
+{
+ "source": {
+  "title": "BEARS PVE Guide",
+  "author": "BEARS Community",
+  "url": "https://docs.google.com/document/d/1qcqJlUdPuBUYtpuwQcqoAATOm4VuvhPoEoDrsoVGdew/",
+  "updated": "2026-05-04",
+  "dedication": "You will be missed but never forgotten my friend"
+ },
+ "intro": [
+  "Your time is worth more than the wrecks on the field. Blitzing is about chaining missions and completing them as efficiently as possible, prioritising engagement and momentum over the tangible loot you'd get from looting and salvaging.",
+  "Blitzing focuses on speed, flow, and staying in the action. The only exceptions are Burner wrecks and Zor, as they have a chance to drop faction modules or high-value implants that justify the brief pause to loot them."
+ ],
+ "extras": {
+  "location_advice": {
+   "title": "Choosing a location",
+   "paragraphs": [
+    "So where is the best location? This is subjective. Some NPC Corporations dictate the area you will run. A primary example is if you want to run lvl 4's for the Sisters of Eve, Llangisi is the only place you can do this in high sec.",
+    "Below is a list of potential locations to run missions in high sec but this is by no means an exhaustive list. The criteria was at least 2 mission agents and a truesec rating of around the 0.49 mark.",
+    "These are just a suggestion. You should get a feel for the area and corporation you want to run for and move as you see fit.",
+    "Shemah - 0.84 Truesec - Home of the B.E.A.R.S Alliance: This is the home of the Bears alliance. That is all the reason you need. Mission with like-minded mission runners around you in a constellation that will never send you to low sec. Located in Kador with access to the Amarr trade hub. (Carthum Conglomerate - LP Store)",
+    "Chibi - 0.48 Truesec - Island Home of the B.E.A.R.S Alliance: Chibi is the Island home of the Bears. Located in Aridia, this High Sec island is attached to low sec which deters a lot of undesirable players who may want to liberate you from your PvE hulls. (CBD Corporation - LP Store)",
+    "Lanngisi - 0.46 Truesec: Sisters of Eve - LP Store - Considered one of the best mission running locations by many because of the True Sec of the system and the value of the LP store. Very close proximity to the Minmatar Trade hub of Hek. Rife with Gankers however.",
+    "Uuhulanen - 0.49 Truesec: Located in Black Rise, 9 jumps from Jita. Has access to two level 4 agents in system with the Caldari Navy and Laidai corporations. Very popular stores with Jita close by. (Caldari Navy LP Store, Lai Dai - LP Store)",
+    "Shuria - 0.48 Truesec: Located in Domain, 6 jumps from Amarr. Two MIO agents in the same system. (Ministry of Internal Order - LP Store)",
+    "Neesher - 0.52 Truesec: Located in Kor-Azor next door to Low sec. (The Scope - LP Store, Republic Security Services - LP Store)"
+   ]
+  },
+  "recommended_skills": {
+   "paragraphs": [
+    "These are the recommended skill plans for the Anomic Teams portion of the guide which can be found in the In Game Channel, Carebears Den.",
+    "Skill plans brought to you by Kaos Kalliope",
+    "You can either copy the list from each of the sub sections here or import directly in game."
+   ]
+  },
+  "skill_plans": [
+   {
+    "id": "garmur-training",
+    "name": "Garmur Anomic Training",
+    "notes": null,
+    "skills": [
+     "Spaceship Command 1",
+     "Spaceship Command 2",
+     "Spaceship Command 3",
+     "Spaceship Command 4",
+     "Gallente Frigate 1",
+     "Gallente Frigate 2",
+     "Gallente Frigate 3",
+     "Gallente Frigate 4",
+     "Caldari Frigate 1",
+     "Caldari Frigate 2",
+     "Caldari Frigate 3",
+     "Caldari Frigate 4",
+     "Missile Launcher Operation 1",
+     "Missile Launcher Operation 2",
+     "Missile Launcher Operation 3",
+     "Missile Launcher Operation 4",
+     "Missile Launcher Operation 5",
+     "Gunnery 1",
+     "Gunnery 2",
+     "Weapon Upgrades 1",
+     "Weapon Upgrades 2",
+     "Weapon Upgrades 3",
+     "Weapon Upgrades 4",
+     "Rockets 1",
+     "Rockets 2",
+     "Rockets 3",
+     "Rockets 4",
+     "Rockets 5",
+     "Rocket Specialization 1",
+     "Rocket Specialization 2",
+     "Rocket Specialization 3",
+     "Rocket Specialization 4",
+     "CPU Management 1",
+     "CPU Management 2",
+     "Long Range Targeting 1",
+     "Long Range Targeting 2",
+     "Long Range Targeting 3",
+     "Long Range Targeting 4",
+     "CPU Management 3",
+     "CPU Management 4",
+     "Target Painting 1",
+     "Target Painting 2",
+     "Target Painting 3",
+     "Target Painting 4",
+     "Signature Focusing 1",
+     "Signature Focusing 2",
+     "Signature Focusing 3",
+     "Signature Focusing 4",
+     "Navigation 1",
+     "Navigation 2",
+     "Navigation 3",
+     "Acceleration Control 1",
+     "Acceleration Control 2",
+     "Acceleration Control 3",
+     "Acceleration Control 4",
+     "Afterburner 1",
+     "Afterburner 2",
+     "Afterburner 3",
+     "High Speed Maneuvering 1",
+     "High Speed Maneuvering 2",
+     "High Speed Maneuvering 3",
+     "High Speed Maneuvering 4",
+     "Electronic Warfare 1",
+     "Electronic Warfare 2",
+     "Electronic Warfare 3",
+     "Evasive Maneuvering 1",
+     "Evasive Maneuvering 2",
+     "Evasive Maneuvering 3",
+     "Evasive Maneuvering 4",
+     "Frequency Modulation 1",
+     "Frequency Modulation 2",
+     "Frequency Modulation 3",
+     "Frequency Modulation 4",
+     "Long Distance Jamming 1",
+     "Long Distance Jamming 2",
+     "Long Distance Jamming 3",
+     "Long Distance Jamming 4",
+     "Propulsion Jamming 1",
+     "Propulsion Jamming 2",
+     "Propulsion Jamming 3",
+     "Propulsion Jamming 4",
+     "Guided Missile Precision 1",
+     "Guided Missile Precision 2",
+     "Guided Missile Precision 3",
+     "Guided Missile Precision 4",
+     "Warhead Upgrades 1",
+     "Warhead Upgrades 2",
+     "Warhead Upgrades 3",
+     "Warhead Upgrades 4",
+     "Missile Bombardment 1",
+     "Missile Bombardment 2",
+     "Missile Bombardment 3",
+     "Missile Bombardment 4",
+     "Missile Projection 1",
+     "Missile Projection 2",
+     "Missile Projection 3",
+     "Missile Projection 4",
+     "Rapid Launch 1",
+     "Rapid Launch 2",
+     "Rapid Launch 3",
+     "Rapid Launch 4",
+     "Mechanics 1",
+     "Mechanics 2",
+     "Mechanics 3",
+     "Science 1",
+     "Power Grid Management 1",
+     "Power Grid Management 2",
+     "Power Grid Management 3",
+     "Power Grid Management 4",
+     "Shield Operation 1",
+     "Shield Operation 2",
+     "Shield Operation 3",
+     "Shield Operation 4",
+     "Shield Upgrades 1",
+     "Shield Upgrades 2",
+     "Shield Upgrades 3",
+     "Shield Upgrades 4",
+     "Shield Compensation 1",
+     "Shield Compensation 2",
+     "Shield Compensation 3",
+     "Shield Compensation 4",
+     "Jury Rigging 1",
+     "Jury Rigging 2",
+     "Jury Rigging 3",
+     "Launcher Rigging 1",
+     "Launcher Rigging 2",
+     "Launcher Rigging 3",
+     "Astronautics Rigging 1",
+     "Astronautics Rigging 2",
+     "Astronautics Rigging 3",
+     "Shield Rigging 1",
+     "Shield Rigging 2",
+     "Shield Rigging 3"
+    ]
+   },
+   {
+    "id": "nergal-training",
+    "name": "Nergal Anomic Training Plan",
+    "notes": null,
+    "skills": [
+     "Spaceship Command 1",
+     "Spaceship Command 2",
+     "Spaceship Command 3",
+     "Spaceship Command 4",
+     "Precursor Frigate 1",
+     "Precursor Frigate 2",
+     "Precursor Frigate 3",
+     "Precursor Frigate 4",
+     "Precursor Frigate 5",
+     "Mechanics 1",
+     "Mechanics 2",
+     "Mechanics 3",
+     "Mechanics 4",
+     "Mechanics 5",
+     "Power Grid Management 1",
+     "Power Grid Management 2",
+     "Power Grid Management 3",
+     "Power Grid Management 4",
+     "Power Grid Management 5",
+     "Assault Frigates 1",
+     "Assault Frigates 2",
+     "Assault Frigates 3",
+     "Assault Frigates 4",
+     "Gunnery 1",
+     "Gunnery 2",
+     "Gunnery 3",
+     "Gunnery 4",
+     "Motion Prediction 1",
+     "Motion Prediction 2",
+     "Motion Prediction 3",
+     "Motion Prediction 4",
+     "Small Precursor Weapon 1",
+     "Small Precursor Weapon 2",
+     "Small Precursor Weapon 3",
+     "Small Precursor Weapon 4",
+     "Small Precursor Weapon 5",
+     "Small Disintegrator Specialization 1",
+     "Small Disintegrator Specialization 2",
+     "Small Disintegrator Specialization 3",
+     "Small Disintegrator Specialization 4",
+     "Rapid Firing 1",
+     "Rapid Firing 2",
+     "Rapid Firing 3",
+     "Rapid Firing 4",
+     "Sharpshooter 1",
+     "Sharpshooter 2",
+     "Sharpshooter 3",
+     "Sharpshooter 4",
+     "Controlled Bursts 1",
+     "Controlled Bursts 2",
+     "Controlled Bursts 3",
+     "Controlled Bursts 4",
+     "Surgical Strike 1",
+     "Surgical Strike 2",
+     "Surgical Strike 3",
+     "Surgical Strike 4",
+     "Trajectory Analysis 1",
+     "Trajectory Analysis 2",
+     "Trajectory Analysis 3",
+     "Trajectory Analysis 4",
+     "Navigation 1",
+     "Navigation 2",
+     "Navigation 3",
+     "Navigation 4",
+     "Afterburner 1",
+     "Afterburner 2",
+     "Afterburner 3",
+     "Afterburner 4",
+     "CPU Management 1",
+     "CPU Management 2",
+     "CPU Management 3",
+     "CPU Management 4",
+     "Propulsion Jamming 1",
+     "Propulsion Jamming 2",
+     "Propulsion Jamming 3",
+     "Propulsion Jamming 4",
+     "Science 1",
+     "Science 2",
+     "Science 3",
+     "Science 4",
+     "Energy Grid Upgrades 1",
+     "Energy Grid Upgrades 2",
+     "Energy Grid Upgrades 3",
+     "Energy Grid Upgrades 4",
+     "Target Painting 1",
+     "Target Painting 2",
+     "Target Painting 3",
+     "Target Painting 4",
+     "Electronic Warfare 1",
+     "Electronic Warfare 2",
+     "Frequency Modulation 1",
+     "Frequency Modulation 2",
+     "Frequency Modulation 3",
+     "Frequency Modulation 4",
+     "Signature Focusing 1",
+     "Signature Focusing 2",
+     "Signature Focusing 3",
+     "Signature Focusing 4",
+     "Electronic Warfare 3",
+     "Long Distance Jamming 1",
+     "Long Distance Jamming 2",
+     "Long Distance Jamming 3",
+     "Repair Systems 1",
+     "Repair Systems 2",
+     "Repair Systems 3",
+     "Repair Systems 4",
+     "Repair Systems 5",
+     "Hull Upgrades 1",
+     "Hull Upgrades 2",
+     "Hull Upgrades 3",
+     "Hull Upgrades 4",
+     "Capacitor Management 1",
+     "Capacitor Management 2",
+     "Capacitor Management 3",
+     "Capacitor Management 4",
+     "Weapon Upgrades 1",
+     "Weapon Upgrades 2",
+     "Weapon Upgrades 3",
+     "Weapon Upgrades 4",
+     "Weapon Upgrades 5",
+     "Advanced Weapon Upgrades 1",
+     "Advanced Weapon Upgrades 2",
+     "Advanced Weapon Upgrades 3",
+     "Advanced Weapon Upgrades 4",
+     "Jury Rigging 1",
+     "Jury Rigging 2",
+     "Jury Rigging 3",
+     "Jury Rigging 4",
+     "Armor Rigging 1",
+     "Armor Rigging 2",
+     "Armor Rigging 3"
+    ]
+   },
+   {
+    "id": "magic-17",
+    "name": "The Magic '17'",
+    "notes": null,
+    "skills": [
+     "CPU Management 1",
+     "CPU Management 2",
+     "CPU Management 3",
+     "CPU Management 4",
+     "CPU Management 5",
+     "Science 1",
+     "Science 2",
+     "Science 3",
+     "Cybernetics 1",
+     "Biology 1",
+     "Biology 2",
+     "Biology 3",
+     "Biology 4",
+     "Biology 5",
+     "Power Grid Management 1",
+     "Power Grid Management 2",
+     "Power Grid Management 3",
+     "Power Grid Management 4",
+     "Power Grid Management 5",
+     "Capacitor Management 1",
+     "Capacitor Management 2",
+     "Capacitor Management 3",
+     "Capacitor Management 4",
+     "Capacitor Management 5",
+     "Capacitor Systems Operation 1",
+     "Capacitor Systems Operation 2",
+     "Capacitor Systems Operation 3",
+     "Capacitor Systems Operation 4",
+     "Capacitor Systems Operation 5",
+     "Mechanics 1",
+     "Mechanics 2",
+     "Mechanics 3",
+     "Mechanics 4",
+     "Mechanics 5",
+     "Hull Upgrades 1",
+     "Hull Upgrades 2",
+     "Hull Upgrades 3",
+     "Hull Upgrades 4",
+     "Hull Upgrades 5",
+     "Shield Management 1",
+     "Shield Management 2",
+     "Shield Management 3",
+     "Shield Management 4",
+     "Shield Management 5",
+     "Shield Operation 1",
+     "Shield Operation 2",
+     "Shield Operation 3",
+     "Shield Operation 4",
+     "Shield Operation 5",
+     "Long Range Targeting 1",
+     "Long Range Targeting 2",
+     "Long Range Targeting 3",
+     "Long Range Targeting 4",
+     "Long Range Targeting 5",
+     "Signature Analysis 1",
+     "Signature Analysis 2",
+     "Signature Analysis 3",
+     "Signature Analysis 4",
+     "Signature Analysis 5",
+     "Navigation 1",
+     "Navigation 2",
+     "Navigation 3",
+     "Navigation 4",
+     "Navigation 5",
+     "Evasive Maneuvering 1",
+     "Evasive Maneuvering 2",
+     "Evasive Maneuvering 3",
+     "Evasive Maneuvering 4",
+     "Evasive Maneuvering 5",
+     "Warp Drive Operation 1",
+     "Warp Drive Operation 2",
+     "Warp Drive Operation 3",
+     "Warp Drive Operation 4",
+     "Warp Drive Operation 5",
+     "Spaceship Command 1",
+     "Spaceship Command 2",
+     "Spaceship Command 3",
+     "Spaceship Command 4",
+     "Spaceship Command 5"
+    ]
+   }
+  ],
+  "implants_boosters": {
+   "paragraphs": [
+    "Implants are a fundamental part of EVE Online. Be it for increasing learning attributes or improving combat performance, a cheap set of implants is a sound investment and will make their cost back several fold over the course of their use.",
+    "As you skill up, learn the burner missions and start earning that wonderful ISK, an upgrade path for your implants is recommended. This is based on increasing the repair power of your modules and improving the damage output and application of your weapon system.",
+    "For those who are either blitzing missions or using the 'Blazing Burners' concept, consider a Mid-grade Ascendancy set as this will reduce your time in warp and allow you to move from mission to mission faster.",
+    "Return on Investment: the fittings have been optimized for cost and effectiveness. The current interpretation of 'Return on Investment' that uses replacement value is considered flawed by the author - each module and hull (sans rigs) has an intrinsic value on resale, retaining about 85% of its initial value, so you need to exceed 15% of the cost to be in true profit.",
+    "Boosters and Drugs are a quick and easy way to add an extra edge to your burner running experience. They are one use buffs that have a base 30 minute duration and can be stacked for maximum effects. For the most effective use, Biology should be trained to at least 4, with 5 recommended (extends duration to 1 hour).",
+    "Implants have slots 1-10 and boosters have slots 1-20; some share the same slot and only one boost per slot can be active at any one time.",
+    "Drugs within EVE Online are one of the most useful buffs available to pilots. They are manufactured by EVE players and sold on the marketplace so supply and cost may vary. While the cost may seem high, over an hour the ISK you can make in the buff duration makes them more palatable.",
+    "Each drug also has a grade or strength which defines what drawbacks and how high the chance of a drawback occurring is: Synth (Synthetic) 6% bonus, no side effects; Standard 20% bonus, 20% base chance of side effects; Improved 25% bonus, 30% base chance of side effects; Strong 30% bonus, 40% base chance of side effects. Common side effects include reduced duration, decreases to repair amount or base amount for shields and armor, tracking penalties and reduced missile performance.",
+    "Drifter drugs exist but are currently financially unviable due to supply issues and are not part of this guide. In general this guide recommends the use of Synth (Synthetic) drugs to avoid the drawbacks.",
+    "This guide does not recommend the use of redeemable event/NES boosters unless their use would allow you to avoid a lost ship.",
+    "The Package - recommended drug/booster loadout: Slot 1 - Synth Blue Pill; Slot 2 - Synth Drop; Slot 3 - Synth Crash; Slot 11 - Agency 'Hardshell' TB3 Dose I/II. Additionally, based on supply (replace where duplication): Slot 11 - AIR Hardshell Booster II; Slot 15 - AIR Rapture Booster II."
+   ],
+   "implant_sets": [
+    {
+     "name": "Entry Level Implant Package (3 Nergals concept)",
+     "items": [
+      "(1-5) Learning implants of your choice",
+      "Inherent Implants 'Noble' Repair Systems RS-603",
+      "Eifyr and Co. 'Gunslinger' Motion Prediction MR-703",
+      "Inherent Implants 'Squire' Capacitor Management EM-803",
+      "Eifyr and Co. 'Gunslinger' Surgical Strike SS-903",
+      "Inherent Implants 'Noble' Hull Upgrades HG-1003"
+     ]
+    },
+    {
+     "name": "Implant Upgrade Path (repair effectiveness)",
+     "items": [
+      "(1-6) Mid-grade Asklepian Full set to Omega",
+      "Imperial Navy Modified 'Noble' Implant",
+      "Replace the +3% implants from the Entry Level package with their +5% variants"
+     ]
+    },
+    {
+     "name": "Base Content - Shield Focus Clone",
+     "items": [
+      "(1-6) Full Set of Mid Grade Crystals",
+      "Eifyr and Co. 'Gunslinger' Motion Prediction MR-703",
+      "Inherent Implants 'Squire' Capacitor Management EM-803",
+      "Eifyr and Co. 'Gunslinger' Surgical Strike SS-903",
+      "Zainou 'Deadeye' Rapid Launch RL-1003"
+     ]
+    },
+    {
+     "name": "Base Content - Armor Focus Clone",
+     "items": [
+      "(1-6) Full set of Mid-grade Asklepian",
+      "Eifyr and Co. 'Gunslinger' Motion Prediction MR-703",
+      "Inherent Implants 'Squire' Capacitor Management EM-803",
+      "Eifyr and Co. 'Gunslinger' Surgical Strike SS-903",
+      "Inherent Implants 'Noble' Hull Upgrades HG-1003"
+     ]
+    }
+   ],
+   "drugs": [
+    {
+     "name": "Blue Pill",
+     "slot": 1,
+     "effect": "Boosts shield repair amounts but increases signature radius."
+    },
+    {
+     "name": "Exile",
+     "slot": 1,
+     "effect": "Boosts armor repair amounts but reduces maximum velocity."
+    },
+    {
+     "name": "X-Instinct",
+     "slot": 1,
+     "effect": "Reduces signature radius (useful for survivability)."
+    },
+    {
+     "name": "Mindflood",
+     "slot": 1,
+     "effect": "Increases capacitor capacity."
+    },
+    {
+     "name": "Frentix",
+     "slot": 2,
+     "effect": "Increases optimal range for turrets."
+    },
+    {
+     "name": "Drop",
+     "slot": 2,
+     "effect": "Increases tracking speed for turrets."
+    },
+    {
+     "name": "Sooth Sayer",
+     "slot": 2,
+     "effect": "Improves falloff range."
+    },
+    {
+     "name": "Crash",
+     "slot": 3,
+     "effect": "Increases explosion velocity/reduces radius for missiles."
+    }
+   ]
+  }
+ },
+ "categories": [
+  {
+   "id": "teams",
+   "name": "Anomic Teams",
+   "difficulty": "entry",
+   "overview": [
+    "Each sub-section will cover off the builds and tactics for running the Anomic Team set of missions.",
+    "Whilst it is possible to lose ships in these missions, they are a great entry point for tackling burner missions.",
+    "In terms of investment, it is possible to complete all the team missions using a single hull with a minor refit and loading the specific ammo type as detailed in the guide.",
+    "You will need to have Rockets trained to V along with Rocket Specialisation. The build is not cap stable unless you have Target Painting V. In that instance, swap the Peripheral Compact Target Painter for a Parallel Enduring Target Painter.",
+    "The initial investment is approximately 124m isk but can vary depending on your primary trade hub.",
+    "With the appropriate connection skills, each Anomic team will net you around 5m in mission reward, 5m in Bounty and around 29m in LP value (based on a return of 2100 isk per LP) for a total of 39m. They also offer the chance to loot faction mods. The missions can take around 5 mins to complete including travelling time once you are experienced."
+   ],
+   "facts": {
+    "hulls": "Frigate-only sized hulls can enter",
+    "enemies": "One assault frigate supported by two logistics frigates",
+    "challenge": "The logistic ships repair the main target, making it hard to break through",
+    "investment": "~124m isk",
+    "income": "~39m per mission (5m mission reward + 5m bounty + ~29m LP value at 2100 isk/LP)"
+   },
+   "missions": [
+    {
+     "id": "team-enyo",
+     "name": "Team Enyo",
+     "enemy": "Burner Enyo + 2 logistics frigates",
+     "variants": [
+      {
+       "id": "garmur",
+       "label": "Garmur",
+       "ship": "Garmur",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 18 km",
+        "ammo": [
+         "Nova Rage Rocket"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Orbit at 18 km, activate all modules and fire Nova Rage until Enyo explodes."
+       ],
+       "warnings": [],
+       "eft": "[Garmur, Team Enyo]\nBallistic Control System II\nBallistic Control System II\nBallistic Control System II\n5MN Cold-Gas Enduring Microwarpdrive\nPeripheral Compact Target Painter\nAstro-Inertial Compact Missile Guidance Computer\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nSmall Hydraulic Bay Thrusters II\nSmall Rocket Fuel Cache Partition II\nSmall Warhead Flare Catalyst I\nNova Rage Rocket x6486\nMissile Range Script x1"
+      }
+     ]
+    },
+    {
+     "id": "team-hawk",
+     "name": "Team Hawk",
+     "enemy": "Burner Hawk + 2 logistics frigates",
+     "variants": [
+      {
+       "id": "garmur",
+       "label": "Garmur",
+       "ship": "Garmur",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 18 km",
+        "ammo": [
+         "Mjolnir Rage Rocket"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Orbit at 18 km, activate all modules and fire Mjolnir Rage until Hawk explodes."
+       ],
+       "warnings": [],
+       "eft": "[Garmur, Team Hawk III]\nBallistic Control System II\nBallistic Control System II\nBallistic Control System II\n5MN Cold-Gas Enduring Microwarpdrive\nPeripheral Compact Target Painter\nAstro-Inertial Compact Missile Guidance Computer\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nSmall Hydraulic Bay Thrusters II\nSmall Rocket Fuel Cache Partition II\nSmall Warhead Flare Catalyst I\nMjolnir Rage Rocket x10957\nMissile Range Script x1"
+      }
+     ]
+    },
+    {
+     "id": "team-jaguar",
+     "name": "Team Jaguar",
+     "enemy": "Burner Jaguar + 2 logistics frigates",
+     "variants": [
+      {
+       "id": "garmur",
+       "label": "Garmur",
+       "ship": "Garmur",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 30 km (MWD on)",
+        "ammo": [
+         "Mjolnir Javelin Rocket",
+         "Scourge Javelin Rocket"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Turn your MWD on and Orbit at 30km. When you first settle into the orbit you may be outside of your missile range. Give it a few seconds and this will settle.",
+        "Activate all remaining modules and fire Mjolnir Javelin at the Logistics Frigates and then fire Scourge Javelin at Jaguar until it explodes."
+       ],
+       "warnings": [
+        "Never turn off your MWD as you will be hit and killed almost instantly."
+       ],
+       "eft": "[Garmur, Team Jaguar II]\nBallistic Control System II\nCrosslink Compact Ballistic Control System\nCrosslink Compact Ballistic Control System\n5MN Cold-Gas Enduring Microwarpdrive\nF-90 Compact Sensor Booster\nPhased Scoped Target Painter\nAstro-Inertial Compact Missile Guidance Computer\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nSmall Hydraulic Bay Thrusters II\nSmall Rocket Fuel Cache Partition II\nSmall Warhead Flare Catalyst I\nTargeting Range Script x1\nMissile Range Script x1\nScourge Javelin Rocket x3842\nMjolnir Javelin Rocket x1016"
+      }
+     ]
+    },
+    {
+     "id": "team-vengeance",
+     "name": "Team Vengeance",
+     "enemy": "Burner Vengeance + 1 logistics frigate (2nd logistics ignored)",
+     "variants": [
+      {
+       "id": "garmur",
+       "label": "Garmur",
+       "ship": "Garmur",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 18 km",
+        "ammo": [
+         "Caldari Navy Nova Rocket",
+         "Inferno Rage Rocket"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Orbit at 18 km, activate all modules and fire Caldari Navy Nova at the Logistics Frigate (ignore the other one) and then fire Inferno Rage at Vengeance until it explodes."
+       ],
+       "warnings": [],
+       "eft": "[Garmur, Team Vengeance VI]\nBallistic Control System II\nBallistic Control System II\nBallistic Control System II\n5MN Cold-Gas Enduring Microwarpdrive\nPeripheral Compact Target Painter\nAstro-Inertial Compact Missile Guidance Computer\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nSmall Hydraulic Bay Thrusters II\nSmall Rocket Fuel Cache Partition II\nSmall Warhead Flare Catalyst I\nMissile Range Script x1\nInferno Rage Rocket x6913\nCaldari Navy Nova Rocket x2255"
+      }
+     ]
+    },
+    {
+     "id": "teams-hookbill-starter",
+     "name": "Anomic Team Hookbill (Starter Build)",
+     "enemy": "Burner Hawk / Enyo / Vengeance (general starter build, covers 3 of the 4 Team missions)",
+     "variants": [
+      {
+       "id": "hookbill-starter",
+       "label": "Caldari Navy Hookbill (starter)",
+       "ship": "Caldari Navy Hookbill",
+       "tier": "starter",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 18km",
+        "ammo": [
+         "Caldari Navy Mjolnir Rocket",
+         "Caldari Navy Nova Rocket",
+         "Caldari Navy Inferno Rocket"
+        ],
+        "note": "Designed to be cheap; needs Lv5 missile application skills to apply effectively."
+       },
+       "instructions": [
+        "Hawk - Orbit at 18km, Activate all modules and fire CN Mjolnir at the Logistics Frigates first and then the Hawk.",
+        "Enyo - Orbit at 18km, Activate all modules and fire CN Nova at the Logistics Frigates first and then the Enyo.",
+        "Vengeance - Orbit at 18km, activate all modules and fire CN Nova at the Logistics Frigates and then fire CN Inferno at Vengeance."
+       ],
+       "warnings": [],
+       "eft": "[Caldari Navy Hookbill, Team Hookbill]\nBallistic Control System II\nBallistic Control System II\nAstro-Inertial Compact Missile Guidance Computer\nAstro-Inertial Compact Missile Guidance Computer\n5MN Cold-Gas Enduring Microwarpdrive\nPeripheral Compact Target Painter\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nPolarized Rocket Launcher\nSmall Bay Loading Accelerator I\nSmall Hydraulic Bay Thrusters I\nSmall Rocket Fuel Cache Partition I\nCaldari Navy Mjolnir Rocket x2664\nMissile Range Script x2\nCaldari Navy Inferno Rocket x3000\nCaldari Navy Nova Rocket x822"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "agents",
+   "name": "Anomic Agents",
+   "difficulty": "medium",
+   "overview": [
+    "Anomic Agents are a ramp up in difficulty but very efficient once you become proficient in completing them."
+   ],
+   "facts": {
+    "hulls": "Frigate Only",
+    "enemies": "Solo pirate frigates (e.g. Daredevil, Succubus, Worm)",
+    "challenge": "These NPCs use officer/deadspace gear, implants, and player-like tactics.",
+    "investment": null,
+    "income": null
+   },
+   "missions": [
+    {
+     "id": "agent-angel",
+     "name": "Agent Angel",
+     "enemy": "Burner Dramiel",
+     "variants": [
+      {
+       "id": "daredevil",
+       "label": "Daredevil",
+       "ship": "Daredevil",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Keep at range 1700m",
+        "ammo": [
+         "Void S"
+        ],
+        "note": "Pre-activate the webs so they apply as soon as you lock the burner."
+       },
+       "instructions": [
+        "Warp in, lock the Burner Dramiel and keep at range 1700m; it will move into orbit as you close. Pre activate the webs so they apply as soon as you lock the burner.",
+        "The Dramiel will always fly towards you to orbit and fire; when it's webbed and its transversal is low, fire the pre-overloaded guns. It's a damage race at this point but assuming good skills you will always win - the Burner should be dead within 20 seconds of starting to fire."
+       ],
+       "warnings": [],
+       "eft": "[Daredevil, Agent Angel]\nCo-Processor II\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\nFleeting Compact Stasis Webifier\nRepublic Fleet Medium Shield Extender\nStasis Webifier II\nLight Neutron Blaster II\n[Empty High slot]\nLight Neutron Blaster II\nSmall Core Defense Field Extender II\nSmall Explosive Shield Reinforcer II\nSmall EM Shield Reinforcer II\nVoid S x8980"
+      },
+      {
+       "id": "succubus",
+       "label": "Succubus (alt)",
+       "ship": "Succubus",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Conflagration S"
+        ],
+        "note": "Stay within Conflagration falloff approx 7000m."
+       },
+       "instructions": [
+        "Activate the tank and then fly in a straight line, in any direction, and fire everything. Watch that you don't go outside of Conflagration falloff approx 7000m.",
+        "If you do exceed 7000m then turn off the webifier and allow the Dramiel to catch up before turning the module back on."
+       ],
+       "warnings": [],
+       "eft": "[Succubus, Agent Angel]\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nHeat Sink II\nCoreli A-Type 1MN Afterburner\nGistum C-Type Medium Shield Booster\nStasis Webifier II\nPith X-Type Explosive Shield Hardener\nSmall Focused Pulse Laser II\nSmall Focused Pulse Laser II\nSmall EM Shield Reinforcer II\nSmall EM Shield Reinforcer II\nSmall Capacitor Control Circuit II\nConflagration S x18"
+      }
+     ]
+    },
+    {
+     "id": "agent-blood",
+     "name": "Agent Blood",
+     "enemy": "Burner Blood Raider frigate (not explicitly named in guide text)",
+     "variants": [
+      {
+       "id": "wolf",
+       "label": "Wolf",
+       "ship": "Wolf",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Hail S",
+         "Caldari Navy Nova Rocket"
+        ],
+        "note": "Watch ammo and re-engage when weapons reload."
+       },
+       "instructions": [
+        "Activate the tank and then fly in a straight line in any direction and fire everything. Watch ammo and re-engage when weapons reload."
+       ],
+       "warnings": [],
+       "eft": "[Wolf, Agent Blood]\nGyrostabilizer II\nGyrostabilizer II\nCoreli A-Type Thermal Coating\nCorpii A-Type Small Armor Repairer\nMicro Auxiliary Power Core II\n'Censer' Medium Cap Battery\nStasis Webifier II\n200mm AutoCannon II\n200mm AutoCannon II\n200mm AutoCannon II\n200mm AutoCannon II\nRocket Launcher II\nSmall Capacitor Control Circuit I\nSmall Projectile Burst Aerator II\nHail S x4000\nCaldari Navy Nova Rocket x4000"
+      }
+     ]
+    },
+    {
+     "id": "agent-guristas",
+     "name": "Agent Guristas",
+     "enemy": "Burner Worm",
+     "variants": [
+      {
+       "id": "garmur",
+       "label": "Garmur",
+       "ship": "Garmur",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit the Worm at 1000m",
+        "ammo": [
+         "Mjolnir Rage Rocket"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Activate the Shield Booster and MWD then orbit the Worm at 1000m; when in range for the warp scrambler activate this and turn off the MWD. Mjolnir Rage until it dies."
+       ],
+       "warnings": [],
+       "eft": "[Garmur, Agent Guristas]\nCrosslink Compact Ballistic Control System\nBallistic Control System II\nOverdrive Injector System II\nSmall Shield Booster II\nInitiated Compact Warp Scrambler\nGistum B-Type Kinetic Shield Amplifier\nShadow Serpentis 5MN Microwarpdrive\nRocket Launcher II\nRocket Launcher II\nRocket Launcher II\nSmall Kinetic Shield Reinforcer II\nSmall Capacitor Control Circuit I\nSmall Capacitor Control Circuit II\nMjolnir Rage Rocket x11148"
+      },
+      {
+       "id": "daredevil",
+       "label": "Daredevil (alt)",
+       "ship": "Daredevil",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Keep at range to optimal on guns",
+        "ammo": [
+         "Void S"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Activate the Armor Repairer and MWD then set keep at range to optimal on the guns with the worm. When in range for the warp scrambler, activate this and turn off the MWD. Fire Void S until it dies."
+       ],
+       "warnings": [],
+       "eft": "[Daredevil, Guristas Agent]\nCoreli A-Type Small Armor Repairer\nCorelum A-Type Kinetic Energized Membrane\nMagnetic Field Stabilizer II\nCapacitor Power Relay II\nWarp Scrambler II\nSmall Compact Pb-Acid Cap Battery\n5MN Cold-Gas Enduring Microwarpdrive\nLight Ion Blaster II\n[Empty High slot]\nLight Ion Blaster II\nSmall Capacitor Control Circuit II\nSmall Kinetic Armor Reinforcer II\nSmall Kinetic Armor Reinforcer II\nVoid S x6310"
+      },
+      {
+       "id": "xvassilov-daredevil-advanced",
+       "label": "Daredevil - The Annoying Agent (advanced)",
+       "ship": "Daredevil",
+       "tier": "advanced",
+       "author": "xvassilov",
+       "cost": "~200 mil ISK",
+       "missions_to_profit": 6,
+       "quick": {
+        "orbit": "Keep at Range 1500m",
+        "ammo": [
+         "Void"
+        ],
+        "note": "Focus on MWD speed being at least 3.7k/s without overheating; faction/deadspace MWD upgrades recommended."
+       },
+       "instructions": [
+        "Agent Guristas proves a serious challenge to a pure trained Nergal pilot. The accepted Nergal fitting requires managing overheating your microwarp drive to catch the Worm, which is not repeatable or reliable. The other accepted answer is a rocket-based shield tanking Garmur, but that requires a considerable cross-train (approx 3 mil SP / 4.8 Bil ISK).",
+        "Instead the Daredevil is suggested as an addition to the fleet. Focus on your MWD speed being at least 3.7k/s without overheating. Upgrades to faction or deadspace MWDs are recommended when possible. A faction damage module will also increase effectiveness, as would an upgrade to a faction Small Cap Battery.",
+        "There is also a second experimental Daredevil build in testing that uses a 60% Stasis Webifier instead of the Warp Scrambler; the guide will be updated once testing is completed.",
+        "For an additional 1.5 mil SP (3b ISK), the Daredevil will allow you to run ALL Agents and Teams with reliable, repeatable, dependable burner running.",
+        "The Daredevil is a punching fighting frigate that has outstanding DPS and speed. Matched with a good Kinetic heavy tank it can hunt down and destroy the Worm.",
+        "(Void) Land in site, approach burner and turn on MWD. If required apply ONE cycle of overheating to the MWD to make the chase faster. Once within range, apply Warp Scrambler and turn off MWD. Set a Keep at Range of 1500m, then apply guns. Loot."
+       ],
+       "warnings": [],
+       "eft": "[Daredevil, Agent Gurista]\nCorelum A-Type Kinetic Energized Membrane\nCapacitor Power Relay II\nCoreli A-Type Small Armor Repairer\nMagnetic Field Stabilizer II\nWarp Scrambler II\n5MN Cold-Gas Enduring Microwarpdrive\nSmall Compact Pb-Acid Cap Battery\nLight Ion Blaster II\nLight Ion Blaster II\nSmall Kinetic Armor Reinforcer II\nSmall Kinetic Armor Reinforcer II\nSmall Capacitor Control Circuit II\nVoid S x2400\nNanite Paste x100"
+      }
+     ]
+    },
+    {
+     "id": "agent-sansha",
+     "name": "Agent Sansha",
+     "enemy": "Burner Succubus",
+     "variants": [
+      {
+       "id": "daredevil",
+       "label": "Daredevil",
+       "ship": "Daredevil",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Keep at range 1700m",
+        "ammo": [
+         "Void S"
+        ],
+        "note": "Pre-activate the web so it applies as soon as you lock the burner. Overheat if you prefer for additional DPS."
+       },
+       "instructions": [
+        "Warp in, lock the Burner Succubus and keep at range 1700m; it will move to get away from you but once webbed it will be slower than you so you can keep at range and engage. Pre activate the web so they apply as soon as you lock the burner. Once in range fire weapons, overheat if you prefer for an additional DPS boost."
+       ],
+       "warnings": [],
+       "eft": "[Daredevil, Agent Sansha X]\nCentii A-Type Small Armor Repairer\nMagnetic Field Stabilizer II\nCorpum C-Type EM Energized Membrane\nEM Armor Hardener II\nCoreli A-Type 1MN Afterburner\nRepublic Fleet Small Cap Battery\nFederation Navy Stasis Webifier\nLight Neutron Blaster II\nLight Neutron Blaster II\nSmall Auxiliary Nano Pump I\nSmall Capacitor Control Circuit II\nSmall Capacitor Control Circuit I\nVoid S x1906"
+      },
+      {
+       "id": "wolf",
+       "label": "Wolf (alt)",
+       "ship": "Wolf",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Republic Fleet EMP S"
+        ],
+        "note": "Watch ammo and re-engage when weapons reload."
+       },
+       "instructions": [
+        "Activate the tank and then fly in a straight line in any direction and fire everything. Watch ammo and re-engage when weapons reload."
+       ],
+       "warnings": [],
+       "eft": "[Wolf, Agent Sansha]\nCoreli A-Type Small Armor Repairer\nGyrostabilizer II\nGyrostabilizer II\nTracking Enhancer II\nTracking Enhancer II\nSmall Compact Pb-Acid Cap Battery\nTracking Computer II\n200mm AutoCannon II\n200mm AutoCannon II\n200mm AutoCannon II\n200mm AutoCannon II\nSmall Projectile Collision Accelerator II\nSmall Projectile Ambit Extension I\nRepublic Fleet EMP S x3196\nOptimal Range Script x3"
+      }
+     ]
+    },
+    {
+     "id": "agent-serpentis",
+     "name": "Agent Serpentis",
+     "enemy": "Burner Daredevil",
+     "variants": [
+      {
+       "id": "harpy",
+       "label": "Harpy",
+       "ship": "Harpy",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Null S"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Enter the mission and approach the Daredevil. Activate the Guns and Web and wait for the Daredevil to explode."
+       ],
+       "warnings": [],
+       "eft": "[Harpy, Agent Serpentis]\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\nFourier Compact Tracking Enhancer\nGistum C-Type Medium Shield Booster\nSmall Compact Pb-Acid Cap Battery\nFederation Navy Stasis Webifier\nGistum A-Type Kinetic Shield Amplifier\nLight Neutron Blaster II\nLight Neutron Blaster II\nLight Neutron Blaster II\nLight Neutron Blaster II\nSmall Hybrid Locus Coordinator II\nSmall Hybrid Locus Coordinator II\nNull S x2632"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bases",
+   "name": "Anomic Bases",
+   "difficulty": "highest",
+   "overview": [
+    "The most difficult of the Anomic mission types but repetition is key.",
+    "Angel base is arguably the mission that people feel most uncomfortable with initially due to the mid mission refit. After completing this a couple of times, it will become second nature. If this is putting you off attempting the mission then give it a try once. You enter with max cap regen and only refit after the danger is over.",
+    "Completing the Guristas Base is not advised due to the length of time it takes to complete the mission. This is not blitzable and thus doesn't fall within the ethos of Blitzing."
+   ],
+   "facts": {
+    "hulls": "Face up to Battlecruiser Hulls.",
+    "enemies": "Multi-ship encounters with heavier threats.",
+    "challenge": "Survive.",
+    "investment": null,
+    "income": "Highest risk, but big rewards."
+   },
+   "missions": [
+    {
+     "id": "angel-base",
+     "name": "Angel Base",
+     "enemy": "4x Burner Dramiel + Burner Hauler",
+     "variants": [
+      {
+       "id": "vigilant",
+       "label": "Vigilant",
+       "ship": "Vigilant",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit hauler at 2500m then keep at range 1500m (post-refit)",
+        "ammo": [
+         "Void M"
+        ],
+        "note": "Mid-mission refit: Mobile Depot swaps the Cap Battery for a 50MN MWD after the Dramiels are down."
+       },
+       "instructions": [
+        "As you drop out of warp ensure your ship stays still and deploy the MTU and Mobile Depot, then deploy the drones for tank assistance. The drones will die, that's ok and why T1 are used. If you forget to bring the drones, overheat your hardeners and your guns but monitor the heat levels for burnout. Never forget the drones.",
+        "Target Dramiels and web when in range and repeat until all are dead.",
+        "Then using the Mobile Depot refit the Cap battery to the 50MN MWD, scoop all loot/deployables, turn off the reps, turn on the MWD until in range and orbit the hauler at 2500m. Once you are in orbit, switch to keep at range 1500m and fire until destroyed.",
+        "This all sounds more complex than it is. The danger is over once the Dramiels are down and you are not under pressure during the refit. (This build requires very high fitting skills; if you are on the newer end of the spectrum, consider replacing the T2 armor reps with C-Type Deadspace modules, est 100m each.)"
+       ],
+       "warnings": [
+        "Never forget the drones."
+       ],
+       "eft": "[Vigilant, Angel Base]\nMedium Armor Repairer II\nCapacitor Power Relay II\nExplosive Armor Hardener II\nExplosive Armor Hardener II\nCapacitor Power Relay II\nMedium Armor Repairer II\nStasis Webifier II\nStasis Webifier II\nLarge Compact Pb-Acid Cap Battery\nCap Recharger II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nMedium EM Armor Reinforcer I\nMedium Auxiliary Nano Pump II\nMedium Nanobot Accelerator II\nAcolyte I x10\nVoid M x4104\n50MN Y-T8 Compact Microwarpdrive x1\nMobile Depot x1\nMobile Tractor Unit x1"
+      },
+      {
+       "id": "xvassilov-vigilant-cartel-base",
+       "label": "Vigilant - Angel Cartel Base (advanced)",
+       "ship": "Vigilant",
+       "tier": "advanced",
+       "author": "xvassilov",
+       "cost": "~450 mil ISK (Armor Clone)",
+       "missions_to_profit": 3,
+       "quick": {
+        "orbit": "Orbit the Hauler with drones; web then guns on each Dramiel",
+        "ammo": [
+         "Void M"
+        ],
+        "note": "No mid-mission refit needed - the original Mobile Depot-to-MWD refit is redundant; use medium drones on the Hauler instead."
+       },
+       "instructions": [
+        "The Cartel Base is in principle a simple challenge: Four Burner Dramiels and a virtually unarmed Burner Hauler. The reality however is quite deadly. The Dramiels are small (25m Sig Radius), fast (1200m/s), orbit at 3500m and hit like a truck. A nightmare for missile application and a serious challenge for turret tracking. They also web and warp scramble.",
+        "Without the use of some very esoteric Abyssal-rolled Stasis Webifiers, the only answer is to use the Vigilant. The Big Brother of the Daredevil, with its webifier strength bonus and solid close range DPS it is the only hull that can reliably clear the Dramiels in a reasonable time.",
+        "The original version of the fitting called for the use of a Mobile Depot to refit to a MWD once the Dramiels are killed, however this fit is now redundant. Escort Dramiels aggro on medium drones with a 25% chance. We can use this to use medium drones to kill the hauler.",
+        "On landing, drop the MTU and begin locking the Hauler and Dramiels as they burn in. Drop Vespa IIs and engage the Hauler with them. Let the Dramiels slow down and get into orbit then apply webs then 2 seconds later guns. Rinse and repeat through the Dramiels. Scoop loot and MTU.",
+        "If the Dramiels swap to the drones (25% chance), recall that drone to the drone bay then relaunch."
+       ],
+       "warnings": [],
+       "eft": "[Vigilant, ANGEL CARTEL BASE]\nMagnetic Field Stabilizer II\nExplosive Armor Hardener II\nExplosive Armor Hardener II\nMedium Armor Repairer II\nMedium Armor Repairer II\nCapacitor Power Relay II\nRepublic Fleet Large Cap Battery\nCap Recharger II\nStasis Webifier II\nStasis Webifier II\nHeavy Electron Blaster II\nHeavy Electron Blaster II\nHeavy Electron Blaster II\nHeavy Electron Blaster II\nHeavy Electron Blaster II\nMedium EM Armor Reinforcer II\nMedium Auxiliary Nano Pump II\nMedium Explosive Armor Reinforcer II\nVespa II x5\nVoid M x7600\nMobile Tractor Unit x1"
+      }
+     ]
+    },
+    {
+     "id": "blood-base",
+     "name": "Blood Base",
+     "enemy": "2x Burner Sentinel + Burner Ashimmu",
+     "variants": [
+      {
+       "id": "vagabond",
+       "label": "Vagabond",
+       "ship": "Vagabond",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Republic Fleet Phased Plasma M",
+         "Hail M"
+        ],
+        "note": "This mission has a lower final payout than other burner missions, but the ~15m isk bounty plus faction drop chance still make it worthwhile. RHML can be swapped for a tractor beam for easier loot collection."
+       },
+       "instructions": [
+        "This mission is the anomaly amongst the Burners with a lower final payout than any other burner mission. Still very much worth doing when you factor in the 15m isk bounty the rat provides plus the potential for a faction drop.",
+        "Approach and shoot the Sentinel's with Phased Plasma. Swap ammo to Hail to kill Ashimmu.",
+        "The RHML can be swapped for a tractor beam for easier loot collection."
+       ],
+       "warnings": [],
+       "eft": "[Vagabond, Blood Raiders Base]\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nGyrostabilizer II\nGyrostabilizer II\nTracking Enhancer II\nRepublic Fleet Large Cap Battery\nMultispectrum Shield Hardener II\nMultispectrum Shield Hardener II\nPith X-Type Large Shield Booster\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\nRapid Light Missile Launcher II\nMedium Capacitor Control Circuit II\nMedium Capacitor Control Circuit II\nHail M x4220\nRepublic Fleet Phased Plasma M x4710\nInferno Fury Light Missile x4900"
+      },
+      {
+       "id": "xvassilov-vagabond-blood-raider-base",
+       "label": "Vagabond - Blood Raider Base (advanced)",
+       "ship": "Vagabond",
+       "tier": "advanced",
+       "author": "xvassilov",
+       "cost": "~500 mil ISK (Shield Clone)",
+       "missions_to_profit": 5,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Republic Fleet Phased Plasma M",
+         "Hail M"
+        ],
+        "note": "Total capacitor drain on site is 87.5Gj/s; do not drop below 68Gj/s capacitor excess. Burner Sentinels also apply tracking disruption."
+       },
+       "instructions": [
+        "The Blood Raider base, in good old Blood Raider lore style, is focused around a tanky cruiser with two support frigates that are pure capacitor vampires. The total drain on the site is 87.5Gj/s, and thanks to a change made by CCP to how Capacitor Batteries work we can at least mitigate part of that. It is however recommended not to drop below 68Gj/s capacitor excess.",
+        "Added to the neutralization is the usual warp scrambling, webifying and warp disruption. The Burner Sentinels also use tracking disruption, which reduces your tracking speed and optimal range of your turrets.",
+        "With all of this going on, and with the need to have high tracking and a strong tank while keeping a high capacitor regeneration rate, there are very few cruiser sized hulls that fit the bill. The favourite, and in the opinion of the guide writer best, is the Vagabond. With a ridiculous shield tank bonus, and the 'mysterious' turret tracking capability, it is the go to hull.",
+        "Pre load RF Phased Plasma. On landing on site, drop the MTU and begin locking the Sentinels as they burn in. Once they are locked, lock the Ashimmu. As soon as the Sentinels get a stable orbit, apply turrets and missiles. Rinse and repeat for the second Sentinel. Reload to Hail and apply turrets and missiles to the Ashimmu. Because of the over-tuned tank on the Ashimmu this is the longer part of the fight. Scoop loot and the MTU.",
+        "Some guides advise a strategy of approaching the Sentinels to improve tracking, however the author has never had issues just sitting still. Try each method and find which works for you."
+       ],
+       "warnings": [
+        "Do not drop below 68Gj/s capacitor excess."
+       ],
+       "eft": "[Vagabond, BLOOD RAIDER BASE]\nTracking Enhancer II\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nGyrostabilizer II\nGyrostabilizer II\nMultispectrum Shield Hardener II\nPith X-Type Large Shield Booster\nRepublic Fleet Large Cap Battery\nMultispectrum Shield Hardener II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\nRapid Light Missile Launcher II\nMedium Capacitor Control Circuit II\nMedium Capacitor Control Circuit II\nAcolyte I x5\nHail M x4510\nRepublic Fleet Phased Plasma M x4535\nInferno Fury Light Missile x2977\nMobile Tractor Unit x1"
+      }
+     ]
+    },
+    {
+     "id": "guristas-base",
+     "name": "Guristas Base",
+     "enemy": "Waves of Dragonfly fighters + Mantis fighters (from a 'stolen' supercarrier)",
+     "caveat": "The main guide advises this is not blitzable and takes too long to be worth running under the Blitzing ethos. Xvassilov's advanced section is more blunt: 'Do not run this burner.' It is only worth running once, to complete the full set of 13 burners.",
+     "variants": [
+      {
+       "id": "vagabond",
+       "label": "Vagabond",
+       "ship": "Vagabond",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Keep at range 4000m on every enemy",
+        "ammo": [
+         "Republic Fleet EMP M",
+         "Mjolnir Precision Light Missile"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Keep at range 4000m on every enemy.",
+        "Enter the mission, target the Dragonflies, once in range, web enemy vessel and start firing when your ship is in line with the target, after a couple of volleys launch drones and repeat until dragonflies are all dead. Ensure you keep moving when the Mantis fighters appear and again keep at range 4000 on the Mantis fighters. Recall drones just before the last mantis dies as the next wave of dragonflies will kill drones fast. Rinse and Repeat for 2 additional waves."
+       ],
+       "warnings": [],
+       "eft": "[Vagabond, Guristas Base]\nDamage Control II\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nDomination X-Large Shield Booster\nFederation Navy 10MN Afterburner\nFederation Navy Stasis Webifier\nFederation Navy Stasis Webifier\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\nRapid Light Missile Launcher II\nMedium Semiconductor Memory Cell II\nMedium Capacitor Control Circuit II\nAcolyte II x5\nRepublic Fleet EMP M x10800\nMjolnir Precision Light Missile x5020"
+      },
+      {
+       "id": "xvassilov-vagabond-gurista-base",
+       "label": "Vagabond - Gurista Base (advanced)",
+       "ship": "Vagabond",
+       "tier": "advanced",
+       "author": "xvassilov",
+       "cost": "~1.5 Bil ISK 'and part of your soul' (Shield Clone)",
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Keep at range 4000m on every fighter",
+        "ammo": [
+         "Republic Fleet EMP M",
+         "Mjolnir Precision Light Missile"
+        ],
+        "note": "Author's explicit advice: do not run this burner."
+       },
+       "instructions": [
+        "Do not run this burner. No seriously, do not run this burner.",
+        "The Gurista Base is the EVE equivalent of sitting on a tar roof in the middle of summer while covered in oil with no clouds in the sky. The site contains a 'stolen' super carrier which spawns waves of fighters and fighter bombers. Each wave is slow to clear due to small signature sizes and high speeds making tracking and missile application torturous. Three waves of each type, three fighters in each wave.",
+        "Set your keep at range to 4000m before entering the site, it will be used on every fighter.",
+        "On landing on site drop MTU and lock the first wave of Dragonflies, turn on AB then approach one. Once you are in range, apply webifiers and keep at range 4000m to the Dragonfly. Apply turrets and missiles and once you see shield damage, launch drones and set to attack. After the Dragonfly dies, repeat with the rest.",
+        "When all Dragonflies are destroyed, recall drones and orbit the MTU at 15km. The Mantis wave will spawn, using the same process to kill this wave except as they are slower and a little easier to hit. Drones can be put to use once the first Mantis has some shield damage. Once the wave is clear, recall drones and orbit the MTU at 15km.",
+        "Repeat this for another four waves (two Dragonfly two Mantis) then watch the Supercarrier jump out.",
+        "To complete all 13 burners you will need to run the Gurista Base once. Beyond that achievement, there is no reason to continue running the burner."
+       ],
+       "warnings": [
+        "Do not run this burner unless completing the full set of 13 for the achievement."
+       ],
+       "eft": "[Vagabond, GURISTA BASE]\nRepublic Fleet Gyrostabilizer\nRepublic Fleet Gyrostabilizer\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nRepublic Fleet Overdrive Injector\nGist X-Type X-Large Shield Booster\nFederation Navy Stasis Webifier\nGistum B-Type 10MN Afterburner\nFederation Navy Stasis Webifier\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\n220mm Vulcan AutoCannon II\nRapid Light Missile Launcher II\nMedium Capacitor Control Circuit II\nMedium Semiconductor Memory Cell II\nAcolyte II x5\nRepublic Fleet EMP M x12135\nMjolnir Precision Light Missile x4232\nMobile Tractor Unit x1"
+      }
+     ]
+    },
+    {
+     "id": "serpentis-base",
+     "name": "Serpentis Base",
+     "enemy": "3x Burner Talos (in a proximity-turret minefield)",
+     "variants": [
+      {
+       "id": "deimos-cruiser",
+       "label": "Deimos (cruiser, standard)",
+       "ship": "Deimos",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 2500m per Talos",
+        "ammo": [
+         "Void M"
+        ],
+        "note": "Manual pilot ('Q' key / double-click) to each Talos with MWD and Tank on."
+       },
+       "instructions": [
+        "The mission arena is filled with proximity based turrets. If you get too close to one, you will aggro that turret for the duration of the mission. Aggroing a few is easily tankable in the Deimos but too many can be an issue.",
+        "Use manual piloting to navigate the field to clear and engage the Talos. Navigation can be completed by double clicking in space or pressing the 'Q' key as a shortcut and manually drawing a line to a destination in space. Manually fly to Talos 1 with MWD and Tank on.",
+        "When in range of a Talos disengage MWD and orbit at 2500 and engage, repeat with Talos 2 and 3."
+       ],
+       "warnings": [],
+       "eft": "[Deimos, Serpentis Base]\nReactive Armor Hardener\nDark Blood Kinetic Armor Hardener\nMedium Armor Repairer II\nMedium Armor Repairer II\nPower Diagnostic System II\nThermal Armor Hardener II\n50MN Quad LiF Restrained Microwarpdrive\nStasis Webifier II\nTracking Computer II\nLarge Compact Pb-Acid Cap Battery\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nHeavy Ion Blaster II\nMedium Capacitor Control Circuit II\nMedium Auxiliary Nano Pump II\nSalvage Drone I x5\nAcolyte I x5\nTracking Speed Script x1\nVoid M x10600"
+      },
+      {
+       "id": "deimos-more-dps",
+       "label": "Deimos - More DPS (alt)",
+       "ship": "Deimos",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 2500m per Talos",
+        "ammo": [
+         "Void M"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "The mission arena is filled with proximity based turrets. If you get too close to one, you will aggro that turret for the duration of the mission. Aggroing a few is easily tankable in the Deimos but too many can be an issue.",
+        "Use manual piloting to navigate the field to clear and engage the Talos. Navigation can be completed by double clicking in space or pressing the 'Q' key as a shortcut and manually drawing a line to a destination in space. Manually fly to Talos 1 with MWD and Tank on.",
+        "When in range of a Talos disengage MWD and orbit at 2500 and engage, repeat with Talos 2 and 3."
+       ],
+       "warnings": [],
+       "eft": "[Deimos, Deimos - Wristy1627]\nThermal Armor Hardener II\nCapacitor Power Relay II\nMedium Armor Repairer II\nMedium Armor Repairer II\nMagnetic Field Stabilizer II\nKinetic Armor Hardener II\n50MN Y-T8 Compact Microwarpdrive\nCap Recharger II\nCap Recharger II\nCap Recharger II\nHeavy Neutron Blaster II\nHeavy Neutron Blaster II\nHeavy Neutron Blaster II\nHeavy Neutron Blaster II\nHeavy Neutron Blaster II\nMedium Auxiliary Nano Pump II\nMedium Capacitor Control Circuit II\nVoid M x5040"
+      },
+      {
+       "id": "cerberus",
+       "label": "Cerberus (alt)",
+       "ship": "Cerberus",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 2500m per Talos",
+        "ammo": [
+         "Scourge Rage Heavy Assault Missile"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "The mission arena is filled with proximity based turrets. If you get too close to one, you will aggro that turret for the duration of the mission. Aggroing a few is easily tankable in the Cerberus but too many can be an issue.",
+        "Use manual piloting to navigate the field to clear and engage the Talos. Navigation can be completed by double clicking in space or pressing the 'Q' key as a shortcut and manually drawing a line to a destination in space. Manually fly to Talos 1 with MWD and Tank on.",
+        "When in range of a Talos disengage MWD and orbit at 2500 and engage, repeat with Talos 2 and 3."
+       ],
+       "warnings": [],
+       "eft": "[Cerberus, Bane of Talos]\nPower Diagnostic System II\nCapacitor Flux Coil II\nBallistic Control System II\nBallistic Control System II\nRepublic Fleet Large Cap Battery\nThermal Shield Hardener II\n50MN Quad LiF Restrained Microwarpdrive\nDread Guristas Large Shield Booster\nKinetic Shield Hardener II\nHeavy Assault Missile Launcher II\nHeavy Assault Missile Launcher II\nHeavy Assault Missile Launcher II\nHeavy Assault Missile Launcher II\nHeavy Assault Missile Launcher II\nHeavy Assault Missile Launcher II\nMedium Ancillary Current Router II\nMedium Warhead Rigor Catalyst II\nHornet I x1\nVespa I x1\nScourge Rage Heavy Assault Missile x6006"
+      },
+      {
+       "id": "enyo-frigate",
+       "label": "Enyo (frigate, alt)",
+       "ship": "Enyo",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 1000 (AB) per Talos",
+        "ammo": [
+         "Void S"
+        ],
+        "note": "Frigate-sized version of the same approach as the cruiser fit."
+       },
+       "instructions": [
+        "This uses the same approach as the cruiser version. Manually fly to Talos 1 with MWD, when close, swap to AB and orbit at 1000 until dead, orbit the wreck at 1000 and loot, repeat until all Talos are defeated."
+       ],
+       "warnings": [],
+       "eft": "[Enyo, Simulated Enyo Fitting]\nSmall Armor Repairer II\nEFFA Compact Assault Damage Control\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\n1MN Y-S8 Compact Afterburner\nCap Recharger II\n5MN Quad LiF Restrained Microwarpdrive\nLight Neutron Blaster II\nLight Neutron Blaster II\n[Empty High slot]\nLight Neutron Blaster II\nLight Neutron Blaster II\nSmall Ancillary Current Router I\nSmall Capacitor Control Circuit II\nWarrior I x1\nVoid S x2520"
+      },
+      {
+       "id": "harpy-frigate",
+       "label": "Harpy (frigate, alt)",
+       "ship": "Harpy",
+       "tier": "alt",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": "Orbit at 1000 (AB) per Talos",
+        "ammo": [
+         "Nova Rage Rocket",
+         "Void S"
+        ],
+        "note": "Frigate-sized version of the same approach as the cruiser fit."
+       },
+       "instructions": [
+        "This uses the same approach as the cruiser version. Manually fly to Talos 1 with MWD, when close, swap to AB and orbit at 1000 until dead, orbit the wreck at 1000 and loot, repeat until all Talos are defeated."
+       ],
+       "warnings": [],
+       "eft": "[Harpy, Serpentis Base]\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\nMagnetic Field Stabilizer II\n1MN Y-S8 Compact Afterburner\nCaldari Navy Small Shield Extender\nCaldari Navy Small Shield Extender\n5MN Y-T8 Compact Microwarpdrive\nLight Neutron Blaster II\nLight Neutron Blaster II\nRocket Launcher II\nLight Neutron Blaster II\nLight Neutron Blaster II\nSmall Ancillary Current Router I\nSmall Kinetic Shield Reinforcer II\nNova Rage Rocket x3780\nVoid S x6576"
+      },
+      {
+       "id": "xvassilov-vagabond-serpentis-base",
+       "label": "Vagabond - Serpentis Base (advanced)",
+       "ship": "Vagabond",
+       "tier": "advanced",
+       "author": "xvassilov",
+       "cost": "~700 mil ISK (Shield Clone)",
+       "missions_to_profit": 6,
+       "quick": {
+        "orbit": "6000m (adjust 5-6km if tracking issues)",
+        "ammo": [
+         "Nova Rage Heavy Assault Missile",
+         "Hail M"
+        ],
+        "note": "Search 'Burner Talos' on Youtube for the manual piloting part of this site."
+       },
+       "instructions": [
+        "Also known as just 'Talos', the Serpentis Base is a test of technical piloting and nerve. Three sniping Talos battlecruisers are spread (170km) around a 'minefield' of auto turrets that can and will shoot if you get within 10km. The sheer incoming alpha that these three ships put out is horrifying.",
+        "The standard hull for this content is the venerable Deimos, but the author personally finds that the Vagabond is both faster in terms of going Talos to Talos and can apply high levels of explosive damage. With good piloting, clearing this site in 7 minutes is average. If the guns have problems hitting the target at 5 or 6km orbit, adjust to find the best for your skills.",
+        "It is HIGHLY recommended that you search 'Burner Talos' on Youtube and watch one of the many videos that visually explain the manual piloting part of this site.",
+        "On landing on site, look towards your right (looking down your ship) and double click in space between the two blue turrets. Once you have aligned, turn on the MWD and buckle up, this is the most dangerous part of the site. If you hit armor during this first burn phase warp out.",
+        "Continue burning until you clear the minefield, turn to the left and manually pilot towards the right side of the nearest Talos. Once you are within 65km, set an orbit of 6000m. Turn the MWD off at 35km and lock the Talos when able. Drop drones, apply turrets and missiles and attack with drones. The drones will acquire aggro from the Talosi, hopefully shedding dps. When your target drops to structure, manually pilot towards it and as it dies you should be able to loot the wreck and align towards the edge of the minefield towards the next Talos. Pull drones and MWD on.",
+        "Rinse and repeat this process three times, and with the Loot Gods blessing the loot will be Faction Modules."
+       ],
+       "warnings": [
+        "If you hit armor during the first burn phase across the minefield, warp out."
+       ],
+       "eft": "[Vagabond, SERPENTIS BASE]\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nCapacitor Flux Coil II\nGyrostabilizer II\nGyrostabilizer II\nPith X-Type Kinetic Shield Hardener\nPith X-Type Thermal Shield Hardener\nGist X-Type Large Shield Booster\nShadow Serpentis 50MN Microwarpdrive\n425mm AutoCannon II\n425mm AutoCannon II\n425mm AutoCannon II\n425mm AutoCannon II\n425mm AutoCannon II\nHeavy Assault Missile Launcher II\nMedium Kinetic Shield Reinforcer II\nMedium Capacitor Control Circuit II\nHornet I x5\nNova Rage Heavy Assault Missile x5066\nHail M x5600"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "nergals",
+   "name": "Anomic Nergals",
+   "difficulty": null,
+   "overview": [
+    "This section covers off the individual fits for the Anomic Agent missions using the Nergal hull.",
+    "It is possible to use the one hull for both the Angel and Sansha Missions as the rig loadout is mirrored for both."
+   ],
+   "facts": {
+    "hulls": "Nergal (Precursor-class frigate)",
+    "enemies": null,
+    "challenge": null,
+    "investment": null,
+    "income": null
+   },
+   "missions": [
+    {
+     "id": "agent-angel-nergal",
+     "name": "Agent Angel Nergal",
+     "enemy": "Burner Dramiel",
+     "variants": [
+      {
+       "id": "nergal",
+       "label": "Nergal",
+       "ship": "Nergal",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Occult S"
+        ],
+        "note": "You will need to be 401m/s minimum when webbed for this build to work effectively."
+       },
+       "instructions": [
+        "Fly in a straight line, in any direction, and web and fire. Occult S (You will need to be 401m/s minimum when webbed for this build to work effectively)"
+       ],
+       "warnings": [],
+       "eft": "[Nergal, Agent Angel]\nCentii A-Type Small Armor Repairer\nCapacitor Power Relay II\nDark Blood Explosive Armor Hardener\nDark Blood Explosive Armor Hardener\nCoreli A-Type 1MN Afterburner\nStasis Webifier II\nStasis Webifier II\nLight Entropic Disintegrator II\nSmall Auxiliary Nano Pump II\nSmall Capacitor Control Circuit II\nOccult S x5000"
+      }
+     ]
+    },
+    {
+     "id": "agent-blood-nergal",
+     "name": "Agent Blood Nergal",
+     "enemy": "Burner Blood Raider frigate (not explicitly named in guide text)",
+     "variants": [
+      {
+       "id": "nergal",
+       "label": "Nergal",
+       "ship": "Nergal",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Occult S"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Turn on the tank, warp in to the mission and approach and Murder, Death, Kill with Occult S"
+       ],
+       "warnings": [],
+       "eft": "[Nergal, Agent Blood]\nCentii A-Type Small Armor Repairer\nEntropic Radiation Sink II\nCentum A-Type EM Energized Membrane\nVigor Compact Micro Auxiliary Power Core\nStasis Webifier II\nStasis Webifier II\n'Censer' Medium Cap Battery\nVeles Light Entropic Disintegrator\nSmall Capacitor Control Circuit II\nSmall Nanobot Accelerator II\nOccult S x2730"
+      }
+     ]
+    },
+    {
+     "id": "agent-sansha-nergal",
+     "name": "Agent Sansha Nergal",
+     "enemy": "Burner Succubus",
+     "variants": [
+      {
+       "id": "nergal",
+       "label": "Nergal",
+       "ship": "Nergal",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Meson Exotic Plasma S"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Warp in, target and proceed to fire main weapon, painter and have tracking computer active. with Meson Exotic Plasma S"
+       ],
+       "warnings": [],
+       "eft": "[Nergal, Agent Sansha]\nEntropic Radiation Sink II\nCoreli A-Type Small Armor Repairer\nDark Blood EM Armor Hardener\nDark Blood EM Armor Hardener\nF-12 Enduring Tracking Computer\nRepublic Fleet Small Cap Battery\nTarget Painter II\nLight Entropic Disintegrator II\nSmall Auxiliary Nano Pump II\nSmall Capacitor Control Circuit II\nTracking Speed Script x1\nMeson Exotic Plasma S x9394"
+      }
+     ]
+    },
+    {
+     "id": "agent-serpentis-nergal",
+     "name": "Agent Serpentis Nergal",
+     "enemy": "Burner Daredevil",
+     "variants": [
+      {
+       "id": "nergal",
+       "label": "Nergal",
+       "ship": "Nergal",
+       "tier": "standard",
+       "author": "bears",
+       "cost": null,
+       "missions_to_profit": null,
+       "quick": {
+        "orbit": null,
+        "ammo": [
+         "Baryon Exotic Plasma S"
+        ],
+        "note": null
+       },
+       "instructions": [
+        "Turn on the tank, warp in to the mission and approach and murder death kill"
+       ],
+       "warnings": [],
+       "eft": "[Nergal, Agent Serp]\nDamage Control II\nCentii A-Type Small Armor Repairer\nDark Blood Kinetic Armor Hardener\nDark Blood Kinetic Armor Hardener\nSmall Cap Battery II\nCap Recharger II\nFederation Navy Stasis Webifier\nSmall Tractor Beam I\nLight Entropic Disintegrator II\nSmall Auxiliary Nano Pump II\nSmall Auxiliary Nano Pump II\nBaryon Exotic Plasma S x4821"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "unified_builds": [
+  {
+   "id": "nergal-angel-jaguar",
+   "name": "Nergal - Angel / Jaguar (Explosive/Thermal)",
+   "covers": [
+    "agent-angel",
+    "team-jaguar"
+   ],
+   "cost": "~600 mil ISK",
+   "missions_to_profit": 7,
+   "per_mission": [
+    {
+     "mission": "Agent Angel",
+     "ammo": "Occult",
+     "instructions": "Land in site and press + (go faster) icon, Lock, apply webs and disruptor, keep at range 6000m. Loot."
+    },
+    {
+     "mission": "Team Jaguar",
+     "ammo": "Occult",
+     "instructions": "Land in site and orbit Jaguar at 6000m. Lock the Jaguar, apply webs and disruptor. Loot. If you are unable to burn down the Jaguar, lock one of the Burst frigates, load Mystic and shoot it until dead. Keep the orbit and webs on the Jaguar."
+    }
+   ],
+   "notes": [
+    "This fitting covers both the Agent Angel and Team Jaguar missions. Using short range ammo to overwhelm the target as the spool up DPS burns through."
+   ],
+   "eft": "[Nergal, ANGEL/JAGUAR]\nCentus X-Type Explosive Armor Hardener\nCoreli A-Type Small Armor Repairer\nMultispectrum Energized Membrane II\nOverdrive Injector System II\nStasis Webifier II\nStasis Webifier II\nCoreli A-Type 1MN Afterburner\nVeles Light Entropic Disintegrator\nSmall Capacitor Control Circuit II\nSmall Capacitor Control Circuit II\nOccult S x7500"
+  },
+  {
+   "id": "nergal-serpentis-enyo-hawk",
+   "name": "Nergal - Serpentis / Enyo / Hawk (Kinetic/Thermal)",
+   "covers": [
+    "agent-serpentis",
+    "team-enyo",
+    "team-hawk"
+   ],
+   "cost": "~700 mil ISK",
+   "missions_to_profit": 8,
+   "per_mission": [
+    {
+     "mission": "Agent Serpentis",
+     "ammo": "Baryon or Mystic",
+     "instructions": "Land in site, approach burner as you lock, apply web and disruptor. Loot."
+    },
+    {
+     "mission": "Team Enyo",
+     "ammo": "Occult",
+     "instructions": "Land in site and orbit Enyo at 6000m. Apply webs and disruptor, when orbit stable go to keep at range 6000m. Loot."
+    },
+    {
+     "mission": "Team Hawk",
+     "ammo": "Stage 1 Mystic / Stage 2 Occult",
+     "instructions": "Stage 1: Land in site, approach nearest Bantam, apply web and disruptor until dead. Repeat for next Bantam. Stage 2: Approach Hawk, reload, apply web and disruptor. Loot."
+    }
+   ],
+   "notes": [
+    "This fitting covers the Agent Serpentis, Team Hawk and Team Enyo missions.",
+    "Using a combination of ammo to match the range of the burner and your optimal range."
+   ],
+   "eft": "[Nergal, SERPENTIS/ENYO/HAWK]\nCoreli A-Type Small Armor Repairer\nCentus X-Type Kinetic Armor Hardener\nEntropic Radiation Sink II\nCentus X-Type Kinetic Armor Hardener\nDomination Stasis Webifier\nCoreli A-Type 1MN Afterburner\nRepublic Fleet Small Cap Battery\nVeles Light Entropic Disintegrator\nSmall Capacitor Control Circuit II\nSmall Auxiliary Nano Pump II\nBaryon Exotic Plasma S x6000\nOccult S x6000\nMystic S x2089"
+  },
+  {
+   "id": "nergal-blood-sansha-vengeance",
+   "name": "Nergal - Blood / Sansha / Vengeance (EM/Thermal)",
+   "covers": [
+    "agent-blood",
+    "agent-sansha",
+    "team-vengeance"
+   ],
+   "cost": "~800 mil ISK",
+   "missions_to_profit": 9,
+   "per_mission": [
+    {
+     "mission": "Agent Blood Raider",
+     "ammo": "Occult",
+     "instructions": "Land in site, approach burner as you lock, apply web and disruptor. Loot."
+    },
+    {
+     "mission": "Agent Sansha",
+     "ammo": "Mystic",
+     "instructions": "Land in site, approach burner as you lock, apply web and disruptor. Loot."
+    },
+    {
+     "mission": "Team Vengeance",
+     "ammo": "Stage 1 Mystic / Stage 2 Occult if range >6950 otherwise Tetryon Exotic",
+     "instructions": "Stage 1: Land in site, approach nearest Inquisitor, apply web and disruptor until dead. Stage 2: Approach Vengeance, reload, apply web and gun. Loot."
+    }
+   ],
+   "notes": [
+    "This fitting covers the Agent Blood Raider, Agent Sansha and Team Vengeance missions.",
+    "Using a combination of ammo to match the range of the burner and your optimal range."
+   ],
+   "eft": "[Nergal, BLOOD/SANSHA/VENGEANCE]\nNavy Micro Auxiliary Power Core\nCoreli A-Type Small Armor Repairer\nEntropic Radiation Sink II\nCore X-Type EM Armor Hardener\nDomination Stasis Webifier\nDomination Stasis Webifier\n'Censer' Medium Cap Battery\nVeles Light Entropic Disintegrator\nSmall Auxiliary Nano Pump II\nSmall Capacitor Control Circuit II\nTetryon Exotic Plasma S x851\nOccult S x4350\nMystic S x2089"
+  }
+ ],
+ "pinnacle_collection": {
+  "paragraphs": [
+   "Below is a collection of curated builds from HateLesS' EveWorkbech.",
+   "All builds are listed on the Eve Workbench link listed below.",
+   "HateLesS Build Archive"
+  ],
+  "build_list": [
+   "Base Serpentis - Phantasm",
+   "Angel Base - Vigilant",
+   "Blood Base - Vagabond",
+   "Base Serpentis",
+   "Agent Angel - Buffer Daredevil",
+   "Agent Blood - Nergal",
+   "Agent Guristas - Enyo",
+   "Agent Sansha - Daredevil",
+   "Agent Serpentis - Harpy",
+   "Agent Serpentis - Nergal",
+   "Agent Serpentis - Hawk",
+   "Anomic Team Cheap - Garmur",
+   "Team Jaguar - Nergal",
+   "Anomic Teams Semi Bling - Garmur",
+   "Unified Nergal",
+   "Unified Nergal"
+  ],
+  "archive_url": "https://eveworkbench.com/u/hateless"
+ },
+ "ship_type_ids": {
+  "Garmur": 33816,
+  "Caldari Navy Hookbill": 17619,
+  "Daredevil": 17928,
+  "Succubus": 17924,
+  "Wolf": 11371,
+  "Harpy": 11381,
+  "Vigilant": 17722,
+  "Vagabond": 11999,
+  "Deimos": 12023,
+  "Cerberus": 11993,
+  "Enyo": 12044,
+  "Nergal": 52250,
+  "Hawk": 11379,
+  "Jaguar": 11400,
+  "Vengeance": 11365,
+  "Dramiel": 17932,
+  "Worm": 17930,
+  "Talos": 4308,
+  "Ashimmu": 17922,
+  "Sentinel": 11190,
+  "Cruor": 17926,
+  "Bantam": 582,
+  "Inquisitor": 590,
+  "Phantasm": 17718
+ }
+}

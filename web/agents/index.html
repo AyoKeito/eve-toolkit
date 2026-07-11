@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Find EVE Online mission agent hubs across every NPC corporation at once, or one corp at a time: solar systems and stations ranked by agent density and level, with security bands, divisions, locator agents, and a minimum-agents filter." />
+    <link rel="canonical" href="https://eve.ayokei.to/agents/" />
+    <meta property="og:title" content="EVE Agent Finder" />
+    <meta property="og:description" content="Solar systems ranked by mission agent density for every EVE Online NPC corporation — find the best hub to grind loyalty points." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://eve.ayokei.to/agents/" />
+    <title>EVE Agent Finder</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/agents/style.css" />
+    <!-- Full import graph of /agents/app.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/lp/ui-model.js" />
+    <link rel="modulepreload" href="/shared/utils.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="agents-topbar">
+      <div class="topbar-brand">
+        <a class="home-link" href="/" title="EVE Tools — home" aria-label="EVE Tools home">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <path class="bm-hex" d="M32 8 52 20v24L32 56 12 44V20Z" fill="none" stroke-width="3" />
+            <path class="bm-net" d="M32 17v30M20 24l12-7 12 7M20 40l12 7 12-7" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <div>
+          <h1>Agent finder</h1>
+          <p id="statusLine">Ranking mission hub systems across all corporations</p>
+        </div>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+    </header>
+
+    <main class="agents-shell">
+      <aside class="ranklist" aria-label="Hub systems ranked by agent density">
+        <h2>
+          <span id="rankTitle">Hub systems</span>
+          <span class="legend" aria-hidden="true"><i class="lg5">L5</i><i class="lg4">L4</i><i class="lg3">L3</i><i class="lg2">L2</i><i class="lg1">L1</i></span>
+        </h2>
+        <div class="rankfilter">
+          <input id="hubSearch" type="search" placeholder="Filter by name…" autocomplete="off" aria-label="Filter hub list by name" />
+        </div>
+        <div id="rankRows"></div>
+      </aside>
+      <div class="rightcol">
+        <section class="filterbar" aria-label="Corporation and filters">
+          <div class="fg corp-field">
+            <label class="flabel" for="corpSearch">Corporation</label>
+            <div class="corp-combobox">
+              <input id="corpSearch" type="search" placeholder="All corporations — type to pick one" autocomplete="off"
+                     role="combobox" aria-expanded="false" aria-controls="corpList" aria-autocomplete="list" />
+              <div id="corpList" class="corp-dropdown" role="listbox" aria-label="Matching corporations" hidden></div>
+            </div>
+            <input id="corp" type="hidden" />
+          </div>
+          <div class="fg">
+            <span class="flabel" id="typeLabel">Type</span>
+            <div class="seg" id="typeFilter" role="group" aria-labelledby="typeLabel">
+              <button type="button" data-value="all" aria-pressed="true">All</button>
+              <button type="button" data-value="basic" class="ty-seg-basic" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>Basic</button>
+              <button type="button" data-value="story" class="ty-seg-story" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>Storyline</button>
+              <button type="button" data-value="epic" class="ty-seg-epic" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>Epic arc</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="groupLabel">Group by</span>
+            <div class="seg" id="groupFilter" role="group" aria-labelledby="groupLabel">
+              <button type="button" data-value="system" aria-pressed="true">Systems</button>
+              <button type="button" data-value="station" aria-pressed="false">Stations</button>
+              <button type="button" data-value="constellation" aria-pressed="false">Constellations</button>
+              <button type="button" data-value="region" aria-pressed="false">Regions</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="secLabel">Security</span>
+            <div class="seg" id="secFilter" role="group" aria-labelledby="secLabel">
+              <button type="button" data-value="all" aria-pressed="true">All</button>
+              <button type="button" data-value="HIGHSEC" class="sec-seg-high" aria-pressed="false"><svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/></svg>High</button>
+              <button type="button" data-value="LOWSEC" class="sec-seg-low" aria-pressed="false"><svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/></svg>Low</button>
+              <button type="button" data-value="NULLSEC" class="sec-seg-null" aria-pressed="false"><svg class="tier-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/></svg>Null</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="levelLabel">Agent level</span>
+            <div class="seg" id="levelFilter" role="group" aria-labelledby="levelLabel">
+              <button type="button" data-value="all" aria-pressed="true">All</button>
+              <button type="button" data-value="1" class="lv-seg-1" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>L1</button>
+              <button type="button" data-value="2" class="lv-seg-2" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>L2</button>
+              <button type="button" data-value="3" class="lv-seg-3" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>L3</button>
+              <button type="button" data-value="4" class="lv-seg-4" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>L4</button>
+              <button type="button" data-value="5" class="lv-seg-5" aria-pressed="false"><i class="lvdot" aria-hidden="true"></i>L5</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="divisionLabel">Division</span>
+            <div class="seg" id="divisionFilter" role="group" aria-labelledby="divisionLabel">
+              <button type="button" data-value="all" aria-pressed="true">All</button>
+              <button type="button" data-value="22" aria-pressed="false">Distribution</button>
+              <button type="button" data-value="23" aria-pressed="false">Mining</button>
+              <button type="button" data-value="24" aria-pressed="false">Security</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="locatorLabel">Locator</span>
+            <div class="seg" id="locatorFilter" role="group" aria-labelledby="locatorLabel">
+              <button type="button" data-value="all" aria-pressed="true">All</button>
+              <button type="button" data-value="1" aria-pressed="false">Locator only</button>
+            </div>
+          </div>
+          <div class="fg">
+            <span class="flabel" id="minLabel">Min agents</span>
+            <div class="seg" id="minFilter" role="group" aria-labelledby="minLabel">
+              <button type="button" data-value="1" aria-pressed="true">All</button>
+              <button type="button" data-value="2" aria-pressed="false">2+</button>
+              <button type="button" data-value="3" aria-pressed="false">3+</button>
+              <button type="button" data-value="4" aria-pressed="false">4+</button>
+              <button type="button" data-value="5" aria-pressed="false">5+</button>
+            </div>
+          </div>
+        </section>
+        <section class="detail" id="detail" aria-label="Agents in the selected hub">
+          <p class="empty-state">Mission agents across every corporation, grouped by solar system and
+          ranked so the densest, highest-level hubs come first. Pick a corporation above to narrow it,
+          or set a minimum to find places with several agents at once.</p>
+        </section>
+      </div>
+    </main>
+
+    <script src="/agents/app.js" type="module"></script>
+  </body>
+</html>

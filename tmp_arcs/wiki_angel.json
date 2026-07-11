@@ -1,0 +1,211 @@
+[
+  {
+    "id": 228,
+    "name": "The Balance of Power",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Arc entry via Minmatar standing; report to Abdiel Verat in K-QWHE — use interceptor for nullsec travel through potential bubble camps.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 229,
+    "name": "Mistaken Identity",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Arc entry via Amarr standing; report to Abdiel Verat in K-QWHE — use interceptor for nullsec travel through potential bubble camps.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": "W1101",
+    "name": "Headhunted",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Arc entry via Angel Cartel standing; report to Abdiel Verat in K-QWHE — use interceptor for nullsec travel through potential bubble camps.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 230,
+    "name": "New Opportunities",
+    "mission_type": "ENCOUNTER",
+    "faction": "Sansha's Nation",
+    "damage_to_deal": "EM/Thermal",
+    "damage_to_resist": "EM/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Blitz: take gate and warp out — no kills required; room has 2–3 Sansha frigates and 2 elite cruisers but objective is recon only.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), EM/Thermal fit"
+  },
+  {
+    "id": 231,
+    "name": "Fight or Flight",
+    "mission_type": "BRANCH",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Choose path: 'Serpentis Fill-In' leads to Chapter 2 Heaven; 'Natural Consequences' leads to Chapter 2 Utopia. No lasting impact on arc.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 233,
+    "name": "Serpentis Fill-In",
+    "mission_type": "COURIER",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Pick up the Sealed Research Cache (2 m³) from station before undocking — easy to forget; deliver to Serpentis Transport Hub Container.",
+    "recommended_ship": "Interceptor (nullsec travel, cargo is only 2 m³)"
+  },
+  {
+    "id": "W1102",
+    "name": "Ride to the Rescue",
+    "mission_type": "ENCOUNTER",
+    "faction": "Guristas",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Blitz: kill only Yukiro Demense (elite frigate); she webs and points — Kinetic weakest resist at 64%.",
+    "recommended_ship": "Assault Frigate or T3 Destroyer (Kinetic/Thermal fit)"
+  },
+  {
+    "id": "W1103",
+    "name": "The Best Kind of Revenge",
+    "mission_type": "ENCOUNTER",
+    "faction": "Mercenaries",
+    "damage_to_deal": "Kinetic/EM/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Do NOT destroy Cruise Missile Batteries — doing so triggers an additional -3.0% Guristas standing loss.",
+    "recommended_ship": "Assault Frigate or T3 Destroyer (Kinetic/Thermal resist)"
+  },
+  {
+    "id": "W1104",
+    "name": "Wrath of Angels",
+    "mission_type": "ENCOUNTER",
+    "faction": "Guristas",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Keep Yukiro Demense 40+ km from Remote-Repair Facility before attacking or it heals her; mission reward includes Domination Target Painter.",
+    "recommended_ship": "Assault Frigate or T3 Destroyer (Kinetic/Thermal fit, long-range opener)"
+  },
+  {
+    "id": 232,
+    "name": "Natural Consequences",
+    "mission_type": "ENCOUNTER",
+    "faction": "Sansha's Nation",
+    "damage_to_deal": "EM/Thermal",
+    "damage_to_resist": "EM/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Later waves spawn on timers and can overlap with current wave; warp disruption present from wave 5 elite frigate.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), EM/Thermal fit"
+  },
+  {
+    "id": 234,
+    "name": "Clear the Way",
+    "mission_type": "ENCOUNTER",
+    "faction": "Guristas",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": null,
+    "recommended_ship": "T3 Destroyer or below (gate limit), Kinetic/Thermal fit"
+  },
+  {
+    "id": 235,
+    "name": "Salvage Heist",
+    "mission_type": "ENCOUNTER",
+    "faction": "Guristas",
+    "damage_to_deal": "Kinetic/Thermal",
+    "damage_to_resist": "Kinetic/Thermal",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Waves 1–3 triggered by damaging Gath Renton's shield, armor, and hull respectively — pull boss away from initial pack before shooting.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), Kinetic/Thermal fit"
+  },
+  {
+    "id": 236,
+    "name": "Rabbit Trap",
+    "mission_type": "ENCOUNTER",
+    "faction": "Sansha's Nation / Guristas",
+    "damage_to_deal": "EM/Thermal/Kinetic",
+    "damage_to_resist": "EM/Thermal/Kinetic",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Mission reward includes Domination Target Painter; boss Yukiro Demense (wave 3) webs -75% at 10 km, points to 24 km — Kinetic weakest resist.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), Omni or Kinetic focus for boss"
+  },
+  {
+    "id": 237,
+    "name": "Dominus",
+    "mission_type": "TRAVEL",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Agent handoff — report to Kadeja Dulche at K-QWHE VII Moon 8 Dominations Assembly Plant to switch mission chains.",
+    "recommended_ship": "Interceptor (nullsec travel, bubbles)"
+  },
+  {
+    "id": 238,
+    "name": "The Lesser of Two",
+    "mission_type": "BRANCH",
+    "faction": null,
+    "damage_to_deal": null,
+    "damage_to_resist": null,
+    "space_risk": "NULLSEC",
+    "objective_notes": "Choose path: 'Situation Normal' (two-mission stealth path, low standing loss) or 'Data Destruction' (direct one-mission assault, higher standing loss). No lasting impact.",
+    "recommended_ship": "T3 Destroyer or below (gate limit for subsequent combat missions)"
+  },
+  {
+    "id": 240,
+    "name": "Situation Normal",
+    "mission_type": "ENCOUNTER",
+    "faction": "Minmatar Republic",
+    "damage_to_deal": "Explosive/Kinetic",
+    "damage_to_resist": "Explosive/Kinetic",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Kill Boundless Creations Engineers (durable Stabber/Bellicose hulls), loot Security Codes, place in Communications Array to complete remotely.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), Explosive/Kinetic fit"
+  },
+  {
+    "id": "W1105",
+    "name": "Breaking the Lock",
+    "mission_type": "ENCOUNTER",
+    "faction": "Minmatar Republic",
+    "damage_to_deal": "Explosive/Kinetic",
+    "damage_to_resist": "Explosive/Kinetic",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Three rooms of destroyers; gate tooltips lie — clear all ships to unlock each gate; destroying data centers costs -2.4% Minmatar Republic standing.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), Explosive/Kinetic fit"
+  },
+  {
+    "id": 239,
+    "name": "Data Destruction",
+    "mission_type": "ENCOUNTER",
+    "faction": "Minmatar Republic",
+    "damage_to_deal": "Explosive/Kinetic",
+    "damage_to_resist": "Explosive/Kinetic",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Kill all ships in rooms 1–2 to unlock gates (tooltip lies); room 3 only needs data center destroyed; incurs ~-0.24% Minmatar standing total.",
+    "recommended_ship": "T3 Destroyer or below (gate limit), Explosive/Kinetic fit"
+  },
+  {
+    "id": 243,
+    "name": "Fear of Angels",
+    "mission_type": "ENCOUNTER",
+    "faction": "CONCORD",
+    "damage_to_deal": "Omni",
+    "damage_to_resist": "Omni",
+    "space_risk": "NULLSEC",
+    "objective_notes": "Solo vs Marshal Treonis (elite frigate, 27 m sig, 55% omni resists); loot CONCORD Star Emblem from wreck; use precision ammo; reward is Cynabal BPC.",
+    "recommended_ship": "Assault Frigate or T3 Destroyer (precision ammo, fast orbit to beat tracking)"
+  }
+]

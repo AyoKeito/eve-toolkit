@@ -1,0 +1,93 @@
+/* Shared base styles for the lp, missions and agents front-ends.
+   Loaded after theme.css (design tokens) and before each app's local stylesheet,
+   so app-specific rules still win. Served at /shared/base.css for the missions and
+   agents apps and concatenated into lp.css (after theme.css) for the lp app. */
+
+/* Self-hosted Inter — shared by all three apps: lp (via the lp.css bundle), missions and
+   agents (via /shared/base.css). The metric-matched "Inter Fallback" (local Arial / Liberation
+   Sans / Arimo — all metrically identical, so one override set fits all) is sized to Inter's
+   exact box, so the font-display:swap never reflows text and CLS stays 0. Each app's body font
+   stack must list "Inter", "Inter Fallback", then system fonts; each shell should preload
+   /lp/assets/fonts/inter-var.woff2 so it loads before first paint. */
+@font-face {
+  font-family: "Inter";
+  src: url("/lp/assets/fonts/inter-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Arimo");
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0.00%;
+  size-adjust: 107.12%;
+}
+
+.diagnostic-chips {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  min-width: 0;
+}
+
+.diagnostic-chip {
+  display: inline-flex;
+  min-height: 24px;
+  max-width: 230px;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 8px;
+  background: color-mix(in srgb, var(--panel-2) 68%, transparent);
+  color: var(--subtle);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Home logo: the brand mark sits top-left in every app header and links back to the
+   landing hub. .topbar-brand groups it with the page title; the lp app reuses its own
+   .brand-cluster for the same grouping. The hex takes the accent, the inner network the
+   page foreground, matching favicon.svg. */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+.home-link .brand-mark {
+  display: block;
+  width: 27px;
+  height: 27px;
+}
+.home-link .bm-hex {
+  stroke: var(--accent);
+}
+.home-link .bm-net {
+  stroke: var(--text);
+}
+.home-link:hover {
+  background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.home-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}

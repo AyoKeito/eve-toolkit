@@ -1,0 +1,37 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+data/*
+!data/missions/
+data/missions/*
+!data/missions/seed/
+!data/missions/seed/*.json
+!data/missions/burners.json
+backups/
+logs/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+*.br
+docs/ENVIRONMENT.md
+docs/CODEX_WORKFLOW.md
+docs/*WORKFLOW*.md
+docs/PLAN*.md
+docs/LOCAL*.md
+docs/PRIVATE*.md
+.claude
+.codex-screenshots/
+.superpowers/
+AGENTS.md
+docs/DEFUZZ.md
+
+# Intermediate build artifacts
+tmp_penumbra/
+
+# Generated CSS bundle (concatenated by scripts/precompress-assets.mjs at build time)
+web/lp/lp.css

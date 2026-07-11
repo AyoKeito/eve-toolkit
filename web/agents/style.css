@@ -1,0 +1,640 @@
+/* Agent finder — layout D (full-height ranked hub list + filter card over detail).
+   Design tokens come from /lp/theme.css; .diagnostic-chip comes from /shared/base.css. */
+
+:root {
+  /* Agent level color scale: low = cold/dim, high = hot/bright. */
+  --l1: #64748b;
+  --l2: #38bdf8;
+  --l3: #2dd4bf;
+  --l4: #fbbf24;
+  --l5: #f472b6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.agents-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 22px;
+  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.agents-topbar h1 {
+  margin: 0;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+
+.agents-topbar p {
+  margin: 2px 0 0;
+  color: var(--subtle);
+  font-size: 12px;
+}
+
+.agents-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button.ghost {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.button.ghost:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+/* -- Filter card: labeled field groups with segmented selectors (LP pattern) -- */
+
+.filterbar {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  align-items: flex-end;
+}
+
+.fg {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flabel {
+  font-size: 11px;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.filterbar input[type="search"] {
+  width: 240px;
+  min-height: 32px;
+  padding: 0 12px;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13.5px;
+}
+
+.filterbar input[type="search"]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 4px;
+}
+
+.seg button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-3) 68%, transparent);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.seg button:hover {
+  color: var(--text);
+}
+
+.seg button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.seg button:disabled:hover {
+  color: var(--muted);
+}
+
+.seg button[aria-pressed="true"] {
+  border-color: var(--c, var(--accent));
+  background: color-mix(in srgb, var(--c, var(--accent)) 17%, var(--panel-2));
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c, var(--accent)) 36%, transparent);
+}
+
+.seg .tier-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  fill: none;
+  stroke: var(--c, currentColor);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.seg .lvdot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--c);
+  flex: 0 0 9px;
+}
+
+/* Security band colors follow the in-game scale: highsec green, lowsec orange, nullsec purple. */
+.sec-seg-high { --c: #71e754; }
+.sec-seg-low { --c: #dc6c06; }
+.sec-seg-null { --c: #b04a85; }
+.lv-seg-1 { --c: var(--l1); }
+.lv-seg-2 { --c: var(--l2); }
+.lv-seg-3 { --c: var(--l3); }
+.lv-seg-4 { --c: var(--l4); }
+.lv-seg-5 { --c: var(--l5); }
+
+/* Agent type segment: basic = accent, storyline = violet, epic arc = amber-orange.
+   The same violet/orange identify storyline/epic across markers, badges, and the arc chip. */
+.ty-seg-basic { --c: var(--accent); }
+.ty-seg-story { --c: #c084fc; }
+.ty-seg-epic { --c: #fb923c; }
+
+.corp-combobox {
+  position: relative;
+}
+
+.corp-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.45);
+  z-index: 6;
+}
+
+.corp-option {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  background: none;
+  border: 0;
+  border-radius: 7px;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.corp-option:hover,
+.corp-option.active {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+
+/* The "All corporations" entry that resets to the cross-corp view — accented and separated from
+   the corp list (the rule trails the list except when the box is empty, so the divider sits on
+   top). */
+.corp-option-all {
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 var(--line);
+}
+
+.agents-shell {
+  max-width: 1180px;
+  margin: 18px auto 60px;
+  padding: 0 22px;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.rightcol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.ranklist {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ranklist h2 {
+  margin: 0;
+  padding: 11px 14px;
+  font-size: 11px;
+  color: var(--subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.legend {
+  display: flex;
+  gap: 5px;
+  letter-spacing: normal;
+}
+
+.legend i {
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.legend .lg1 { color: var(--l1); }
+.legend .lg2 { color: var(--l2); }
+.legend .lg3 { color: var(--l3); }
+.legend .lg4 { color: var(--l4); }
+.legend .lg5 { color: var(--l5); }
+
+/* Live name filter pinned above the ranked hub rows. */
+.rankfilter {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rankfilter input {
+  width: 100%;
+  min-height: 30px;
+  padding: 0 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+}
+
+.rankfilter input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+
+.rankrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px 14px;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.rankrow:hover {
+  background: var(--panel-2);
+}
+
+/* Trailing note when the ranked list is capped (dense all-corporations views). */
+.rankmore {
+  padding: 9px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--subtle);
+  font-size: 11.5px;
+}
+
+.rankrow.sel {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.rankrow .num {
+  color: var(--subtle);
+  font-size: 11.5px;
+  min-width: 20px;
+}
+
+.rankrow .name {
+  font-weight: 600;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.syscount {
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--panel-3);
+  white-space: nowrap;
+}
+
+/* Badge takes the exact in-game security color via --c; the text is lightened toward the
+   page foreground so dark palette entries (0.1-0.2 deep reds) stay readable. */
+.secbadge {
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--c, var(--panel-3)) 24%, transparent);
+  color: color-mix(in srgb, var(--c, var(--muted)) 72%, var(--text));
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.bars i {
+  width: 7px;
+  border-radius: 2px;
+  background: var(--panel-3);
+  display: block;
+}
+
+.detail {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+.detail .empty-state {
+  margin: 0;
+  padding: 22px;
+  color: var(--subtle);
+  max-width: 56ch;
+}
+
+.dethead {
+  padding: 14px 18px;
+  background: var(--panel-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.dethead .sysname {
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.dethead .region {
+  color: var(--subtle);
+  font-size: 12.5px;
+}
+
+.dethead .countwrap {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Sub-header for each system inside a constellation/region detail view. */
+.syshead {
+  padding: 10px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-2) 55%, transparent);
+}
+
+.syshead .sysname {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.syshead .region {
+  color: var(--subtle);
+  font-size: 12px;
+}
+
+.syshead .countwrap {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.countchip {
+  padding: 2px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.countchip strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.countchip.lv {
+  border-color: color-mix(in srgb, var(--c) 45%, transparent);
+  color: var(--c);
+}
+
+.countchip.lv strong {
+  color: var(--c);
+}
+
+.detail table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detail td {
+  padding: 9px 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.detail td.lvl {
+  width: 50px;
+}
+
+.detail td.agent {
+  width: 230px;
+}
+
+.detail td.div {
+  color: var(--muted);
+  width: 130px;
+}
+
+.detail td.station {
+  color: var(--subtle);
+}
+
+/* Owning corp under an agent's name, shown only in the all-corporations view. */
+.corpline {
+  display: block;
+  margin-top: 2px;
+  color: var(--subtle);
+  font-size: 11.5px;
+}
+
+.lvlpill {
+  display: inline-block;
+  min-width: 26px;
+  text-align: center;
+  padding: 1px 7px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--c, var(--panel-3)) 18%, transparent);
+  color: var(--c, var(--muted));
+}
+
+.locator {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border: 1px solid color-mix(in srgb, var(--warning) 60%, transparent);
+  color: var(--warning);
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+/* Storyline / mid-arc epic agent badges (mirror the .locator outline pill). */
+.tbadge {
+  margin-left: 8px;
+  padding: 1px 7px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+.tbadge.story { color: #c084fc; border-color: color-mix(in srgb, #c084fc 60%, transparent); }
+.tbadge.epic { color: #fb923c; border-color: color-mix(in srgb, #fb923c 60%, transparent); }
+
+/* Epic-arc → missions deep-link chip, inline on the agent's row. */
+.arclink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: middle;
+  margin-left: 8px;
+  padding: 1px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #fb923c;
+  background: color-mix(in srgb, #fb923c 12%, transparent);
+  border: 1px solid color-mix(in srgb, #fb923c 40%, transparent);
+}
+.arclink:hover { background: color-mix(in srgb, #fb923c 20%, transparent); color: #fdba74; }
+.arclink .arrow { font-size: 12px; line-height: 1; }
+
+/* Cross-type markers on a Basic-view hub row: the system also hosts a storyline (★)
+   and/or epic-arc (◆) agent. */
+.sysmarks { display: inline-flex; gap: 4px; align-items: center; }
+.sysmark {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+}
+.sysmark.story { color: #c084fc; background: color-mix(in srgb, #c084fc 16%, transparent); }
+.sysmark.epic { color: #fb923c; background: color-mix(in srgb, #fb923c 18%, transparent); }
+
+/* Roomier agent cell so name + inline arc chip share one line. */
+.detail td.agent { width: 300px; }
+
+@media (max-width: 860px) {
+  /* Single column: the filter card jumps above the hub list (rightcol dissolves
+     into the shell flow so its children can be reordered). */
+  .agents-shell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rightcol {
+    display: contents;
+  }
+
+  .filterbar {
+    order: -1;
+  }
+
+  .agents-topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .agents-topbar .diagnostic-chips {
+    display: none;
+  }
+
+  .filterbar input[type="search"] {
+    width: min(240px, 86vw);
+  }
+
+  .detail td.station {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

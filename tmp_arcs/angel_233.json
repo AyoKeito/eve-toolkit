@@ -1,0 +1,43 @@
+{
+  "arc_id": 6,
+  "name": "Angel Sound",
+  "faction": "ANGEL CARTEL",
+  "level": 3,
+  "starting_agent": null,
+  "starting_system": null,
+  "description": null,
+  "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=233",
+  "missions": [
+    {
+      "mission_id": 233,
+      "arc_position": 1,
+      "prev_mission_id": 231,
+      "next_mission_id": null,
+      "name": "Serpentis Fill-In",
+      "level": 3,
+      "mission_type": "COURIER",
+      "faction": "Angel Cartel",
+      "is_epic_arc": true,
+      "damage_to_deal": "Explosive/Kinetic",
+      "damage_to_resist": "Explosive/Kinetic",
+      "recommended_ship": null,
+      "briefing_html": "Perhaps it's not worth the trouble to take down the Sansha encampment. They might have already gone in and destabilized the wormhole. We play by risk and reward, and the reward here looks like it'll be too low.<br><br>There's a high-priority shipment that has been sitting around waiting for someone capable enough to move it. It's headed to the Serpentis research facilities in Fountain, but Sarpati's crew is going to handle moving it from Curse over to their Headquarters. They were supposed to take it directly from this station but we've lost contact with the research team in charge of that operation. The job is yours if you want it. All you need to do is get it to nearby Serpentis Corp. transport hub, from there they'll handle the rest.<br><br>The cargo is small so you could easily fit it inside an interceptor or covert ops and I would suggest you do just that, [you]. I will not accept any excuses for the cargo's disappearance.<br>\n<br>\n<br>",
+      "objective_html": "Deliver the Sealed Research Cache to the local Serpentis Transport Hub.<br>\n1x <a href=\"item.php?type_id=32393\">Sealed Research Cache</a> (volume: 2 m3)<br>\n<br>\n<br>\nNo information about the mission site.<br>\n<br>\n<br>",
+      "reward_isk": null,
+      "reward_lp": null,
+      "reward_bonus_isk": null,
+      "bonus_time_seconds": null,
+      "source_url": "http://games.chruker.dk/eve_online/mission_view.php?id=233",
+      "objective_items": [
+        {
+          "type_id": 32393,
+          "type_name": "Sealed Research Cache",
+          "quantity": 1,
+          "volume_m3": 2,
+          "role": "DELIVER"
+        }
+      ],
+      "pockets": []
+    }
+  ]
+}

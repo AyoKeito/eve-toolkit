@@ -1,0 +1,1299 @@
+/* Mission detail — dense, EVE-style mission briefing layout.
+   Loaded AFTER /lp/theme.css and /missions/style.css. Owns the
+   hero, narrative, pocket, and NPC-row treatments. */
+
+.mission-shell {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  max-width: 1640px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   HERO — the most important answers, surfaced first.
+   ============================================================ */
+
+.mission-hero {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 90% -40%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 50%),
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.mission-hero-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 20px 22px 14px;
+  flex-wrap: wrap;
+}
+
+.mission-hero-title h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.mission-hero-title .crumb {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.mission-hero-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.mission-hero-tags .chip { min-height: 24px; padding: 0 10px; }
+.mission-hero-tags .chip.lvl {
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel-3));
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  font-weight: 600;
+}
+
+.mission-hero-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.mission-hero-strip {
+  display: grid;
+  grid-template-columns: 1.3fr 1.3fr 1.2fr 0.85fr 0.85fr 1.05fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.mission-hero-strip > article {
+  padding: 14px 18px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.mission-hero-strip > article:last-child { border-right: 0; }
+/* Footer lines (peak DPS, spectrum hint, ship meta) pin to the strip's bottom edge so
+   columns of different content heights still read as deliberately full. */
+.mission-hero-strip > article > .cell-foot { margin-top: auto; padding-top: 8px; }
+.mission-hero-strip .sp-meta { display: grid; gap: 2px; }
+.mission-hero-strip .label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+.mission-hero-strip .value {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.mission-hero-strip .value .small {
+  font-size: 12px; color: var(--muted); font-weight: 400;
+}
+.mission-hero-strip .types {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.mission-hero-strip .type-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 6px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.mission-hero-strip .type-tag .pct {
+  opacity: 0.7;
+  font-weight: 500;
+  margin-left: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.damage-chart {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.chart-row {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) 42px;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.mission-hero-strip .chart-row {
+  grid-template-columns: 16px minmax(0, 1fr) 96px;
+  font-size: 10px;
+}
+.chart-track {
+  position: relative;
+  height: 9px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--panel-3) 72%, transparent);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 52%, transparent);
+}
+.chart-track i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.82;
+}
+.chart-value {
+  text-align: right;
+  color: var(--text);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.chart-row.zero .chart-value { color: var(--subtle); }
+.chart-row.zero .chart-track i { opacity: 0; }
+.eve-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  user-select: none;
+}
+.damage-icon {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, currentColor 44%, transparent));
+}
+.tank-icon {
+  opacity: 0.95;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.45));
+}
+.ewar-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--danger) 30%, transparent));
+}
+
+.ewar-summary-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.ewar-summary-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-3) 70%, transparent);
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ewar-summary-chip .lab {
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.ewar-summary-chip .count {
+  color: currentColor;
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+  font-size: 10.5px;
+}
+
+.ewar-summary-chip .ewar-icon {
+  width: 14px;
+  height: 14px;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, currentColor 35%, transparent));
+}
+
+.ewar-summary-chip.is-info {
+  border-color: color-mix(in srgb, var(--focus) 45%, var(--line));
+  background: color-mix(in srgb, var(--focus) 10%, var(--panel-3));
+  color: var(--focus);
+}
+
+.ewar-summary-chip.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 50%, var(--line));
+  background: color-mix(in srgb, var(--warning) 12%, var(--panel-3));
+  color: var(--warning);
+}
+
+.ewar-summary-chip.is-danger {
+  border-color: color-mix(in srgb, var(--danger) 55%, var(--line));
+  background: color-mix(in srgb, var(--danger) 14%, var(--panel-3));
+  color: var(--danger);
+}
+.mission-hero-strip .item-line {
+  font-size: 13px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mission-hero-strip .item-line .qty {
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin-right: 4px;
+}
+
+/* ============================================================
+   NARRATIVE — Briefing + Objective.
+   ============================================================ */
+
+.mission-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+}
+.mission-card > .card-title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.mission-card.objective {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  box-shadow: var(--shadow), inset 3px 0 0 var(--accent);
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.mission-card.objective .objective-summary {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.45;
+}
+.mission-card.objective .objective-summary p { margin: 0 0 6px; }
+.mission-card.objective .item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  margin-top: 4px;
+  margin-right: 6px;
+  font-size: 12px;
+}
+.mission-card.objective .item .qty {
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.mission-card.objective .item .role {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+/* Non-obvious objective gotchas (salvage, hacking, items to keep, etc.) */
+.mission-card.objective .objective-notes {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--warning, #e0a64b) 45%, var(--line));
+  border-left: 3px solid var(--warning, #e0a64b);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--warning, #e0a64b) 12%, transparent);
+}
+.mission-card.objective .objective-notes-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--warning, #e0a64b);
+}
+.mission-card.objective .objective-notes-body {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+/* ============================================================
+   PATH CHOICE — fork missions render one card per outgoing branch
+   ============================================================ */
+
+.mission-card.path-choice {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  box-shadow: var(--shadow), inset 3px 0 0 var(--accent);
+  scroll-margin-top: 12px;
+}
+.path-choice .path-choice-sub {
+  margin: -4px 0 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.path-choice .path-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.path-choice .path-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+}
+.path-choice .path-option:hover {
+  border-color: color-mix(in srgb, var(--accent) 65%, var(--line));
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  transform: translateY(-1px);
+}
+.path-choice .po-text { display: grid; gap: 6px; min-width: 0; }
+.path-choice .po-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+}
+.path-choice .po-name { font-size: 15px; line-height: 1.25; }
+.path-choice .po-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.path-choice .po-arrow {
+  flex: none;
+  font-size: 20px;
+  color: var(--accent);
+  transition: transform 120ms ease;
+}
+.path-choice .path-option:hover .po-arrow { transform: translateX(3px); }
+
+/* ============================================================
+   POCKETS + GROUPS
+   ============================================================ */
+
+.mission-pockets { display: grid; gap: 14px; }
+
+.pocket {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--panel-2) 90%, transparent), var(--panel));
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.pocket-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-3) 60%, transparent);
+}
+.pocket-head .pocket-head-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.pocket-head h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.pocket-head .pocket-sub { font-size: 12px; color: var(--muted); }
+
+.combat-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.combat-ribbon.sm {
+  flex-basis: 100%;
+  margin-top: 2px;
+  gap: 5px;
+}
+
+.combat-ribbon-dps {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-3) 70%, transparent);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.combat-ribbon-dps .lab {
+  color: var(--subtle);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.combat-ribbon-dps strong {
+  color: currentColor;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.combat-ribbon.lg .combat-ribbon-dps {
+  padding: 4px 11px;
+  font-size: 12px;
+}
+.combat-ribbon.lg .combat-ribbon-dps strong { font-size: 14px; }
+
+.combat-ribbon-dps.is-info {
+  border-color: color-mix(in srgb, var(--focus) 45%, var(--line));
+  background: color-mix(in srgb, var(--focus) 10%, var(--panel-3));
+  color: var(--focus);
+}
+.combat-ribbon-dps.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 50%, var(--line));
+  background: color-mix(in srgb, var(--warning) 12%, var(--panel-3));
+  color: var(--warning);
+}
+.combat-ribbon-dps.is-danger {
+  border-color: color-mix(in srgb, var(--danger) 55%, var(--line));
+  background: color-mix(in srgb, var(--danger) 14%, var(--panel-3));
+  color: var(--danger);
+}
+
+.combat-ribbon-types {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.combat-ribbon-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.combat-ribbon .ewar-summary-chip {
+  font-size: 10px;
+  padding: 2px 6px 2px 4px;
+}
+.combat-ribbon .ewar-summary-chip .ewar-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.group-head .combat-ribbon {
+  font-size: 11px;
+}
+
+.group {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  border-left: 3px solid transparent;
+}
+.group:last-child { border-bottom: 0; }
+
+.group.is-objective {
+  border-left-color: var(--success);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--success) 10%, transparent) 0%,
+    color-mix(in srgb, var(--success) 3%, transparent) 30%,
+    transparent 70%
+  );
+}
+
+.group.is-optional:not(.is-objective) {
+  opacity: 0.72;
+}
+
+.group.is-objective .group-head {
+  background: color-mix(in srgb, var(--panel-3) 35%, transparent);
+}
+
+.group.is-objective .group-head h3 {
+  color: color-mix(in srgb, var(--success) 35%, var(--text));
+}
+
+.group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: color-mix(in srgb, var(--panel-3) 30%, transparent);
+}
+.group-head h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.group-head .trigger {
+  flex: 1 1 100%;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--warning);
+}
+.group-head .trigger svg { flex: 0 0 14px; }
+
+/* ============================================================
+   NPC ROW — six sections: identity | physical | hp | resists | dps | ewar
+   ============================================================ */
+
+.npc-row {
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1.4fr)
+    minmax(150px, 0.9fr)
+    minmax(160px, 1fr)
+    minmax(260px, 1.6fr)
+    minmax(220px, 1.3fr)
+    minmax(140px, 0.9fr);
+  gap: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+.npc-row:last-child { border-bottom: 0; }
+.npc-row:hover { background: color-mix(in srgb, var(--accent) 4%, transparent); }
+.npc-row > section {
+  padding: 14px 16px;
+  border-right: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  min-width: 0;
+}
+.npc-row > section:last-child { border-right: 0; }
+.npc-row > section > .col-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 8px;
+}
+
+.npc-identity {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.npc-identity img {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background: var(--panel-3);
+  border: 1px solid var(--line);
+  object-fit: contain;
+}
+.npc-identity .img-fallback {
+  width: 48px; height: 48px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), color-mix(in srgb, var(--panel-3) 50%, transparent)),
+    var(--panel-3);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+.npc-identity .nm { display: grid; gap: 4px; min-width: 0; }
+.npc-identity .nm strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.npc-identity .nm .meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--muted);
+}
+.npc-identity .qty-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+}
+.npc-identity .class-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 3px;
+  border: 1px solid color-mix(in srgb, var(--focus) 38%, var(--line));
+  color: var(--focus);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.npc-identity .role-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.npc-identity .role-chip.is-objective {
+  background: color-mix(in srgb, var(--success) 22%, transparent);
+  color: var(--success);
+  border: 1px solid color-mix(in srgb, var(--success) 50%, var(--line));
+}
+.npc-identity .role-chip.is-trigger {
+  background: color-mix(in srgb, var(--danger) 22%, transparent);
+  color: var(--danger);
+  border: 1px solid color-mix(in srgb, var(--danger) 50%, var(--line));
+}
+.npc-identity .notes {
+  font-size: 11px;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+.npc-hp { display: grid; gap: 6px; align-content: start; }
+.npc-hp .layer {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.npc-hp .layer .tank-icon {
+  justify-self: center;
+}
+.npc-hp .layer .bar {
+  position: relative;
+  height: 8px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--panel-3) 70%, transparent);
+  overflow: hidden;
+}
+.npc-hp .layer .bar i {
+  position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px;
+}
+.npc-hp .layer.s .bar i { background: linear-gradient(90deg, #5BA8E0, #6BB6FF); }
+.npc-hp .layer.a .bar i { background: linear-gradient(90deg, #b08537, #FFB347); }
+.npc-hp .layer.h .bar i { background: linear-gradient(90deg, #d56757, #FF6B4A); }
+.npc-hp .layer .val { color: var(--text); font-weight: 600; min-width: 42px; text-align: right; }
+
+.npc-resists {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+.npc-resist-chart {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  min-width: 0;
+}
+.resist-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 4px;
+  min-width: 0;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.resist-damage {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.resist-layer-bars {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.resist-layer {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 4px;
+  align-items: center;
+  min-width: 0;
+}
+.resist-layer .tank-icon {
+  justify-self: center;
+}
+.resist-track {
+  position: relative;
+  height: 6px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--panel-3) 74%, transparent);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--line) 42%, transparent);
+}
+.resist-track i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.78;
+}
+.resist-avg {
+  text-align: center;
+  color: var(--text);
+  font-weight: 700;
+}
+.resist-row.weak .resist-avg  { color: var(--profit); }
+.resist-row.med .resist-avg   { color: var(--warning); }
+.resist-row.tough .resist-avg { color: var(--danger); }
+
+.npc-dps { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.npc-dps .total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px;
+  color: var(--muted);
+}
+.npc-dps .total b {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.npc-dps-chart {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  min-width: 0;
+}
+.npc-dps-chart .chart-row {
+  grid-template-columns: 16px minmax(0, 1fr);
+  grid-template-areas:
+    "icon value"
+    "bar bar";
+  gap: 4px 6px;
+  align-content: start;
+}
+.npc-dps-chart .damage-icon { grid-area: icon; }
+.npc-dps-chart .chart-track { grid-area: bar; }
+.npc-dps-chart .chart-value { grid-area: value; }
+.npc-dps .non-combat {
+  font-size: 11px;
+  color: var(--subtle);
+  font-style: italic;
+}
+
+.npc-ewar {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+.npc-ewar .chip {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--warning) 42%, var(--line));
+  background: color-mix(in srgb, var(--warning) 8%, transparent);
+  color: var(--warning);
+  font-weight: 600;
+  min-height: 0;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+}
+.npc-ewar .chip.is-danger {
+  border-color: color-mix(in srgb, var(--danger) 48%, var(--line));
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  color: var(--danger);
+}
+.npc-ewar .chip.is-warning {
+  border-color: color-mix(in srgb, var(--warning) 48%, var(--line));
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+  color: var(--warning);
+}
+.npc-ewar .chip.is-info {
+  border-color: color-mix(in srgb, var(--focus) 48%, var(--line));
+  background: color-mix(in srgb, var(--focus) 10%, transparent);
+  color: var(--focus);
+}
+.npc-ewar .chip .ewar-icon {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 35%, transparent));
+}
+.npc-ewar .chip .lab {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 10px;
+  min-width: 0;
+}
+.npc-ewar .empty {
+  font-size: 11px;
+  color: var(--subtle);
+  font-style: italic;
+}
+
+.npc-row.structure {
+  background: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+.npc-row.structure .npc-identity .class-chip {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+
+.npc-row.is-objective {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--success) 12%, transparent) 0%,
+    color-mix(in srgb, var(--success) 4%, transparent) 35%,
+    transparent 75%
+  );
+  box-shadow: inset 3px 0 0 var(--success);
+}
+.npc-row.is-trigger {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--danger) 11%, transparent) 0%,
+    color-mix(in srgb, var(--danger) 4%, transparent) 35%,
+    transparent 75%
+  );
+  box-shadow: inset 3px 0 0 var(--danger);
+}
+.npc-row.is-objective .npc-identity strong,
+.npc-row.is-trigger .npc-identity strong {
+  font-weight: 700;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1400px) {
+  .npc-row {
+    grid-template-columns: minmax(140px, 1fr) minmax(140px, 1fr) minmax(280px, 1.6fr) minmax(180px, 1.2fr);
+    grid-template-areas:
+      "id id id id"
+      "stats hp resists dps"
+      "ewar ewar ewar ewar";
+  }
+  .npc-identity {
+    grid-area: id;
+    grid-template-columns: 56px 1fr;
+    align-items: center;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    border-right: 0 !important;
+    background: color-mix(in srgb, var(--panel-3) 35%, transparent);
+  }
+  .npc-identity img,
+  .npc-identity .img-fallback { width: 56px; height: 56px; }
+  .npc-hp      { grid-area: hp; }
+  .npc-resists { grid-area: resists; }
+  .npc-dps     { grid-area: dps; }
+  .npc-ewar    {
+    grid-area: ewar;
+    border-top: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    border-right: 0 !important;
+    align-items: start;
+    gap: 8px;
+    overflow: hidden;
+  }
+  .npc-ewar > .col-label { margin-bottom: 0; }
+}
+
+@media (max-width: 900px) {
+  /* hero strip + hero-bottom overrides live at the end of the file — the redesign
+     section below re-declares both and would win by order */
+  .mission-hero-strip > article { border-bottom: 1px solid var(--line); }
+  .npc-row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "id id"
+      "stats hp"
+      "resists resists"
+      "dps dps"
+      "ewar ewar";
+  }
+}
+
+@media (max-width: 700px) {
+  .missions-topbar {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .missions-topbar > div {
+    min-width: 0;
+  }
+
+  .missions-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .missions-actions .button {
+    flex: 0 0 auto;
+  }
+
+  .mission-hero-title h1 {
+    font-size: 24px;
+  }
+
+}
+
+/* ============================================================
+   REDESIGN — compact rows, structured EWAR, dense table, reworked hero
+   ============================================================ */
+
+/* --- compact row: tighter rhythm, ~half the old height --- */
+.npc-row > section { padding: 9px 12px; }
+.npc-row > section > .col-label { margin-bottom: 5px; }
+.npc-identity { grid-template-columns: 40px 1fr; gap: 10px; }
+.npc-identity img, .npc-identity .img-fallback { width: 40px; height: 40px; }
+.npc-identity .nm { gap: 2px; }
+.npc-hp { gap: 4px; }
+.npc-hp .layer .bar { height: 7px; }
+.npc-resists { gap: 4px; }
+.npc-resist-chart { gap: 5px; }
+/* color-coded resist % carries the "best to deal" signal (replaces the deleted Best: box) */
+.resist-avg { font-weight: 700; }
+.resist-row.weak .resist-avg { color: var(--success); }
+/* hide the EWAR column entirely for groups where no NPC has EWAR (no dead column) */
+.group-body.no-group-ewar .npc-ewar { display: none; }
+
+/* physical: inline, null-hidden (no walls of —) */
+.npc-phys-inline { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 11px; }
+.npc-physical .ps { display: inline-flex; gap: 3px; align-items: baseline; white-space: nowrap; }
+.npc-physical .ps-key { color: var(--subtle); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; }
+.npc-physical .ps-val { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.npc-physical .ps-empty { color: var(--subtle); font-style: italic; }
+
+/* structured EWAR pills (range / strength / chance / GJ-s) instead of the raw blob */
+.npc-ewar .chip { grid-template-columns: 18px minmax(0, 1fr); align-items: center; gap: 3px 7px; padding: 5px 8px; }
+.npc-ewar .chip .lab { align-self: center; }
+.npc-ewar .ewar-params { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 3px 5px; margin-top: 2px;
+  font-size: 10px; font-variant-numeric: tabular-nums; text-transform: none; letter-spacing: 0; }
+.npc-ewar .ewar-params .ep-stat { padding: 0 4px; border-radius: 3px; background: color-mix(in srgb, currentColor 12%, transparent); }
+.npc-ewar .ewar-params .ep-gj { color: var(--danger); font-weight: 700; }
+.npc-ewar .ewar-params .ep-range { color: var(--muted); }
+.npc-ewar .ewar-params .ep-str { color: var(--warning); font-weight: 600; }
+.npc-ewar .ewar-params .ep-chance { color: var(--subtle); }
+.npc-ewar .ewar-params .ep-pts { color: var(--text); font-weight: 600; }
+
+/* neut-pressure pill on group/pocket combat ribbons */
+.combat-ribbon-neut { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border: 1px solid var(--line);
+  border-radius: 999px; background: color-mix(in srgb, var(--panel-3) 70%, transparent); color: var(--muted);
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.combat-ribbon-neut b { font-weight: 700; color: currentColor; }
+.combat-ribbon-neut.is-danger { border-color: color-mix(in srgb, var(--danger) 55%, var(--line)); background: color-mix(in srgb, var(--danger) 14%, var(--panel-3)); color: var(--danger); }
+.combat-ribbon-neut.is-warning { border-color: color-mix(in srgb, var(--warning) 50%, var(--line)); background: color-mix(in srgb, var(--warning) 12%, var(--panel-3)); color: var(--warning); }
+.combat-ribbon-neut.is-info { border-color: color-mix(in srgb, var(--focus) 45%, var(--line)); background: color-mix(in srgb, var(--focus) 10%, var(--panel-3)); color: var(--focus); }
+
+/* --- hero: title+tags one row, 4-col strip, bigger scale --- */
+.mission-hero-head { padding-bottom: 12px; }
+.mission-hero-title h1 { margin: 0; }
+.mission-hero-title .crumb { margin-bottom: 6px; }
+.mission-hero-title .title-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.mission-hero-title .mission-hero-tags { margin: 0; }
+.mission-hero-strip.hero-3 { grid-template-columns: 1.3fr 1.9fr 1.3fr; }
+.mission-hero-strip.hero-3 > article { padding: 16px 20px; }
+.mission-hero-strip.hero-3 .label { font-size: 11px; }
+.mission-hero-strip.hero-3 .value { font-size: 21px; }
+.mission-hero-strip.hero-3 .chart-row { font-size: 12px; }
+
+/* "Deal these" — resistance spectrum (hero cell): Best→Worst gradient rail, each damage
+   type an EVE-icon pin evenly spaced in rank order; % is the label, pin colour = rank. */
+.deal-spectrum .ds-foot { font-size: 11px; color: var(--subtle); text-align: center; }
+.deal-spectrum .ds-empty { color: var(--subtle); }
+
+.ds-plot { position: relative; height: 80px; margin: 8px 46px 2px; }
+.ds-rail { position: absolute; left: 0; right: 0; top: 36px; height: 6px; border-radius: 999px;
+  background: linear-gradient(90deg,
+    var(--success) 0%,
+    color-mix(in srgb, var(--success), var(--warning)) 38%,
+    var(--warning) 62%,
+    var(--danger) 100%);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent); }
+.ds-dot { position: absolute; top: 33px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--panel); border: 2px solid var(--line-strong); }
+.ds-dot-l { left: -6px; }
+.ds-dot-r { right: -6px; }
+/* End labels sit in the side gutters at rail height — above the rail they collide with
+   the outermost pins whenever the last marker lands near an edge. */
+.ds-end { position: absolute; top: 30px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.ds-end-best { left: -40px; color: var(--success); }
+.ds-end-worst { right: -46px; color: var(--danger); }
+
+.ds-marker { --rank: var(--muted); position: absolute; top: 0; left: 0; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; width: 52px; color: var(--rank); }
+.ds-marker.r0 { --rank: var(--success); }
+.ds-marker.r1 { --rank: color-mix(in srgb, var(--success) 55%, var(--warning)); }
+.ds-marker.r2 { --rank: var(--warning); }
+.ds-marker.r3 { --rank: var(--danger); }
+/* node where the dashed stem meets the rail */
+.ds-marker::after { content: ""; position: absolute; top: 35px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--rank); box-shadow: 0 0 7px color-mix(in srgb, var(--rank) 70%, transparent); }
+.ds-pin { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; line-height: 0;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--rank) 38%, var(--panel-2)), color-mix(in srgb, var(--rank) 14%, var(--panel-2)));
+  border: 1.5px solid var(--rank); box-shadow: 0 0 12px color-mix(in srgb, var(--rank) 48%, transparent); }
+.ds-marker.best .ds-pin { box-shadow: 0 0 18px color-mix(in srgb, var(--rank) 62%, transparent); }
+.ds-stem { width: 0; height: 10px; border-left: 1.5px dashed color-mix(in srgb, var(--rank) 60%, transparent); margin-top: 1px; }
+.ds-val { margin-top: 11px; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--rank); line-height: 1; }
+.ds-name { margin-top: 3px; font-size: 11px; font-weight: 600; color: var(--rank); opacity: 0.85; }
+
+/* EWAR threats — vertical stat cards + neut meter */
+.ewar-cards { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.ewar-card { display: grid; gap: 6px; align-content: start; min-width: 96px; padding: 9px 11px; border-radius: 8px;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--panel-3) 55%, transparent); }
+.ewar-card.is-danger  { border-color: color-mix(in srgb, var(--danger) 45%, var(--line));  background: color-mix(in srgb, var(--danger) 9%, var(--panel-3)); }
+.ewar-card.is-warning { border-color: color-mix(in srgb, var(--warning) 42%, var(--line)); background: color-mix(in srgb, var(--warning) 8%, var(--panel-3)); }
+.ewar-card.is-info    { border-color: color-mix(in srgb, var(--focus) 42%, var(--line));   background: color-mix(in srgb, var(--focus) 8%, var(--panel-3)); }
+.ewar-card .ec-head { display: flex; align-items: center; gap: 6px; }
+.ewar-card .ec-head .ewar-icon { filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 35%, transparent)); }
+.ewar-card .ec-label { font-size: 13px; font-weight: 700; }
+.ewar-card.is-danger  .ec-label { color: var(--danger); }
+.ewar-card.is-warning .ec-label { color: var(--warning); }
+.ewar-card.is-info    .ec-label { color: var(--focus); }
+.ewar-card .ec-count { color: var(--text); font-weight: 700; font-variant-numeric: tabular-nums; margin-left: auto; }
+.ewar-card .ec-stats { display: grid; gap: 2px; }
+.ewar-card .ec-stat { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.neut-meter { display: flex; align-items: center; gap: 7px; margin-top: 9px; padding-top: 9px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); font-size: 12px; color: var(--danger); }
+.neut-meter b { font-size: 17px; font-weight: 700; margin-left: auto; font-variant-numeric: tabular-nums; }
+
+/* Hero bottom band — objective (flexes) beside an EWAR cell sized to its content.
+   The objective keeps its .mission-card classes so its inner styling (items, heads-up,
+   briefing) still applies; the card chrome is neutralized inside the hero. Both live
+   outside .mission-hero-strip, so labels/values get styled here. */
+.hero-bottom { display: flex; align-items: stretch; border-top: 1px solid var(--line); }
+.hero-bottom > .mission-objective { flex: 1 1 auto; min-width: 0; padding: 14px 20px; }
+.hero-bottom > .mission-objective.mission-card { border: 0; background: transparent; box-shadow: none; border-radius: 0; }
+.hero-bottom .card-title { margin: 0; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); font-weight: 400; }
+.hero-bottom > .ewar-summary { flex: 0 1 auto; max-width: 46%; border-left: 1px solid var(--line); padding: 14px 20px;
+  display: flex; flex-direction: column; gap: 8px; }
+.hero-bottom > .ewar-summary > .label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); white-space: nowrap; }
+.hero-bottom > .ewar-summary .value { display: flex; align-items: center; min-width: 0; }
+.hero-bottom > .ewar-summary .value .small { font-size: 12.5px; color: var(--muted); font-weight: 400; }
+.hero-bottom .ewar-cards { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0; }
+.hero-bottom .neut-meter { margin-top: auto; padding-top: 9px; }
+
+/* Mission overview cell */
+.mission-hero-strip .sp-ship { font-size: 18px; font-weight: 600; }
+.mission-hero-strip .sp-pk { text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 12.5px; }
+
+/* Objective strip — full width, compact: goal + gotcha + items; briefing collapsed */
+.mission-objective { display: grid; gap: 10px; }
+.mission-objective .obj-main { display: flex; gap: 18px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+.mission-objective .objective-summary { flex: 1 1 340px; min-width: 0; }
+.mission-objective .obj-items { display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; }
+.mission-objective .obj-items .item { margin: 0; }
+.briefing-collapse { margin-top: 2px; border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); padding-top: 9px; }
+.briefing-collapse summary { cursor: pointer; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; user-select: none; }
+.briefing-collapse summary::-webkit-details-marker { color: var(--subtle); }
+.briefing-collapse .briefing-body { margin-top: 9px; color: var(--muted); line-height: 1.55; font-size: 13px; }
+.briefing-collapse .briefing-body p { margin: 0 0 8px; }
+
+/* ============================================================
+   DENSE table — one line per NPC, click/Enter to expand
+   ============================================================ */
+.mission-pockets.style-dense .group-body { display: block; }
+.mission-pockets.style-dense .pocket { overflow: visible; }
+.npc-dense, .npc-dense-head { display: grid; align-items: center; gap: 10px;
+  /* EWAR is empty on most rows — keep it narrow so the stat cluster doesn't drift far left of the chevron */
+  grid-template-columns: 32px minmax(160px, 1.6fr) 48px 60px 52px 66px repeat(4, 50px) 104px minmax(140px, 0.7fr) 16px; }
+.npc-dense { padding: 6px 16px; border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent); cursor: pointer; font-size: 13px; }
+.npc-dense:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
+.npc-dense:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: -2px; }
+.npc-dense.open { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.npc-dense.is-objective { box-shadow: inset 3px 0 0 var(--success); }
+.npc-dense.is-trigger { box-shadow: inset 3px 0 0 var(--danger); }
+.npc-dense-head { position: sticky; top: 64px; z-index: 3; padding: 7px 16px;
+  background: color-mix(in srgb, var(--panel-3) 95%, var(--panel)); border-bottom: 1px solid var(--line-strong);
+  font-size: 9.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--subtle); }
+.npc-dense-head .dh-r { text-align: right; }
+.npc-dense-head .dh-ic { display: flex; justify-content: flex-start; opacity: 0.95; }
+.dense-img img, .dense-img .img-fallback { width: 32px; height: 32px; border-radius: 5px; border: 1px solid var(--line); background: var(--panel-3); object-fit: contain; font-size: 11px; }
+.dense-name { min-width: 0; display: flex; gap: 6px; align-items: center; }
+.dense-name strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--text); }
+.dense-name .qty-chip { font-size: 10px; padding: 0 5px; }
+.dense-name .role-chip { font-size: 9px; padding: 0 5px; }
+.dense-class { color: var(--focus); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid color-mix(in srgb, var(--focus) 35%, var(--line)); border-radius: 3px; padding: 0 5px; white-space: nowrap; }
+.dense-num { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.dense-num.dash { color: var(--subtle); }
+.dense-hp { display: grid; grid-template-columns: 16px 1fr; align-items: center; gap: 4px; color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.dense-hp .dh-num { text-align: right; }
+.dense-hp.dash { display: block; text-align: right; color: var(--subtle); font-weight: 400; }
+.dense-resist { height: 22px; border-radius: 3px; display: grid; grid-template-columns: 16px 1fr; align-items: center; gap: 2px; padding: 0 5px;
+  font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; border: 1px solid color-mix(in srgb, var(--line) 50%, transparent); }
+.dense-resist .dr-pct { color: var(--text); text-align: right; }
+.dense-resist.r-weak  { background: color-mix(in srgb, var(--success) 22%, transparent); }
+.dense-resist.r-med   { background: color-mix(in srgb, var(--warning) 20%, transparent); }
+.dense-resist.r-tough { background: color-mix(in srgb, var(--danger) 22%, transparent); }
+.dense-dps { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
+.dense-dps .dd-icons { display: grid; grid-template-columns: repeat(4, 16px); gap: 2px; }
+.dense-dps .dd-slot { display: flex; align-items: center; justify-content: center; }
+.dense-dps .dd-num { text-align: right; }
+.dense-dps.dash { display: block; text-align: right; color: var(--subtle); font-weight: 400; }
+.dense-ewar { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.dense-ewar .dense-dash { color: var(--subtle); }
+.dense-ewar-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px 2px 5px; border-radius: 999px;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--panel-3) 70%, transparent); color: var(--muted);
+  font-size: 11px; font-weight: 600; white-space: nowrap; }
+.dense-ewar-chip.is-danger { border-color: color-mix(in srgb, var(--danger) 55%, var(--line)); background: color-mix(in srgb, var(--danger) 13%, var(--panel-3)); color: var(--danger); }
+.dense-ewar-chip.is-warning { border-color: color-mix(in srgb, var(--warning) 50%, var(--line)); background: color-mix(in srgb, var(--warning) 12%, var(--panel-3)); color: var(--warning); }
+.dense-ewar-chip.is-info { border-color: color-mix(in srgb, var(--focus) 45%, var(--line)); background: color-mix(in srgb, var(--focus) 10%, var(--panel-3)); color: var(--focus); }
+.dense-chev { color: var(--subtle); font-size: 16px; line-height: 1; text-align: center; transition: transform 0.12s; }
+.npc-dense.open .dense-chev { transform: rotate(90deg); color: var(--accent); }
+.dense-detail { padding: 12px 16px 14px 50px; border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-3) 28%, transparent);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.dense-detail > section { border: 0; padding: 0; }
+
+/* density toggle button active state */
+.density-toggle.is-active { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); color: var(--accent); }
+
+/* keep the inline-physical section mapped into the responsive NPC-row areas */
+@media (max-width: 1400px) {
+  .npc-physical { grid-area: stats; }
+  /* dense table is wide — let it scroll horizontally rather than crush columns */
+  .mission-pockets.style-dense .pocket { overflow-x: auto; }
+  .npc-dense, .npc-dense-head { min-width: 760px; }
+}
+@media (max-width: 900px) {
+  .npc-physical { grid-area: stats; }
+}
+
+/* The npc-row area names (stats/hp/resists/dps/ewar) attach to the section
+   classes themselves, so the same sections rendered inside a .dense-detail
+   expansion inherit grid areas its grid never defines — every section lands
+   on the same implicit cell and they all overlap. Reset to auto-placement. */
+@media (max-width: 1400px) {
+  .dense-detail > section { grid-area: auto; }
+}
+
+/* Hero strip responsive overrides. These sit after the redesign block above —
+   equal-specificity .mission-hero-strip.hero-3 and .hero-bottom rules placed
+   earlier in the file lose to the redesign declarations by source order and
+   never apply. */
+@media (max-width: 900px) {
+  .mission-hero-strip.hero-3 { grid-template-columns: 1fr 1fr; }
+  .mission-hero-strip.hero-3 > article:nth-child(2n) { border-right: 0; }
+  .mission-hero-strip.hero-3 > article:last-child { grid-column: 1 / -1; border-right: 0; }
+  .hero-bottom { flex-direction: column; }
+  .hero-bottom > .ewar-summary { max-width: none; border-left: 0; border-top: 1px solid var(--line); }
+  /* EWAR threats as adaptive tiles: equal tracks fill the row instead of
+     content-sized chips hugging the left edge */
+  .hero-bottom .ewar-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  /* single column: the deal-spectrum pins and the recommended-ship text both
+     need the full phone width to stay legible */
+  .mission-hero-strip.hero-3 { grid-template-columns: 1fr; }
+  .mission-hero-strip.hero-3 > article { border-right: 0; }
+  .sp-ship { font-size: 17px; }
+
+  /* Dense table on phones: no 760px sideways scroller — each NPC is a two-line
+     row (name / resists / HP+DPS) with an EWAR chip line only when present.
+     Cells are addressed by child position: img, name, sig, range, vel, hp,
+     4 resists, dps, ewar, chevron. Sig/range/vel stay in the expanded detail. */
+  .mission-pockets.style-dense .pocket { overflow: visible; }
+  .npc-dense, .npc-dense-head { min-width: 0; }
+  .npc-dense-head { display: none; }
+  .npc-dense {
+    grid-template-columns: 32px repeat(4, minmax(0, 1fr)) 16px;
+    grid-template-areas:
+      "img name name name name chev"
+      "img r1 r2 r3 r4 chev"
+      "img hp hp dps dps chev";
+    gap: 6px 8px;
+    padding: 9px 12px;
+  }
+  .npc-dense.has-ewar {
+    grid-template-areas:
+      "img name name name name chev"
+      "img r1 r2 r3 r4 chev"
+      "img hp hp dps dps chev"
+      "ewar ewar ewar ewar ewar ewar";
+  }
+  .npc-dense > :nth-child(1) { grid-area: img; align-self: start; }
+  .npc-dense > :nth-child(2) { grid-area: name; }
+  .npc-dense > :nth-child(3),
+  .npc-dense > :nth-child(4),
+  .npc-dense > :nth-child(5) { display: none; }
+  .npc-dense > :nth-child(6) { grid-area: hp; }
+  .npc-dense > :nth-child(7) { grid-area: r1; }
+  .npc-dense > :nth-child(8) { grid-area: r2; }
+  .npc-dense > :nth-child(9) { grid-area: r3; }
+  .npc-dense > :nth-child(10) { grid-area: r4; }
+  .npc-dense > :nth-child(11) { grid-area: dps; justify-self: end; }
+  .npc-dense > :nth-child(12) { grid-area: ewar; }
+  .npc-dense:not(.has-ewar) > :nth-child(12) { display: none; }
+  .npc-dense > :nth-child(13) { grid-area: chev; align-self: center; }
+  .dense-detail { grid-template-columns: 1fr; gap: 12px; padding: 12px; }
+}

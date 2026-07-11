@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index,follow" />
+    <title>Mission Detail</title>
+    <link rel="icon" type="image/svg+xml" href="/lp/favicon.svg" />
+    <link rel="preload" href="/lp/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/lp/theme.css" />
+    <link rel="stylesheet" href="/shared/base.css" />
+    <link rel="stylesheet" href="/missions/style.css" />
+    <link rel="stylesheet" href="/missions/detail.css" />
+    <!-- Full import graph of /missions/detail.js: preloading flattens the ES-module discovery
+         waterfall to a single parallel round trip. Keep in sync with the import chains. -->
+    <link rel="modulepreload" href="/missions/diagnostics.js" />
+    <link rel="modulepreload" href="/missions/beta-notice.js" />
+    <link rel="modulepreload" href="/missions/fit-profile.js" />
+    <link rel="modulepreload" href="/missions/formatters.js" />
+    <link rel="modulepreload" href="/missions/dom-util.js" />
+    <link rel="modulepreload" href="/missions/missions-ewar.js" />
+    <link rel="modulepreload" href="/missions/missions-util.js" />
+    <link rel="modulepreload" href="/missions/combat-stats.js" />
+    <link rel="modulepreload" href="/shared/diagnostics.js" />
+  </head>
+  <body>
+    <header class="missions-topbar">
+      <div>
+        <div class="missions-title">
+          <h1 id="missionTitle">Mission</h1>
+          <span class="beta-badge" title="The missions section is in beta — data is still being verified and may be inaccurate.">BETA</span>
+        </div>
+        <p id="missionMeta">Loading mission.</p>
+      </div>
+      <div class="diagnostic-chips" aria-label="Support diagnostics">
+        <span id="clientIdChip" class="diagnostic-chip" title="Persistent browser client ID.">Client pending</span>
+      </div>
+      <nav class="missions-actions" aria-label="Mission navigation">
+        <a id="prevMission" class="button ghost" href="/missions/">Previous</a>
+        <a id="nextMission" class="button ghost" href="/missions/">Next</a>
+        <a class="button ghost" href="/missions/">Index</a>
+        <a id="sourceLink" class="button ghost" href="/missions/" rel="noreferrer">Source</a>
+      </nav>
+    </header>
+
+    <main class="mission-shell" id="missionRoot"></main>
+
+    <script src="/missions/detail.js" type="module"></script>
+  </body>
+</html>
